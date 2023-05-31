@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="TextInputLayout" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense">
+        <item name="errorTextColor">@color/color_error</item>
+        <item name="errorIconTint">@color/color_error</item>
+        <item name="boxStrokeErrorColor">@color/color_error</item>
+        <item name="boxBackgroundColor">@color/white</item>
+<!--        <item name="expandedHintEnabled">false</item>-->
+    </style>
+
+</resources>

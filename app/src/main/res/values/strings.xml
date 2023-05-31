@@ -1,0 +1,21 @@
+<resources>
+    <string name="app_name">ZhenxunBot UI</string>
+    <string name="nav_header_desc" translatable="false">Navigation Header</string>
+    <string name="nav_header_title" translatable="false">@string/app_name</string>
+    <string name="nav_header_subtitle" translatable="false">114514</string>
+    <string name="nav_home">Home</string>
+    <string name="nav_title_func"> </string>
+    <string name="nav_console">Console</string>
+    <string name="nav_plugin">Plugin</string>
+    <string name="nav_group">Group</string>
+    <string name="nav_request">Request</string>
+    <string name="nav_info">SysInfo</string>
+    <string name="username_label">Username</string>
+    <string name="username_hint">Please input username</string>
+    <string name="password_label">Password</string>
+    <string name="password_hint">Please input password</string>
+    <string name="welcome">Welcome to the <b>room of Mahiro</b></string>
+    <string name="welcome2" translatable="false">真尋の小部屋へようこそ、お兄さん</string>
+    <string name="api_address">API</string>
+    <string name="login">Login</string>
+</resources>

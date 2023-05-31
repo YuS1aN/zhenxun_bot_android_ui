@@ -1,0 +1,104 @@
+def versions = [:]
+def deps = [:]
+
+versions.constraintlayout = '2.1.0'
+versions.material = '1.8.0'
+versions.appcompat = '1.6.1'
+versions.junit_java = '4.13.2'
+versions.junit_android = '1.1.5'
+versions.espresso = '3.5.1'
+versions.room = "2.4.2"
+versions.okhttp = '4.11.0'
+versions.gson = '2.10.1'
+versions.navigation = '2.5.2'
+versions.hilt = '2.39.1'
+versions.retrofit = "2.9.0"
+versions.ktx_core = "1.9.0"
+versions.kotlin = "1.8.21"
+versions.lifecycle = "2.4.1"
+versions.glide = "4.15.1"
+versions.datastore = "1.0.0"
+
+deps.constraintlayout = "androidx.constraintlayout:constraintlayout:$versions.constraintlayout"
+
+deps.material = "com.google.android.material:material:$versions.material"
+
+deps.appcompat = "androidx.appcompat:appcompat:$versions.appcompat"
+
+def junit = [:]
+junit.java = "junit:junit:$versions.junit_java"
+junit.android = "androidx.test.ext:junit:$versions.junit_android"
+deps.junit = junit
+
+def espresso = [:]
+espresso.core = "androidx.test.espresso:espresso-core:$versions.espresso"
+deps.espresso = espresso
+
+def room = [:]
+room.runtime = "androidx.room:room-runtime:$versions.room"
+room.compiler = "androidx.room:room-compiler:$versions.room"
+room.ktx = "androidx.room:room-ktx:$versions.room"
+// optional - RxJava3 support for Room
+room.rxjava3 = "androidx.room:room-rxjava3:$versions.room"
+deps.room = room
+
+/*
+ Because RxAndroid releases are few and far between, it is recommended you also
+ explicitly depend on RxJava's latest version for bug fixes and new features.
+ (see https://github.com/ReactiveX/RxJava/releases for latest 3.x.x version)
+*/
+def rxjava3 = [:]
+rxjava3.rxandroid = "io.reactivex.rxjava3:rxandroid:$versions.rxandroid3"
+rxjava3.rxjava = "io.reactivex.rxjava3:rxjava:$versions.rxjava3"
+deps.rxjava3 = rxjava3
+
+deps.okhttp = "com.squareup.okhttp3:okhttp:$versions.okhttp"
+
+deps.gson = "com.google.code.gson:gson:$versions.gson"
+
+def navigation = [:]
+navigation.runtime = "androidx.navigation:navigation-runtime:$versions.navigation"
+navigation.fragment = "androidx.navigation:navigation-fragment:$versions.navigation"
+navigation.ui = "androidx.navigation:navigation-ui:$versions.navigation"
+navigation.plugin = "androidx.navigation:navigation-safe-args-gradle-plugin:$versions.navigation"
+deps.navigation = navigation
+
+def hilt = [:]
+hilt.core = "com.google.dagger:hilt-android:$versions.hilt"
+hilt.compiler = "com.google.dagger:hilt-android-compiler:$versions.hilt"
+hilt.plugin = "com.google.dagger:hilt-android-gradle-plugin:$versions.hilt"
+deps.hilt = hilt
+
+def retrofit = [:]
+retrofit.runtime = "com.squareup.retrofit2:retrofit:$versions.retrofit"
+retrofit.gson = "com.squareup.retrofit2:converter-gson:$versions.retrofit"
+retrofit.rxjava3 = "com.squareup.retrofit2:adapter-rxjava3:$versions.retrofit"
+retrofit.mock = "com.squareup.retrofit2:retrofit-mock:$versions.retrofit"
+deps.retrofit = retrofit
+
+def kotlin = [:]
+kotlin.core = "androidx.core:core-ktx:$versions.ktx_core"
+kotlin.stdlib = "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$versions.kotlin"
+kotlin.plugin = "org.jetbrains.kotlin:kotlin-gradle-plugin:$versions.kotlin"
+deps.kotlin = kotlin
+
+def lifecycle = [:]
+lifecycle.viewmodel = "androidx.lifecycle:lifecycle-viewmodel-ktx:$versions.lifecycle"
+lifecycle.livedata = "androidx.lifecycle:lifecycle-livedata-ktx:$versions.lifecycle"
+lifecycle.runtime = "androidx.lifecycle:lifecycle-runtime-ktx:$versions.lifecycle"
+deps.lifecycle = lifecycle
+
+def glide = [:]
+glide.recyclerview = "com.github.bumptech.glide:recyclerview-integration:$versions.glide"
+glide.core = "com.github.bumptech.glide:glide:$versions.glide"
+glide.compiler = "com.github.bumptech.glide:compiler:$versions.glide"
+deps.glide = glide
+
+def datastore = [:]
+datastore.core = "androidx.datastore:datastore-preferences:$versions.datastore"
+datastore.rxjava3 = "androidx.datastore:datastore-preferences-rxjava3:$versions.datastore"
+deps.datastore = datastore
+
+deps.swiperefreshlayout = "androidx.swiperefreshlayout:swiperefreshlayout:$versions.swiperefresh"
+
+ext.deps = deps

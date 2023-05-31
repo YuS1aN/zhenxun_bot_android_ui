@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@+id/nav_home">
+
+    <fragment
+        android:id="@+id/nav_home"
+        android:name="me.kbai.zhenxunui.ui.home.HomeFragment"
+        android:label="@string/nav_home"
+        tools:layout="@layout/fragment_home" />
+
+    <fragment
+        android:id="@+id/nav_console"
+        android:name="me.kbai.zhenxunui.ui.console.ConsoleFragment"
+        android:label="@string/nav_console"
+        tools:layout="@layout/fragment_console" />
+
+    <fragment
+        android:id="@+id/nav_plugin"
+        android:name="me.kbai.zhenxunui.ui.plugin.PluginFragment"
+        android:label="@string/nav_plugin"
+        tools:layout="@layout/fragment_plugin" />
+
+    <fragment
+        android:id="@+id/nav_group"
+        android:name="me.kbai.zhenxunui.ui.group.GroupFragment"
+        android:label="@string/nav_group"
+        tools:layout="@layout/fragment_group" />
+
+    <fragment
+        android:id="@+id/nav_request"
+        android:name="me.kbai.zhenxunui.ui.request.RequestFragment"
+        android:label="@string/nav_home"
+        tools:layout="@layout/fragment_request" />
+
+    <fragment
+        android:id="@+id/nav_info"
+        android:name="me.kbai.zhenxunui.ui.info.InfoFragment"
+        android:label="@string/nav_info"
+        tools:layout="@layout/fragment_info" />
+</navigation>

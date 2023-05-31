@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- 0 ... 25 -->
+    <attr name="blurRadius" format="integer" />
+
+    <declare-styleable name="ClipAreaImageView">
+        <attr name="clipTarget" format="reference" />
+        <attr name="roundRadius" format="dimension" />
+    </declare-styleable>
+
+    <declare-styleable name="CornerImageView">
+        <attr name="topLeftRadius" format="dimension" />
+        <attr name="topRightRadius" format="dimension" />
+        <attr name="bottomLeftRadius" format="dimension" />
+        <attr name="bottomRightRadius" format="dimension" />
+        <attr name="cornerRadius" format="dimension" />
+        <attr name="aspectRatio" format="float" />
+        <attr name="drawMode" format="enum">
+            <enum name="CLIP" value="0" />
+            <enum name="SHADER" value="1" />
+            <enum name="XFERMODE" value="2" />
+        </attr>
+        <attr name="rotationDegrees" format="float" />
+    </declare-styleable>
+</resources>
