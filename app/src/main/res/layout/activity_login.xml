@@ -20,16 +20,16 @@
         android:importantForAccessibility="no"
         android:scaleType="centerCrop"
         app:clipTarget="@+id/iv_form_background"
-        app:roundRadius="20dp" />
+        app:roundRadius="@dimen/box_round_radius" />
 
 
     <me.kbai.zhenxunui.widget.CornerImageView
         android:id="@id/iv_form_background"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:src="@color/trans_white_75"
+        android:src="@color/dn_trans_white_75"
         app:blurRadius="25"
-        app:cornerRadius="20dp"
+        app:cornerRadius="@dimen/box_round_radius"
         app:layout_constraintBottom_toBottomOf="@+id/ll_form"
         app:layout_constraintEnd_toEndOf="@id/ll_form"
         app:layout_constraintStart_toStartOf="@id/ll_form"
@@ -58,7 +58,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/line_margin"
             android:text="@string/welcome"
-            android:textColor="@color/black"
+            android:textColor="@color/dn_black"
             android:textSize="@dimen/title_size_large" />
 
         <TextView
@@ -92,7 +92,6 @@
             style="@style/TextInputLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/margin_normal"
             android:hint="@string/password_hint"
             android:orientation="horizontal"
             app:passwordToggleEnabled="true">
@@ -108,7 +107,6 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/margin_normal"
             android:orientation="horizontal">
 
             <com.google.android.material.button.MaterialButton
@@ -117,7 +115,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="@dimen/margin_normal"
                 android:layout_weight="1"
-                android:text="@string/api_address" />
+                android:text="@string/change_api_address" />
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btn_login"

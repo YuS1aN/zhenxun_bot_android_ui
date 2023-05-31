@@ -13,6 +13,11 @@
     <string name="password_label">密码</string>
     <string name="password_hint">请输入密码</string>
     <string name="welcome">欢迎来到<b>真寻的小房间</b></string>
-    <string name="api_address">更换API</string>
+    <string name="change_api_address">更换API</string>
     <string name="login">登录</string>
+    <string name="api_label">API地址</string>
+    <string name="change_api_title">真寻的API地址</string>
+    <string name="back">返回</string>
+    <string name="confirm">确定</string>
+    <string name="error_input_api">小真寻的api地址在哪?</string>
 </resources>

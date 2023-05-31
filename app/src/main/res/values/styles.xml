@@ -5,8 +5,11 @@
         <item name="errorTextColor">@color/color_error</item>
         <item name="errorIconTint">@color/color_error</item>
         <item name="boxStrokeErrorColor">@color/color_error</item>
-        <item name="boxBackgroundColor">@color/white</item>
+        <item name="boxBackgroundColor">@color/dn_white</item>
 <!--        <item name="expandedHintEnabled">false</item>-->
+        <item name="endIconMinSize">42dp</item>
+        <item name="startIconMinSize">42dp</item>
+        <item name="android:minHeight">72dp</item>
     </style>
 
 </resources>

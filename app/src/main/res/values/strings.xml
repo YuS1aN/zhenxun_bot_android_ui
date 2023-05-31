@@ -16,6 +16,12 @@
     <string name="password_hint">Please input password</string>
     <string name="welcome">Welcome to the <b>room of Mahiro</b></string>
     <string name="welcome2" translatable="false">真尋の小部屋へようこそ、お兄さん</string>
-    <string name="api_address">API</string>
+    <string name="change_api_address">API</string>
     <string name="login">Login</string>
+    <string name="api_label">API Address</string>
+    <string name="api_hint" translatable="false">scheme://host:port</string>
+    <string name="change_api_title">Change API Address</string>
+    <string name="back">Back</string>
+    <string name="confirm">OK</string>
+    <string name="error_input_api">Please input the API address</string>
 </resources>

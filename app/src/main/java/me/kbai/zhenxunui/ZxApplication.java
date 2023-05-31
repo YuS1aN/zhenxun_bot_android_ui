@@ -10,5 +10,6 @@ public class ZxApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+        Constants.init(this);
     }
 }

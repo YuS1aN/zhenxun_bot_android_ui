@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="dn_trans_white_75">@color/trans_black_25</color>
+    <color name="dn_black">@color/white</color>
+    <color name="dn_white">@color/black</color>
+    <color name="dn_white_gray">@color/gray</color>
+</resources>

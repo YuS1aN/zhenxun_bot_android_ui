@@ -27,7 +27,7 @@ object BotApi {
             service = createApiService(
                 mOkHttpClient ?: createOkHttpClient().also { mOkHttpClient = it },
                 mGson ?: createGson().also { mGson = it },
-                baseUrl
+                baseUrl + Constants.API_PREFIX
             )
         }
     }
