@@ -37,7 +37,7 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>() {
             .blur(25)
             .into(caBackground)
 
-        btnApi.setOnClickListener {
+        btnApi.setOnDebounceClickListener {
             ChangeApiDialog(this@LoginActivity).show()
         }
 

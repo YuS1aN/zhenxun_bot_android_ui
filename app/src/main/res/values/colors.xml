@@ -14,6 +14,8 @@
     <color name="transparent">#00FFFFFF</color>
     <color name="text_gray">#999999</color>
     <color name="mahiro_silver">#F1EDEE</color>
+    <color name="switch_unchecked">#EBEBEB</color>
+    <color name="window_background">#F2F2F2</color>
 
     <color name="dn_trans_white_75">@color/trans_white_75</color>
     <color name="dn_black">@color/black</color>

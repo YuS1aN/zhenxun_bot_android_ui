@@ -2,7 +2,8 @@
     <!-- Base application theme. -->
     <style name="Theme.ZhenxunUI" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <!-- Primary brand color. -->
-        <item name="colorPrimary">@color/pink_50</item>
+        <item name="colorPrimary">@color/pink_100</item>
+        <item name="colorPrimaryDark">@color/pink_200</item>
         <item name="colorPrimaryVariant">@color/pink_200</item>
         <item name="colorOnPrimary">@color/black</item>
         <!-- Secondary brand color. -->

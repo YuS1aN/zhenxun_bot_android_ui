@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?><!--<selector xmlns:android="http://schemas.android.com/apk/res/android">-->
+<!--    <item android:drawable="@drawable/abc_btn_switch_to_on_mtrl_00012" android:state_checked="true" />-->
+<!--    <item android:drawable="@drawable/abc_btn_switch_to_on_mtrl_00001" />-->
+<!--</selector>-->
+
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:state_checked="true">
+        <shape>
+            <size android:width="24dp" android:height="24dp" />
+            <solid android:color="@color/dn_white_gray" />
+            <corners android:radius="24dp" />
+            <stroke android:width="1.5dp" android:color="?android:colorPrimaryDark" />
+        </shape>
+    </item>
+
+    <item>
+        <shape>
+            <size android:width="24dp" android:height="24dp" />
+            <solid android:color="@color/dn_white_gray" />
+            <corners android:radius="24dp" />
+            <stroke android:width="1.5dp" android:color="@color/switch_unchecked" />
+        </shape>
+    </item>
+</selector>

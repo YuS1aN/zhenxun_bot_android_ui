@@ -27,4 +27,9 @@
     <string name="error_input_username">Please input username</string>
     <string name="error_input_password">Please input password</string>
     <string name="error_not_set_api">The api address has not been set yet</string>
+    <string name="tab_normal">Normal</string>
+    <string name="tab_admin">Admin</string>
+    <string name="tab_superuser">Superuser</string>
+    <string name="tab_hidden">Hidden</string>
+    <string name="retry">Retry</string>
 </resources>

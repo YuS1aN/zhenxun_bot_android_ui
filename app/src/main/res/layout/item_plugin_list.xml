@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/bg_list_item_round"
+    android:paddingHorizontal="@dimen/list_item_padding"
+    android:paddingTop="@dimen/list_item_padding">
+
+    <androidx.appcompat.widget.SwitchCompat
+        android:id="@+id/sw_enabled"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_centerVertical="true"
+        android:background="@null"
+        android:thumb="@drawable/switch_thumb"
+        app:track="@drawable/switch_track" />
+
+    <TextView
+        android:id="@+id/tv_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/margin_normal"
+        android:layout_toStartOf="@id/sw_enabled"
+        android:ellipsize="end"
+        android:textColor="@color/dn_black"
+        android:textSize="@dimen/title_size_normal"
+        android:textStyle="bold"
+        tools:text="联系管理员" />
+
+    <TextView
+        android:id="@+id/tv_model"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tv_name"
+        android:layout_marginTop="@dimen/margin_narrower"
+        android:layout_marginEnd="@dimen/margin_normal"
+        android:layout_toStartOf="@id/sw_enabled"
+        android:ellipsize="end"
+        tools:text="dialogue" />
+
+    <me.kbai.zhenxunui.widget.CornerImageView
+        android:id="@+id/dividing_line"
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:layout_below="@id/tv_model"
+        android:layout_marginTop="@dimen/list_item_padding_subtract_2dp"
+        app:cornerRadius="1dp"
+        tools:src="?colorPrimaryDark" />
+</RelativeLayout>

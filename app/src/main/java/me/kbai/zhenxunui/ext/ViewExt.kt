@@ -4,6 +4,8 @@ import android.content.res.Resources
 import android.util.TypedValue
 import android.view.View
 import android.view.ViewGroup
+import com.google.android.material.tabs.TabLayout
+import com.google.android.material.tabs.TabLayout.OnTabSelectedListener
 
 /**
  * @author sean on 2022/4/15
@@ -46,4 +48,24 @@ fun View.removeFromParent() {
     if (parent is ViewGroup) {
         parent.removeView(this)
     }
+}
+
+inline fun TabLayout.addOnTabSelectedListener(
+    crossinline selected: (tab: TabLayout.Tab) -> Unit = {},
+    crossinline unselected: (tab: TabLayout.Tab) -> Unit = {},
+    crossinline reselected: (tab: TabLayout.Tab) -> Unit = {}
+) {
+    addOnTabSelectedListener(object : OnTabSelectedListener {
+        override fun onTabSelected(tab: TabLayout.Tab) {
+            selected.invoke(tab)
+        }
+
+        override fun onTabUnselected(tab: TabLayout.Tab) {
+            unselected.invoke(tab)
+        }
+
+        override fun onTabReselected(tab: TabLayout.Tab) {
+            reselected.invoke(tab)
+        }
+    })
 }
