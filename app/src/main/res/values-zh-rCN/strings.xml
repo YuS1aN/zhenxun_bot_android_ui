@@ -20,4 +20,7 @@
     <string name="back">返回</string>
     <string name="confirm">确定</string>
     <string name="error_input_api">小真寻的api地址在哪?</string>
+    <string name="error_input_username">账号捏账号捏账号捏</string>
+    <string name="error_input_password">不会有人忘记密码了吧!</string>
+    <string name="error_not_set_api">还没有设置小真寻的api地址哦</string>
 </resources>

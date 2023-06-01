@@ -1,6 +1,7 @@
 package me.kbai.zhenxunui.ext
 
 import android.app.Activity
+import android.app.Application
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
@@ -18,11 +19,23 @@ import androidx.core.content.getSystemService
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.navigation.fragment.NavHostFragment
+import me.kbai.zhenxunui.ZxApplication
+import me.kbai.zhenxunui.api.BotApi
+import me.kbai.zhenxunui.ui.LoginActivity
 
 
 /**
  * @author sean on 2022/4/14
  */
+
+fun application(): Application = ZxApplication.getApplication()
+
+fun Application.logout() {
+    BotApi.authorization = ""
+    val intent = Intent(this, LoginActivity::class.java)
+        .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
+    startActivity(intent)
+}
 
 fun Activity.startActivity(clazz: Class<*>) {
     startActivity(Intent(this, clazz))

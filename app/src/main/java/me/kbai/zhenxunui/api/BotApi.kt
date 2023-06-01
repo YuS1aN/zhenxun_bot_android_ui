@@ -18,15 +18,15 @@ object BotApi {
 
     var authorization: String = ""
 
+    private val mGson: Gson = createGson()
     private var mOkHttpClient: OkHttpClient? = null
-    private var mGson: Gson? = null
 
     init {
         Constants.apiBaseUrl.observeForever { baseUrl ->
             if (baseUrl.isNullOrBlank()) return@observeForever
             service = createApiService(
                 mOkHttpClient ?: createOkHttpClient().also { mOkHttpClient = it },
-                mGson ?: createGson().also { mGson = it },
+                mGson,
                 baseUrl + Constants.API_PREFIX
             )
         }
