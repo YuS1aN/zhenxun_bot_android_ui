@@ -5,6 +5,7 @@ import kotlinx.coroutines.flow.flow
 import me.kbai.zhenxunui.api.ApiResponse
 import me.kbai.zhenxunui.api.BotApi
 import me.kbai.zhenxunui.model.PluginType
+import me.kbai.zhenxunui.model.UpdatePlugin
 import org.json.JSONObject
 import retrofit2.HttpException
 
@@ -18,6 +19,8 @@ object ApiRepository {
     }
 
     fun getPlugins(type: PluginType) = networkFlow { BotApi.service.getPlugins(type.string) }
+
+    fun updatePlugin(plugin: UpdatePlugin) = networkFlow { BotApi.service.updatePlugin(plugin) }
 
     private fun <T> networkFlow(
         f: suspend () -> ApiResponse<T>

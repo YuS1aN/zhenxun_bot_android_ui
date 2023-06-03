@@ -12,7 +12,7 @@ data class Resource<T>(
     ) {
 
     enum class Status {
-        LOADING, ERROR, SUCCESS
+        LOADING, FAIL, SUCCESS
     }
 
     fun success() = status == Status.SUCCESS
@@ -22,6 +22,6 @@ data class Resource<T>(
 
         fun <T> success(data: T?, message: String, code: Int) = Resource(Status.SUCCESS, data, message, code, 200)
 
-        fun <T> error(data: T?, message: String, code: Int, httpStatusCode: Int = 0) = Resource(Status.ERROR, data, message, code, httpStatusCode)
+        fun <T> error(data: T?, message: String, code: Int, httpStatusCode: Int = 0) = Resource(Status.FAIL, data, message, code, httpStatusCode)
     }
 }

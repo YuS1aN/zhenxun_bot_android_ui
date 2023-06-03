@@ -6,11 +6,12 @@ import com.google.gson.annotations.SerializedName
  * @author Sean on 2023/6/2
  */
 data class PluginData(
-    val model: String,
+    @SerializedName("model")
+    val module: String,
     @SerializedName("plugin_settings")
     val setting: Setting?,
     @SerializedName("plugin_manager")
-    val manager: Manager?,
+    val manager: Manager,
     @SerializedName("plugin_config")
     val config: Map<String, Config>?,
     @SerializedName("cd_limit")
@@ -82,4 +83,42 @@ data class PluginData(
         val limitType: String,
         val rst: String
     )
+
+    fun makeUpdatePlugin(
+        module: String = this.module,
+        defaultStatus: Boolean = setting!!.defaultStatus,
+        superuser: Boolean = setting!!.superuser,
+        costGold: Int = setting!!.costGold,
+        cmd: List<String> = setting!!.cmd,
+        menuType: String = setting!!.pluginType[0],
+        groupLevel: Int = setting!!.level,
+        blockType: String = manager.blockType.orEmpty()
+    ) = UpdatePlugin(
+        module,
+        defaultStatus,
+        superuser,
+        costGold,
+        cmd,
+        menuType,
+        groupLevel,
+        blockType
+    )
+
+    fun applyUpdatePlugin(update: UpdatePlugin): PluginData {
+        if (update.module != module) throw IllegalArgumentException("Not the same module.")
+        return copy(
+            setting = setting?.copy(
+                defaultStatus = update.defaultStatus,
+                superuser = update.superuser,
+                costGold = update.costGold,
+                cmd = update.cmd,
+                pluginType = setting.pluginType.toMutableList().apply { set(0, update.menuType) },
+                level = update.groupLevel
+            ),
+            manager = manager.copy(
+                status = update.blockType == "",
+                blockType = update.blockType
+            )
+        )
+    }
 }

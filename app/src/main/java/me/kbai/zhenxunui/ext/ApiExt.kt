@@ -3,11 +3,18 @@ package me.kbai.zhenxunui.ext
 import android.app.Application
 import android.view.View
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.collectLatest
 import me.kbai.zhenxunui.repository.Resource
 
 /**
  * @author Sean on 2023/6/1
  */
+suspend fun <T : Resource<*>> Flow<T>.apiCollect(): T? {
+    var result: T? = null
+    apiCollect { result = it }
+    return result
+}
+
 suspend fun <T : Resource<*>> Flow<T>.apiCollect(
     button: View? = null,
     action: suspend (value: T) -> Unit
@@ -20,7 +27,7 @@ suspend fun <T : Resource<*>> Flow<T>.apiCollect(
 ): Unit = collect { value ->
     button?.isEnabled = value.status != Resource.Status.LOADING
 
-    if (value.status == Resource.Status.ERROR && value.httpStatusCode in 400..401) {
+    if (value.status == Resource.Status.FAIL && value.httpStatusCode in 400..401) {
         application.logout()
         return@collect
     }

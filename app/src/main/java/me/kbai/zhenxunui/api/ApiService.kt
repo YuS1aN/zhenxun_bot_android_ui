@@ -4,6 +4,7 @@ import me.kbai.zhenxunui.model.GroupInfo
 import me.kbai.zhenxunui.model.LoginInfo
 import me.kbai.zhenxunui.model.PluginData
 import me.kbai.zhenxunui.model.UpdateGroup
+import me.kbai.zhenxunui.model.UpdatePlugin
 import retrofit2.http.Body
 import retrofit2.http.Field
 import retrofit2.http.FormUrlEncoded
@@ -31,4 +32,7 @@ interface ApiService {
 
     @GET("get_plugins")
     suspend fun getPlugins(@Query("plugin_type") type: String): ApiResponse<List<PluginData>>
+
+    @POST("update_plugins")
+    suspend fun updatePlugin(@Body updatePlugin: UpdatePlugin): ApiResponse<Any>
 }
