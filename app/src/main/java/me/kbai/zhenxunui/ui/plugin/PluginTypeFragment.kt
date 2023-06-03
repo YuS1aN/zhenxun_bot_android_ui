@@ -62,13 +62,13 @@ class PluginTypeFragment : BaseFragment<FragmentPluginTypeBinding>() {
                     .apiCollect {
                         switch.isEnabled = true
                         if (!it.success()) switch.isChecked = !switch.isChecked
-
-                        replacePluginData(position, plugin.applyUpdatePlugin(update))
-
+                        //先展示本地修改后的数据
+                        updateLocalPluginData(position, plugin.applyUpdatePlugin(update))
+                        //再向服务端同步一次插件数据
                         val result = mViewModel.requestPlugin(mType, plugin.module).apiCollect()
                             ?: return@apiCollect
                         if (result.success() && result.data != null) {
-                            replacePluginData(position, result.data)
+                            updateLocalPluginData(position, result.data)
                         }
                     }
             }
@@ -82,12 +82,15 @@ class PluginTypeFragment : BaseFragment<FragmentPluginTypeBinding>() {
         viewBinding.icError.btnRetry.setOnDebounceClickListener { requestPlugins() }
     }
 
-    fun replacePluginData(position: Int, plugin: PluginData) {
+    private fun updateLocalPluginData(position: Int, plugin: PluginData) {
         mViewModel.modifyPluginData(position, plugin, false)
         mAdapter.notifyItemChanged(position)
     }
 
     override fun initData() {
+        @Suppress("DEPRECATION")
+        mType = arguments?.getSerializable(ARGS_TYPE) as PluginType
+
         if (mViewModel.plugins.value.isEmpty()) requestPlugins()
 
         viewLifecycleScope.launch {
@@ -97,8 +100,6 @@ class PluginTypeFragment : BaseFragment<FragmentPluginTypeBinding>() {
 
     private fun requestPlugins() = viewLifecycleScope.launch {
         viewBinding.icError.root.isVisible = false
-        @Suppress("DEPRECATION")
-        mType = arguments?.getSerializable(ARGS_TYPE) as PluginType
 
         mViewModel.requestPlugins(mType).apiCollect {
             if (it.status == Resource.Status.LOADING) {
