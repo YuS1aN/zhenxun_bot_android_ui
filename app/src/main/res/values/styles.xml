@@ -6,10 +6,28 @@
         <item name="errorIconTint">@color/color_error</item>
         <item name="boxStrokeErrorColor">@color/color_error</item>
         <item name="boxBackgroundColor">@color/dn_white</item>
-<!--        <item name="expandedHintEnabled">false</item>-->
+        <!--        <item name="expandedHintEnabled">false</item>-->
         <item name="endIconMinSize">42dp</item>
         <item name="startIconMinSize">42dp</item>
         <item name="android:minHeight">72dp</item>
     </style>
 
+    <style name="TextInputLayout.Thin" parent="TextInputLayout">
+        <item name="endIconMinSize">24dp</item>
+        <item name="startIconMinSize">24dp</item>
+        <item name="android:minHeight">0dp</item>
+    </style>
+
+    <style name="AutoSizeMaterialButton" parent="Widget.MaterialComponents.Button">
+        <item name="autoSizeMinTextSize">10sp</item>
+        <item name="autoSizeMaxTextSize">14sp</item>
+        <item name="autoSizeTextType">uniform</item>
+        <item name="android:padding">0dp</item>
+        <item name="android:ellipsize">end</item>
+    </style>
+
+    <style name="Switch" parent="TextAppearance.AppCompat.Widget.Switch">
+        <item name="android:thumb">@drawable/switch_thumb</item>
+        <item name="track">@drawable/switch_track</item>
+    </style>
 </resources>

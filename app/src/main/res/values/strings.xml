@@ -32,4 +32,15 @@
     <string name="tab_superuser">Superuser</string>
     <string name="tab_hidden">Hidden</string>
     <string name="retry">Retry</string>
+    <string name="edit">Edit</string>
+    <string name="default_is_enabled">Default is Enabled</string>
+    <string name="superuser_only">Superuser Only</string>
+    <string name="cost">Cost</string>
+    <string name="type">Type</string>
+    <string name="commend">Commend</string>
+    <string name="group_level">Group Level</string>
+    <string name="cancel">Cancel</string>
+    <string name="enabled">Enabled</string>
+    <string name="error_valid_number">Please enter the valid number</string>
+    <string name="error_string_is_empty">Please enter text</string>
 </resources>

@@ -19,7 +19,7 @@ import me.kbai.zhenxunui.model.PluginData
  */
 class PluginViewHolder(val binding: ItemPluginListBinding) : RecyclerView.ViewHolder(binding.root)
 
-class PluginAdapter() : RecyclerView.Adapter<PluginViewHolder>() {
+class PluginAdapter : RecyclerView.Adapter<PluginViewHolder>() {
     var data: List<PluginData> = emptyList()
         @SuppressLint("NotifyDataSetChanged")
         set(value) {
@@ -27,7 +27,7 @@ class PluginAdapter() : RecyclerView.Adapter<PluginViewHolder>() {
             notifyDataSetChanged()
         }
 
-    var onItemClickListener: ((position: Int) -> Unit)? = null
+    var onItemEditClickListener: ((position: Int) -> Unit)? = null
     var onItemSwitchClickListener: ((position: Int, switch: CompoundButton, isChecked: Boolean) -> Unit)? =
         null
 
@@ -53,15 +53,17 @@ class PluginAdapter() : RecyclerView.Adapter<PluginViewHolder>() {
                 }
             }
 
-            tvModel.text = item.module
+            tvModule.text = item.module
 
             item.manager.let { manager ->
                 tvName.text = manager.name
                 swEnabled.isChecked = manager.status
             }
-            swEnabled.isVisible = item.setting != null
 
-            root.setOnDebounceClickListener { onItemClickListener?.invoke(position) }
+            swEnabled.isVisible = item.setting != null
+            btnEdit.isVisible = item.setting != null
+
+            btnEdit.setOnDebounceClickListener { onItemEditClickListener?.invoke(position) }
             swEnabled.setOnDebounceClickListener {
                 onItemSwitchClickListener?.invoke(position, swEnabled, swEnabled.isChecked)
             }

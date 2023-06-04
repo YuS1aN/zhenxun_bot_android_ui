@@ -23,29 +23,44 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginEnd="@dimen/margin_normal"
-        android:layout_toStartOf="@id/sw_enabled"
+        android:layout_toStartOf="@id/btn_edit"
         android:ellipsize="end"
+        android:maxLines="1"
         android:textColor="@color/dn_black"
         android:textSize="@dimen/title_size_normal"
         android:textStyle="bold"
         tools:text="联系管理员" />
 
     <TextView
-        android:id="@+id/tv_model"
+        android:id="@+id/tv_module"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/tv_name"
         android:layout_marginTop="@dimen/margin_narrower"
         android:layout_marginEnd="@dimen/margin_normal"
-        android:layout_toStartOf="@id/sw_enabled"
+        android:layout_toStartOf="@id/btn_edit"
         android:ellipsize="end"
+        android:maxLines="1"
         tools:text="dialogue" />
+
+    <TextView
+        android:id="@+id/btn_edit"
+        style="@style/AutoSizeMaterialButton"
+        android:layout_width="48dp"
+        android:layout_height="24dp"
+        android:layout_centerVertical="true"
+        android:layout_marginEnd="@dimen/margin_normal"
+        android:layout_toStartOf="@id/sw_enabled"
+        android:background="@drawable/bg_list_button"
+        android:gravity="center"
+        android:padding="4dp"
+        android:text="@string/edit" />
 
     <me.kbai.zhenxunui.widget.CornerImageView
         android:id="@+id/dividing_line"
         android:layout_width="match_parent"
         android:layout_height="2dp"
-        android:layout_below="@id/tv_model"
+        android:layout_below="@id/tv_module"
         android:layout_marginTop="@dimen/list_item_padding_subtract_2dp"
         app:cornerRadius="1dp"
         tools:src="?colorPrimaryDark" />

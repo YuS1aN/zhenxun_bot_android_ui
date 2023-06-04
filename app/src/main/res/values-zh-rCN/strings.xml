@@ -28,4 +28,15 @@
     <string name="tab_superuser">超级用户插件</string>
     <string name="tab_hidden">其他插件</string>
     <string name="retry">重试</string>
+    <string name="edit">编辑</string>
+    <string name="default_is_enabled">默认开关</string>
+    <string name="superuser_only">仅限超级用户</string>
+    <string name="cost">花费</string>
+    <string name="type">类型</string>
+    <string name="commend">命令</string>
+    <string name="group_level">群权限</string>
+    <string name="cancel">取消</string>
+    <string name="enabled">启用</string>
+    <string name="error_valid_number">输入数字!数字!数字!</string>
+    <string name="error_string_is_empty">不准留空啊笨蛋!</string>
 </resources>

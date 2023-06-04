@@ -1,7 +1,9 @@
 package me.kbai.zhenxunui.ui.plugin
 
+import android.app.Dialog
 import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
@@ -15,6 +17,7 @@ import me.kbai.zhenxunui.ext.setOnDebounceClickListener
 import me.kbai.zhenxunui.ext.viewLifecycleScope
 import me.kbai.zhenxunui.model.PluginData
 import me.kbai.zhenxunui.model.PluginType
+import me.kbai.zhenxunui.model.UpdatePlugin
 import me.kbai.zhenxunui.repository.Resource
 import me.kbai.zhenxunui.tool.GlobalToast
 import me.kbai.zhenxunui.viewmodel.PluginTypeViewModel
@@ -47,8 +50,21 @@ class PluginTypeFragment : BaseFragment<FragmentPluginTypeBinding>() {
     ) = FragmentPluginTypeBinding.inflate(inflater)
 
     override fun initView() {
-        mAdapter.onItemClickListener = {
+        val onConfirmListener =
+            { dialog: Dialog, button: View, position: Int, update: UpdatePlugin ->
+                viewLifecycleScope.launch {
+                    mViewModel.updatePlugin(update)
+                        .apiCollect(button) {
+                            if (it.status == Resource.Status.LOADING) return@apiCollect
+                            dialog.dismiss()
+                            syncPluginData(position, mAdapter.data[position], update)
+                        }
+                }
+                Unit
+            }
 
+        mAdapter.onItemEditClickListener = {
+            EditPluginDialog(it, mAdapter.data[it], requireContext(), onConfirmListener).show()
         }
 
         mAdapter.onItemSwitchClickListener = { position, switch, isChecked ->
@@ -56,20 +72,11 @@ class PluginTypeFragment : BaseFragment<FragmentPluginTypeBinding>() {
                 val plugin = mAdapter.data[position]
                 val update = plugin.makeUpdatePlugin(blockType = if (isChecked) "" else "全部")
 
-                switch.isEnabled = false
                 mViewModel.updatePlugin(update)
-                    .filter { it.status != Resource.Status.LOADING }
-                    .apiCollect {
-                        switch.isEnabled = true
+                    .apiCollect(switch) {
+                        if (it.status == Resource.Status.LOADING) return@apiCollect
                         if (!it.success()) switch.isChecked = !switch.isChecked
-                        //先展示本地修改后的数据
-                        updateLocalPluginData(position, plugin.applyUpdatePlugin(update))
-                        //再向服务端同步一次插件数据
-                        val result = mViewModel.requestPlugin(mType, plugin.module).apiCollect()
-                            ?: return@apiCollect
-                        if (result.success() && result.data != null) {
-                            updateLocalPluginData(position, result.data)
-                        }
+                        syncPluginData(position, plugin, update)
                     }
             }
         }
@@ -85,6 +92,16 @@ class PluginTypeFragment : BaseFragment<FragmentPluginTypeBinding>() {
     private fun updateLocalPluginData(position: Int, plugin: PluginData) {
         mViewModel.modifyPluginData(position, plugin, false)
         mAdapter.notifyItemChanged(position)
+    }
+
+    private suspend fun syncPluginData(position: Int, plugin: PluginData, update: UpdatePlugin) {
+        //先展示本地修改后的数据
+        updateLocalPluginData(position, plugin.applyUpdatePlugin(update))
+        //再向服务端同步一次插件数据
+        val result = mViewModel.requestPlugin(mType, plugin.module).apiCollect() ?: return
+        if (result.success() && result.data != null) {
+            updateLocalPluginData(position, result.data)
+        }
     }
 
     override fun initData() {

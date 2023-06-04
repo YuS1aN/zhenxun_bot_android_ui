@@ -21,4 +21,5 @@
     <dimen name="margin_wider">15dp</dimen>
     <dimen name="margin_widest">18dp</dimen>
     <dimen name="box_round_radius">20dp</dimen>
+    <dimen name="normal_line_height">28dp</dimen>
 </resources>
