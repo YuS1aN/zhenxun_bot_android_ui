@@ -8,22 +8,12 @@
     android:paddingHorizontal="@dimen/list_item_padding"
     android:paddingTop="@dimen/list_item_padding">
 
-    <androidx.appcompat.widget.SwitchCompat
-        android:id="@+id/sw_enabled"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_centerVertical="true"
-        android:background="@null"
-        android:thumb="@drawable/switch_thumb"
-        app:track="@drawable/switch_track" />
-
     <TextView
         android:id="@+id/tv_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginEnd="@dimen/margin_normal"
-        android:layout_toStartOf="@id/btn_edit"
+        android:layout_toStartOf="@id/sw_enabled"
         android:ellipsize="end"
         android:maxLines="1"
         android:textColor="@color/dn_black"
@@ -38,29 +28,56 @@
         android:layout_below="@id/tv_name"
         android:layout_marginTop="@dimen/margin_narrower"
         android:layout_marginEnd="@dimen/margin_normal"
-        android:layout_toStartOf="@id/btn_edit"
+        android:layout_toStartOf="@id/sw_enabled"
         android:ellipsize="end"
         android:maxLines="1"
         tools:text="dialogue" />
 
-    <TextView
-        android:id="@+id/btn_edit"
-        style="@style/AutoSizeMaterialButton"
-        android:layout_width="48dp"
-        android:layout_height="24dp"
-        android:layout_centerVertical="true"
-        android:layout_marginEnd="@dimen/margin_normal"
-        android:layout_toStartOf="@id/sw_enabled"
-        android:background="@drawable/bg_list_button"
-        android:gravity="center"
-        android:padding="4dp"
-        android:text="@string/edit" />
+    <androidx.appcompat.widget.SwitchCompat
+        android:id="@+id/sw_enabled"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@id/tv_module"
+        android:layout_alignParentEnd="true"
+        android:background="@null"
+        android:thumb="@drawable/switch_thumb"
+        app:track="@drawable/switch_track" />
+
+    <LinearLayout
+        android:id="@+id/ll_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tv_module"
+        android:layout_marginTop="@dimen/margin_normal"
+        android:gravity="end"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/btn_config"
+            style="@style/AutoSizeMaterialButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_list_button"
+            android:gravity="center"
+            android:paddingVertical="4dp"
+            android:text="@string/edit_config" />
+
+        <TextView
+            android:id="@+id/btn_edit"
+            style="@style/AutoSizeMaterialButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_normal"
+            android:background="@drawable/bg_list_button"
+            android:gravity="center"
+            android:text="@string/edit" />
+    </LinearLayout>
 
     <me.kbai.zhenxunui.widget.CornerImageView
         android:id="@+id/dividing_line"
         android:layout_width="match_parent"
         android:layout_height="2dp"
-        android:layout_below="@id/tv_module"
+        android:layout_below="@id/ll_button"
         android:layout_marginTop="@dimen/list_item_padding_subtract_2dp"
         app:cornerRadius="1dp"
         tools:src="?colorPrimaryDark" />

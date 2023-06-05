@@ -23,7 +23,13 @@
         <item name="autoSizeMaxTextSize">14sp</item>
         <item name="autoSizeTextType">uniform</item>
         <item name="android:padding">0dp</item>
+        <item name="android:paddingTop">4dp</item>
+        <item name="android:paddingBottom">4dp</item>
+        <item name="android:paddingStart">8dp</item>
+        <item name="android:paddingEnd">8dp</item>
         <item name="android:ellipsize">end</item>
+        <item name="android:minWidth">0dp</item>
+        <item name="android:minHeight">24dp</item>
     </style>
 
     <style name="Switch" parent="TextAppearance.AppCompat.Widget.Switch">

@@ -121,4 +121,15 @@ data class PluginData(
             )
         )
     }
+
+    fun applyUpdateConfig(configs: List<UpdateConfig>): PluginData {
+        if (configs[0].module != module) throw IllegalArgumentException("Not the same module.")
+        val modified = config?.toMutableMap()?.also {
+            for (update in configs) {
+                val config = it[update.key] ?: continue
+                it[update.key] = config.copy(value = update.value)
+            }
+        }
+        return copy(config = modified)
+    }
 }

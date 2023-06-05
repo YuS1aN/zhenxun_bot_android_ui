@@ -19,5 +19,5 @@ class UpdatePlugin(
     @SerializedName("group_level")
     val groupLevel: Int,
     @SerializedName("block_type")
-    val blockType: String
+    var blockType: String
 )

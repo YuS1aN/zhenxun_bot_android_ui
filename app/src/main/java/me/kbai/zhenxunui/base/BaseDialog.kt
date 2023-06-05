@@ -17,6 +17,8 @@ import kotlin.math.min
  * @author Sean on 2023/6/1
  */
 open class BaseDialog(context: Context) : Dialog(context) {
+    protected var minMarginHorizontal = 80.dp.toInt()
+    protected var maxWidth = 280.dp.toInt()
 
     override fun onStart() {
         super.onStart()
@@ -24,7 +26,7 @@ open class BaseDialog(context: Context) : Dialog(context) {
         val size = context.displaySize()
         window?.run {
             setLayout(
-                min(size.x - 80.dp.toInt(), 260.dp.toInt()),
+                min(size.x - minMarginHorizontal, maxWidth),
                 WindowManager.LayoutParams.WRAP_CONTENT
             )
             setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))

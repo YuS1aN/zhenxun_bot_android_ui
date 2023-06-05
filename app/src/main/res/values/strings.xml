@@ -43,4 +43,7 @@
     <string name="enabled">Enabled</string>
     <string name="error_valid_number">Please enter the valid number</string>
     <string name="error_string_is_empty">Please enter text</string>
+    <string name="description_label">Description: %s</string>
+    <string name="edit_config">Config</string>
+    <string name="value_label">Value:</string>
 </resources>

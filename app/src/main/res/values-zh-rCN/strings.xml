@@ -39,4 +39,7 @@
     <string name="enabled">启用</string>
     <string name="error_valid_number">输入数字!数字!数字!</string>
     <string name="error_string_is_empty">不准留空啊笨蛋!</string>
+    <string name="description_label">说明: %s</string>
+    <string name="edit_config">配置项</string>
+    <string name="value_label">值:</string>
 </resources>

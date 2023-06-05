@@ -7,6 +7,7 @@ import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.onEach
 import me.kbai.zhenxunui.model.PluginData
 import me.kbai.zhenxunui.model.PluginType
+import me.kbai.zhenxunui.model.UpdateConfig
 import me.kbai.zhenxunui.model.UpdatePlugin
 import me.kbai.zhenxunui.repository.ApiRepository
 import me.kbai.zhenxunui.repository.Resource
@@ -46,4 +47,6 @@ class PluginTypeViewModel : ViewModel() {
         list[position] = data
         if (notify) _plugins.value = list
     }
+
+    fun updateConfig(configs: List<UpdateConfig>) = ApiRepository.updateConfig(configs)
 }

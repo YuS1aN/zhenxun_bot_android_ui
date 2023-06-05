@@ -7,7 +7,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
-import kotlinx.coroutines.flow.filter
+import androidx.recyclerview.widget.DefaultItemAnimator
+import androidx.recyclerview.widget.RecyclerView
 import kotlinx.coroutines.launch
 import me.kbai.zhenxunui.base.BaseFragment
 import me.kbai.zhenxunui.databinding.FragmentPluginTypeBinding
@@ -17,6 +18,7 @@ import me.kbai.zhenxunui.ext.setOnDebounceClickListener
 import me.kbai.zhenxunui.ext.viewLifecycleScope
 import me.kbai.zhenxunui.model.PluginData
 import me.kbai.zhenxunui.model.PluginType
+import me.kbai.zhenxunui.model.UpdateConfig
 import me.kbai.zhenxunui.model.UpdatePlugin
 import me.kbai.zhenxunui.repository.Resource
 import me.kbai.zhenxunui.tool.GlobalToast
@@ -50,12 +52,13 @@ class PluginTypeFragment : BaseFragment<FragmentPluginTypeBinding>() {
     ) = FragmentPluginTypeBinding.inflate(inflater)
 
     override fun initView() {
-        val onConfirmListener =
+        val onEditPluginListener =
             { dialog: Dialog, button: View, position: Int, update: UpdatePlugin ->
                 viewLifecycleScope.launch {
                     mViewModel.updatePlugin(update)
                         .apiCollect(button) {
                             if (it.status == Resource.Status.LOADING) return@apiCollect
+                            if (it.status == Resource.Status.FAIL) GlobalToast.showToast(it.message)
                             dialog.dismiss()
                             syncPluginData(position, mAdapter.data[position], update)
                         }
@@ -64,18 +67,54 @@ class PluginTypeFragment : BaseFragment<FragmentPluginTypeBinding>() {
             }
 
         mAdapter.onItemEditClickListener = {
-            EditPluginDialog(it, mAdapter.data[it], requireContext(), onConfirmListener).show()
+            EditPluginDialog(it, mAdapter.data[it], requireContext(), onEditPluginListener).show()
         }
 
-        mAdapter.onItemSwitchClickListener = { position, switch, isChecked ->
+        val onEditConfigListener =
+            { dialog: Dialog, button: View, position: Int, updateConfigs: List<UpdateConfig> ->
+                viewLifecycleScope.launch {
+                    mViewModel.updateConfig(updateConfigs)
+                        .apiCollect(button) {
+                            if (it.status == Resource.Status.LOADING) return@apiCollect
+                            if (it.status == Resource.Status.FAIL) GlobalToast.showToast(it.message)
+                            dialog.dismiss()
+                            syncPluginData(position, mAdapter.data[position], updateConfigs)
+                        }
+                }
+                Unit
+            }
+
+        mAdapter.onItemConfigClickListener = {
+            EditConfigDialog(
+                it,
+                mAdapter.data[it].config!!,
+                requireContext(),
+                onEditConfigListener
+            ).show()
+        }
+
+        mAdapter.onItemSwitchClickListener = { position, isChecked ->
             viewLifecycleScope.launch {
                 val plugin = mAdapter.data[position]
                 val update = plugin.makeUpdatePlugin(blockType = if (isChecked) "" else "全部")
 
+                val holder = mAdapter.holderMap[plugin.module]!!
+                holder.binding.run {
+                    root.tag = plugin.module
+                    holder.setEnabled(false)
+                    mAdapter.nonEditableSet.add(plugin.module)
+                }
+
                 mViewModel.updatePlugin(update)
-                    .apiCollect(switch) {
+                    .apiCollect {
                         if (it.status == Resource.Status.LOADING) return@apiCollect
-                        if (!it.success()) switch.isChecked = !switch.isChecked
+                        mAdapter.nonEditableSet.remove(plugin.module)
+                        mAdapter.holderMap[plugin.module]?.run {
+                            if (module == plugin.module) setEnabled(true)
+                        }
+                        if (!it.success()) {
+                            update.blockType = if (plugin.manager.status) "" else "全部"
+                        }
                         syncPluginData(position, plugin, update)
                     }
             }
@@ -84,6 +123,25 @@ class PluginTypeFragment : BaseFragment<FragmentPluginTypeBinding>() {
         viewBinding.rvPlugin.run {
             adapter = mAdapter
             addItemDecoration(CommonDecoration(12.dp.toInt()))
+            itemAnimator = object : DefaultItemAnimator() {
+
+                override fun animateChange(
+                    oldHolder: RecyclerView.ViewHolder?,
+                    newHolder: RecyclerView.ViewHolder?,
+                    fromX: Int,
+                    fromY: Int,
+                    toX: Int,
+                    toY: Int
+                ): Boolean {
+                    val su = super.animateChange(oldHolder, newHolder, fromX, fromY, toX, toY)
+                    newHolder?.run {
+                        itemView.translationX = 0f
+                        itemView.translationY = 0f
+                        itemView.alpha = 1f
+                    }
+                    return su
+                }
+            }
         }
 
         viewBinding.icError.btnRetry.setOnDebounceClickListener { requestPlugins() }
@@ -94,14 +152,29 @@ class PluginTypeFragment : BaseFragment<FragmentPluginTypeBinding>() {
         mAdapter.notifyItemChanged(position)
     }
 
-    private suspend fun syncPluginData(position: Int, plugin: PluginData, update: UpdatePlugin) {
-        //先展示本地修改后的数据
-        updateLocalPluginData(position, plugin.applyUpdatePlugin(update))
-        //再向服务端同步一次插件数据
+    private suspend fun syncByRemoteData(position: Int, plugin: PluginData) {
         val result = mViewModel.requestPlugin(mType, plugin.module).apiCollect() ?: return
         if (result.success() && result.data != null) {
             updateLocalPluginData(position, result.data)
         }
+    }
+
+    private suspend fun syncPluginData(position: Int, plugin: PluginData, update: UpdatePlugin) {
+        //先展示本地修改后的数据
+        updateLocalPluginData(position, plugin.applyUpdatePlugin(update))
+        //再向服务端同步一次插件数据
+        syncByRemoteData(position, plugin)
+    }
+
+    private suspend fun syncPluginData(
+        position: Int,
+        plugin: PluginData,
+        updateConfigs: List<UpdateConfig>
+    ) {
+        //先展示本地修改后的数据
+        updateLocalPluginData(position, plugin.applyUpdateConfig(updateConfigs))
+        //再向服务端同步一次插件数据
+        syncByRemoteData(position, plugin)
     }
 
     override fun initData() {
