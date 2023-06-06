@@ -6,7 +6,10 @@ import android.content.Context
 import android.view.View
 import android.widget.SeekBar
 import android.widget.SeekBar.OnSeekBarChangeListener
+import androidx.constraintlayout.widget.ConstraintSet
+import androidx.core.view.isVisible
 import androidx.core.widget.addTextChangedListener
+import com.google.android.material.tabs.TabLayout
 import me.kbai.zhenxunui.R
 import me.kbai.zhenxunui.base.BaseDialog
 import me.kbai.zhenxunui.databinding.DialogEditPluginBinding
@@ -24,6 +27,7 @@ class EditPluginDialog(
 ) : BaseDialog(context) {
 
     private val mBinding = DialogEditPluginBinding.inflate(layoutInflater)
+    private var mBlockTypeTabs: Array<TabLayout.Tab> = emptyArray()
 
     init {
         setContentView(mBinding.root)
@@ -33,6 +37,17 @@ class EditPluginDialog(
     }
 
     private fun initView() = mBinding.run {
+        mBlockTypeTabs = arrayOf(
+            tlBlockType.newTab().setText(R.string.tab_all),
+            tlBlockType.newTab().setText(R.string.tab_group),
+            tlBlockType.newTab().setText(R.string.tab_private)
+        )
+        mBlockTypeTabs.forEach { tlBlockType.addTab(it) }
+
+        swEnabled.setOnCheckedChangeListener { _, isChecked ->
+            setBlockTypeVisibility(!isChecked)
+        }
+
         sbGroupLevel.setOnSeekBarChangeListener(object : OnSeekBarChangeListener {
             override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
                 etGroupLevel.setText(progress.toString())
@@ -86,12 +101,30 @@ class EditPluginDialog(
                     commands,
                     type,
                     sbGroupLevel.progress,
-                    if (swEnabled.isChecked) "" else "全部"
+                    if (swEnabled.isChecked) "" else when (tlBlockType.selectedTabPosition) {
+                        1 -> "群组"
+                        2 -> "私聊"
+                        else -> "全部"
+                    }
                 )
             )
         }
 
 
+    }
+
+    private fun setBlockTypeVisibility(isVisible: Boolean) = mBinding.run {
+        tlBlockType.isVisible = isVisible
+        tvBlockType.isVisible = isVisible
+        ConstraintSet()
+            .apply {
+                clone(clBody)
+                connect(
+                    swDefaultStatus.id, ConstraintSet.TOP,
+                    if (isVisible) tvBlockType.id else swEnabled.id, ConstraintSet.BOTTOM
+                )
+                applyTo(clBody)
+            }
     }
 
     @SuppressLint("SetTextI18n")
@@ -100,6 +133,14 @@ class EditPluginDialog(
 
         plugin.manager.let { manager ->
             swEnabled.isChecked = manager.status
+            setBlockTypeVisibility(!manager.status)
+            tlBlockType.selectTab(
+                when (manager.blockType) {
+                    "群组" -> mBlockTypeTabs[1]
+                    "私聊" -> mBlockTypeTabs[2]
+                    else -> mBlockTypeTabs[0]
+                }
+            )
             tvTitle.text = manager.name
             tvAuthor.text = "@${manager.author}"
         }

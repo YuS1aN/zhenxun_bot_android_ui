@@ -46,4 +46,8 @@
     <string name="description_label">Description: %s</string>
     <string name="edit_config">Config</string>
     <string name="value_label">Value:</string>
+    <string name="block_type">Block Type</string>
+    <string name="tab_all">All</string>
+    <string name="tab_group">Group</string>
+    <string name="tab_private">Private</string>
 </resources>

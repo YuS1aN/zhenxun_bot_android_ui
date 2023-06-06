@@ -36,11 +36,6 @@ class PluginFragment : BaseFragment<FragmentPluginBinding>() {
     ): FragmentPluginBinding = FragmentPluginBinding.inflate(inflater)
 
     override fun initView() = viewBinding.run {
-//        tlType.addTab(tlType.newTab().setText(R.string.tab_normal))
-//        tlType.addTab(tlType.newTab().setText(R.string.tab_admin))
-//        tlType.addTab(tlType.newTab().setText(R.string.tab_superuser))
-//        tlType.addTab(tlType.newTab().setText(R.string.tab_hidden))
-
         vpType.adapter = object : FragmentStateAdapter(this@PluginFragment) {
             override fun getItemCount(): Int = mFragments.size
 

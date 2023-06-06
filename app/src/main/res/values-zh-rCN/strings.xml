@@ -42,4 +42,8 @@
     <string name="description_label">说明: %s</string>
     <string name="edit_config">配置项</string>
     <string name="value_label">值:</string>
+    <string name="block_type">禁用类型</string>
+    <string name="tab_all">全部</string>
+    <string name="tab_group">群组</string>
+    <string name="tab_private">私聊</string>
 </resources>

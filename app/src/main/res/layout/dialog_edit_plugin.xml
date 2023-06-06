@@ -8,6 +8,7 @@
     android:scrollbars="none">
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/cl_body"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:minWidth="260dp"
@@ -65,6 +66,30 @@
             app:layout_constraintTop_toBottomOf="@id/tv_module"
             app:switchPadding="@dimen/margin_normal" />
 
+        <TextView
+            android:id="@+id/tv_block_type"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/normal_line_height"
+            android:gravity="center_vertical"
+            android:labelFor="@id/tl_block_type"
+            android:text="@string/block_type"
+            android:textColor="@color/dn_black"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@id/sw_default_status"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/sw_enabled" />
+
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/tl_block_type"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/normal_line_height"
+            android:layout_marginStart="@dimen/margin_normal"
+            app:layout_constraintBottom_toBottomOf="@id/tv_block_type"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/tv_block_type"
+            app:tabBackground="@null"
+            app:tabRippleColor="@null" />
+
         <androidx.appcompat.widget.SwitchCompat
             android:id="@+id/sw_default_status"
             style="@style/Switch"
@@ -74,7 +99,7 @@
             android:text="@string/default_is_enabled"
             app:layout_constraintBottom_toTopOf="@+id/sw_superuser"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/sw_enabled"
+            app:layout_constraintTop_toBottomOf="@id/tl_block_type"
             app:switchPadding="@dimen/margin_normal" />
 
         <androidx.appcompat.widget.SwitchCompat
