@@ -8,6 +8,6 @@ import com.google.gson.annotations.SerializedName
 data class UpdateGroup(
     @SerializedName("group_id")
     val groupId: String,
-    val status: Boolean,
-    val level: Int
+    var status: Boolean,
+    var level: Int
 )

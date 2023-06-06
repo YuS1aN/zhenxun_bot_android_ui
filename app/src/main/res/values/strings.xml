@@ -50,4 +50,13 @@
     <string name="tab_all">All</string>
     <string name="tab_group">Group</string>
     <string name="tab_private">Private</string>
+    <string name="error_network_error">There was an error with the network connection.</string>
+    <string name="error_no_data">There seems to be no data.</string>
+    <string name="enabled_task_format">Enabled Task: %s</string>
+    <string name="group_level_format">Group Level: %d</string>
+    <string name="member_num_format">Member Num: %d / %d</string>
+    <string name="group_id_format">Group ID: %s</string>
+    <string name="enable">Enable</string>
+    <string name="disable">Disable</string>
+    <string name="edit_group_config">Edit Group Config</string>
 </resources>

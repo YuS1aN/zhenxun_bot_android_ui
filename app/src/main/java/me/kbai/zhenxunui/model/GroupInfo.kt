@@ -30,5 +30,11 @@ data class GroupInfo(
         val nameZh: String,
         val status: Boolean
     )
+
+    fun makeUpdateGroup() = UpdateGroup(
+        group.groupId,
+        status,
+        level
+    )
 }
 

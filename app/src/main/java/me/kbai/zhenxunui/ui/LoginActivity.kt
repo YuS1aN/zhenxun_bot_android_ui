@@ -13,7 +13,6 @@ import me.kbai.zhenxunui.base.BaseActivity
 import me.kbai.zhenxunui.databinding.ActivityLoginBinding
 import me.kbai.zhenxunui.ext.apiCollect
 import me.kbai.zhenxunui.ext.setOnDebounceClickListener
-import me.kbai.zhenxunui.repository.Resource
 import me.kbai.zhenxunui.tool.GlobalToast
 import me.kbai.zhenxunui.tool.glide.GlideApp
 import me.kbai.zhenxunui.viewmodel.LoginViewModel

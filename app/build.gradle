@@ -74,4 +74,5 @@ dependencies {
     implementation deps.glide.core
     annotationProcessor deps.glide.compiler
     kapt deps.glide.compiler
+    implementation deps.swiperefreshlayout
 }

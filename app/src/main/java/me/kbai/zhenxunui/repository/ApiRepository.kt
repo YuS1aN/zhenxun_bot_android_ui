@@ -6,6 +6,7 @@ import me.kbai.zhenxunui.api.ApiResponse
 import me.kbai.zhenxunui.api.BotApi
 import me.kbai.zhenxunui.model.PluginType
 import me.kbai.zhenxunui.model.UpdateConfig
+import me.kbai.zhenxunui.model.UpdateGroup
 import me.kbai.zhenxunui.model.UpdatePlugin
 import org.json.JSONObject
 import retrofit2.HttpException
@@ -19,11 +20,16 @@ object ApiRepository {
         BotApi.service.login(username, password)
     }
 
+    fun getGroup() = networkFlow { BotApi.service.getGroup() }
+
+    fun updateGroup(updateGroup: UpdateGroup) = networkFlow { BotApi.service.updateGroup(updateGroup) }
+
     fun getPlugins(type: PluginType) = networkFlow { BotApi.service.getPlugins(type.string) }
 
     fun updatePlugin(plugin: UpdatePlugin) = networkFlow { BotApi.service.updatePlugin(plugin) }
 
-    fun updateConfig(configs: List<UpdateConfig>) = networkFlow { BotApi.service.updateConfig(configs) }
+    fun updateConfig(configs: List<UpdateConfig>) =
+        networkFlow { BotApi.service.updateConfig(configs) }
 
     private fun <T> networkFlow(
         f: suspend () -> ApiResponse<T>

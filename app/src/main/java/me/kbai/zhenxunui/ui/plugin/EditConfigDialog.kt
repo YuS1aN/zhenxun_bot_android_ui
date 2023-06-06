@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.app.Dialog
 import android.content.Context
 import android.view.View
+import me.kbai.zhenxunui.R
 import me.kbai.zhenxunui.base.BaseDialog
 import me.kbai.zhenxunui.databinding.DialogEditConfigBinding
 import me.kbai.zhenxunui.ext.displaySize
@@ -36,7 +37,7 @@ class EditConfigDialog(
 
     private fun initView() = mBinding.run {
         rvConfig.adapter = mAdapter
-        rvConfig.addItemDecoration(CommonDecoration(12.dp.toInt()))
+        rvConfig.addItemDecoration(CommonDecoration(root.resources.getDimensionPixelSize(R.dimen.list_item_margin)))
 
         btnCancel.setOnClickListener { dismiss() }
         btnConfirm.setOnClickListener click@{

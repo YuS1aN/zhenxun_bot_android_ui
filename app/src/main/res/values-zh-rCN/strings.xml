@@ -46,4 +46,12 @@
     <string name="tab_all">全部</string>
     <string name="tab_group">群组</string>
     <string name="tab_private">私聊</string>
+    <string name="error_network_error">是不是断网了…</string>
+    <string name="error_no_data">好像没有数据呢</string>
+    <string name="enabled_task_format">已开启被动: %s</string>
+    <string name="group_level_format">群权限: %d</string>
+    <string name="member_num_format">人数: %d / %d</string>
+    <string name="group_id_format">群号: %s</string>
+    <string name="enable">启用</string>
+    <string name="disable">禁用</string>
 </resources>

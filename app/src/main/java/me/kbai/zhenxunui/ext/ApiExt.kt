@@ -9,10 +9,12 @@ import me.kbai.zhenxunui.repository.Resource
 /**
  * @author Sean on 2023/6/1
  */
-suspend fun <T : Resource<*>> Flow<T>.apiCollect(): T? {
+suspend fun <T : Resource<*>> Flow<T>.apiCollect(button: View? = null): T {
+    button?.isEnabled = false
     var result: T? = null
     apiCollect { result = it }
-    return result
+    button?.isEnabled = true
+    return result!!
 }
 
 suspend fun <T : Resource<*>> Flow<T>.apiCollect(

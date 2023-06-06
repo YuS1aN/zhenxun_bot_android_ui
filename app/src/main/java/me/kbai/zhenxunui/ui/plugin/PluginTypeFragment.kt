@@ -10,6 +10,7 @@ import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.coroutines.launch
+import me.kbai.zhenxunui.R
 import me.kbai.zhenxunui.base.BaseFragment
 import me.kbai.zhenxunui.databinding.FragmentPluginTypeBinding
 import me.kbai.zhenxunui.ext.apiCollect
@@ -22,6 +23,7 @@ import me.kbai.zhenxunui.model.UpdateConfig
 import me.kbai.zhenxunui.model.UpdatePlugin
 import me.kbai.zhenxunui.repository.Resource
 import me.kbai.zhenxunui.tool.GlobalToast
+import me.kbai.zhenxunui.tool.glide.GlideApp
 import me.kbai.zhenxunui.viewmodel.PluginTypeViewModel
 import me.kbai.zhenxunui.widget.CommonDecoration
 
@@ -52,6 +54,11 @@ class PluginTypeFragment : BaseFragment<FragmentPluginTypeBinding>() {
     ) = FragmentPluginTypeBinding.inflate(inflater)
 
     override fun initView() {
+        viewBinding.icError.btnRetry.isVisible = true
+        GlideApp.with(this)
+            .load(R.drawable.ic_error)
+            .into(viewBinding.icError.ivImage)
+
         val onEditPluginListener =
             { dialog: Dialog, button: View, position: Int, update: UpdatePlugin ->
                 viewLifecycleScope.launch {
@@ -122,7 +129,7 @@ class PluginTypeFragment : BaseFragment<FragmentPluginTypeBinding>() {
 
         viewBinding.rvPlugin.run {
             adapter = mAdapter
-            addItemDecoration(CommonDecoration(12.dp.toInt()))
+            addItemDecoration(CommonDecoration(resources.getDimensionPixelSize(R.dimen.list_item_margin)))
             itemAnimator = object : DefaultItemAnimator() {
 
                 override fun animateChange(
@@ -153,7 +160,7 @@ class PluginTypeFragment : BaseFragment<FragmentPluginTypeBinding>() {
     }
 
     private suspend fun syncByRemoteData(position: Int, plugin: PluginData) {
-        val result = mViewModel.requestPlugin(mType, plugin.module).apiCollect() ?: return
+        val result = mViewModel.requestPlugin(mType, plugin.module).apiCollect()
         if (result.success() && result.data != null) {
             updateLocalPluginData(position, result.data)
         }
