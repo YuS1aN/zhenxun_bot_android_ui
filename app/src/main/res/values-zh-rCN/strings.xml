@@ -54,4 +54,19 @@
     <string name="group_id_format">群号: %s</string>
     <string name="enable">启用</string>
     <string name="disable">禁用</string>
+    <string name="edit_group_config">编辑群聊</string>
+    <string name="clear_request">清空请求</string>
+    <string name="nickname_format">昵称: %s</string>
+    <string name="qq_format">QQ: %s</string>
+    <string name="sex_format">性别: %s</string>
+    <string name="age_format">年龄: %d</string>
+    <string name="invite_group_format">邀请入群: %s</string>
+    <string name="greet_format">验证消息: %s</string>
+    <string name="approve">同意</string>
+    <string name="refuse">拒绝</string>
+    <string name="delete">删除</string>
+    <string name="tab_request_group">群组请求</string>
+    <string name="tab_request_private">好友请求</string>
+    <string name="prompt">提示</string>
+    <string name="confirm_handle_request">%sid为 %s 的请求?</string>
 </resources>

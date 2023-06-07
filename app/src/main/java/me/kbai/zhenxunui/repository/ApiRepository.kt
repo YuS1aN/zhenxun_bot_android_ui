@@ -4,6 +4,7 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import me.kbai.zhenxunui.api.ApiResponse
 import me.kbai.zhenxunui.api.BotApi
+import me.kbai.zhenxunui.model.HandleRequest
 import me.kbai.zhenxunui.model.PluginType
 import me.kbai.zhenxunui.model.UpdateConfig
 import me.kbai.zhenxunui.model.UpdateGroup
@@ -22,7 +23,8 @@ object ApiRepository {
 
     fun getGroup() = networkFlow { BotApi.service.getGroup() }
 
-    fun updateGroup(updateGroup: UpdateGroup) = networkFlow { BotApi.service.updateGroup(updateGroup) }
+    fun updateGroup(updateGroup: UpdateGroup) =
+        networkFlow { BotApi.service.updateGroup(updateGroup) }
 
     fun getPlugins(type: PluginType) = networkFlow { BotApi.service.getPlugins(type.string) }
 
@@ -30,6 +32,12 @@ object ApiRepository {
 
     fun updateConfig(configs: List<UpdateConfig>) =
         networkFlow { BotApi.service.updateConfig(configs) }
+
+    fun getRequest(type: String) = networkFlow { BotApi.service.getRequest(type) }
+
+    fun clearRequest(type: String) = networkFlow { BotApi.service.clearRequest(type) }
+
+    fun handleRequest(handle: HandleRequest) = networkFlow { BotApi.service.handleRequest(handle) }
 
     private fun <T> networkFlow(
         f: suspend () -> ApiResponse<T>

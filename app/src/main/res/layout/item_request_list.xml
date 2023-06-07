@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/bg_list_item_round"
+    android:orientation="vertical"
+    android:padding="@dimen/list_item_padding">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/tv_nickname"
+            style="@style/SingleLineText"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/nickname_format"
+            tools:text="昵称: A_mni" />
+
+        <TextView
+            android:id="@+id/tv_qq"
+            style="@style/SingleLineText"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/qq_format"
+            tools:text="QQ: 114514" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_normal"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/tv_sex"
+            style="@style/SingleLineText"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/sex_format"
+            tools:text="性别: 女" />
+
+        <TextView
+            android:id="@+id/tv_age"
+            style="@style/SingleLineText"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/age_format"
+            tools:text="年龄: 16" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_group"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_normal"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/tv_invite_group"
+            style="@style/SingleLineText"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/invite_group_format"
+            tools:text="邀请入群: 是真寻酱哒" />
+
+        <TextView
+            android:id="@+id/tv_group_id"
+            style="@style/SingleLineText"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/group_id_format"
+            tools:text="群号: 1919810" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/tv_greet"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_normal"
+        android:text="@string/greet_format"
+        tools:text="验证消息: 你好" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_normal"
+        android:gravity="end"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/tv_approve"
+            style="@style/AutoSizeButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_approve_button"
+            android:text="@string/approve"
+            tools:text="同意" />
+
+        <TextView
+            android:id="@+id/tv_refuse"
+            style="@style/AutoSizeButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_normal"
+            android:background="@drawable/bg_refuse_button"
+            android:text="@string/refuse"
+            tools:text="拒绝" />
+
+        <TextView
+            android:id="@+id/tv_delete"
+            style="@style/AutoSizeButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_normal"
+            android:background="@drawable/bg_delete_button"
+            android:text="@string/delete"
+            tools:text="删除" />
+    </LinearLayout>
+</LinearLayout>

@@ -1,12 +1,15 @@
 package me.kbai.zhenxunui.api
 
 import me.kbai.zhenxunui.model.GroupInfo
+import me.kbai.zhenxunui.model.HandleRequest
 import me.kbai.zhenxunui.model.LoginInfo
 import me.kbai.zhenxunui.model.PluginData
+import me.kbai.zhenxunui.model.RequestResult
 import me.kbai.zhenxunui.model.UpdateConfig
 import me.kbai.zhenxunui.model.UpdateGroup
 import me.kbai.zhenxunui.model.UpdatePlugin
 import retrofit2.http.Body
+import retrofit2.http.DELETE
 import retrofit2.http.Field
 import retrofit2.http.FormUrlEncoded
 import retrofit2.http.GET
@@ -39,4 +42,13 @@ interface ApiService {
 
     @POST("update_config")
     suspend fun updateConfig(@Body updateConfigs: List<UpdateConfig>): ApiResponse<Unit>
+
+    @GET("get_request")
+    suspend fun getRequest(@Query("request_type") type: String): ApiResponse<List<RequestResult>>
+
+    @DELETE("clear_request")
+    suspend fun clearRequest(@Query("request_type") type: String): ApiResponse<Unit>
+
+    @POST("handle_request")
+    suspend fun handleRequest(@Body handleRequest: HandleRequest): ApiResponse<Unit>
 }

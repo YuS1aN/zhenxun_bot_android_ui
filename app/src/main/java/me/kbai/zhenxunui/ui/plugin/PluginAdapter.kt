@@ -32,6 +32,8 @@ class PluginAdapter : RecyclerView.Adapter<PluginViewHolder>() {
         @SuppressLint("NotifyDataSetChanged")
         set(value) {
             field = value
+            holderMap.clear()
+            nonEditableSet.clear()
             notifyDataSetChanged()
         }
     val holderMap: HashMap<String, PluginViewHolder> = HashMap()

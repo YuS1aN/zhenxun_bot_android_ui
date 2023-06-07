@@ -59,4 +59,18 @@
     <string name="enable">Enable</string>
     <string name="disable">Disable</string>
     <string name="edit_group_config">Edit Group Config</string>
+    <string name="clear_request">Clear</string>
+    <string name="nickname_format">Nickname: %s</string>
+    <string name="qq_format">QQ: %s</string>
+    <string name="sex_format">Sex: %s</string>
+    <string name="age_format">Age: %d</string>
+    <string name="invite_group_format">Invite Group: %s</string>
+    <string name="greet_format">Greet: %s</string>
+    <string name="approve">Approve</string>
+    <string name="refuse">Refuse</string>
+    <string name="delete">Delete</string>
+    <string name="tab_request_group">Group</string>
+    <string name="tab_request_private">Private</string>
+    <string name="prompt">Prompt</string>
+    <string name="confirm_handle_request">%s the Request with id: %s ?</string>
 </resources>

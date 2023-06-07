@@ -18,7 +18,7 @@
         <item name="android:minHeight">0dp</item>
     </style>
 
-    <style name="AutoSizeMaterialButton" parent="Widget.MaterialComponents.Button">
+    <style name="AutoSizeButton">
         <item name="autoSizeMinTextSize">10sp</item>
         <item name="autoSizeMaxTextSize">14sp</item>
         <item name="autoSizeTextType">uniform</item>
@@ -28,8 +28,11 @@
         <item name="android:paddingStart">8dp</item>
         <item name="android:paddingEnd">8dp</item>
         <item name="android:ellipsize">end</item>
-        <item name="android:minWidth">0dp</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:minWidth">48dp</item>
         <item name="android:minHeight">24dp</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textColor">@color/dn_white</item>
     </style>
 
     <style name="Switch" parent="TextAppearance.AppCompat.Widget.Switch">
