@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">绪山真寻Bot UI</string>
+    <string name="app_name">真寻酱的后台</string>
     <string name="nav_home">主页</string>
     <string name="nav_console">控制台</string>
     <string name="nav_plugin">插件列表</string>
