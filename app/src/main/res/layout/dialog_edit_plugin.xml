@@ -88,6 +88,8 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/tv_block_type"
             app:tabBackground="@null"
+            app:tabPaddingEnd="0dp"
+            app:tabPaddingStart="0dp"
             app:tabRippleColor="@null" />
 
         <androidx.appcompat.widget.SwitchCompat

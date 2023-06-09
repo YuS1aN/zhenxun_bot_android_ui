@@ -51,4 +51,10 @@ interface ApiService {
 
     @POST("handle_request")
     suspend fun handleRequest(@Body handleRequest: HandleRequest): ApiResponse<Unit>
+
+    @GET("system/disk")
+    suspend fun getDiskUsage(): RawApiResponse
+
+    @GET("system/statusList")
+    suspend fun getStatusList(): RawApiResponse
 }

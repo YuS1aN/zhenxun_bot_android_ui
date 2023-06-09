@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-    <group android:checkableBehavior="single">
-        <item
-            android:id="@+id/nav_home"
-            android:icon="@drawable/ic_home_24"
-            android:title="@string/nav_home" />
-    </group>
+<!--    <group android:checkableBehavior="single">-->
+<!--        <item-->
+<!--            android:id="@+id/nav_home"-->
+<!--            android:icon="@drawable/ic_home_24"-->
+<!--            android:title="@string/nav_home" />-->
+<!--    </group>-->
 
-    <item android:title="@string/nav_title_func">
-        <menu>
+<!--    <item android:title="@string/nav_title_func">-->
+<!--        <menu>-->
             <group android:checkableBehavior="single">
-                <item
-                    android:id="@+id/nav_console"
-                    android:title="@string/nav_console"/>
+<!--                <item-->
+<!--                    android:id="@+id/nav_console"-->
+<!--                    android:title="@string/nav_console"/>-->
                 <item
                     android:id="@+id/nav_plugin"
                     android:title="@string/nav_plugin" />
@@ -26,6 +26,6 @@
                     android:id="@+id/nav_info"
                     android:title="@string/nav_info" />
             </group>
-        </menu>
-    </item>
+<!--        </menu>-->
+<!--    </item>-->
 </menu>

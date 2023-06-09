@@ -39,6 +39,18 @@
             android:textSize="@dimen/et_text_size" />
     </com.google.android.material.textfield.TextInputLayout>
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/text_size_small"
+        android:text="@string/change_api_tips_1" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/text_size_small"
+        android:text="@string/change_api_tips_2" />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

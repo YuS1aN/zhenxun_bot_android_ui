@@ -4,6 +4,7 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import me.kbai.zhenxunui.api.ApiResponse
 import me.kbai.zhenxunui.api.BotApi
+import me.kbai.zhenxunui.api.RawApiResponse
 import me.kbai.zhenxunui.model.HandleRequest
 import me.kbai.zhenxunui.model.PluginType
 import me.kbai.zhenxunui.model.UpdateConfig
@@ -39,11 +40,50 @@ object ApiRepository {
 
     fun handleRequest(handle: HandleRequest) = networkFlow { BotApi.service.handleRequest(handle) }
 
+    fun getDiskUsage() = rawNetworkFlow { BotApi.service.getDiskUsage() }
+
+    fun getStatusList() = rawNetworkFlow { BotApi.service.getStatusList() }
+
     private fun <T> networkFlow(
         f: suspend () -> ApiResponse<T>
     ): Flow<Resource<T>> = flow {
         emit(Resource.loading(null))
         val resp: ApiResponse<T>
+        try {
+            resp = f.invoke()
+        } catch (e: Exception) {
+            when (e.also { it.printStackTrace() }) {
+//                is SocketTimeoutException ->
+//                is ConnectException ->
+//                is TimeoutException ->
+//                is UnknownHostException ->
+//                is JsonParseException ->
+                is HttpException -> {
+                    (e as HttpException).run {
+                        val detail = response()
+                            ?.errorBody()
+                            ?.let { JSONObject(it.string()) }
+                            ?.optString("detail")
+                        emit(Resource.error(null, detail ?: message(), -1, code()))
+                    }
+                }
+
+                else -> emit(Resource.error(null, e.message.orEmpty(), -1))
+            }
+            return@flow
+        }
+        if (resp.success) {
+            emit(Resource.success(resp.data, resp.info, resp.code))
+        } else {
+            emit(Resource.error(null, resp.info, resp.code))
+        }
+    }
+
+    private fun rawNetworkFlow(
+        f: suspend () -> RawApiResponse
+    ): Flow<Resource<String>> = flow {
+        emit(Resource.loading(null))
+        val resp: RawApiResponse
         try {
             resp = f.invoke()
         } catch (e: Exception) {

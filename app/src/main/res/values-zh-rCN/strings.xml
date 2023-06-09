@@ -69,4 +69,6 @@
     <string name="tab_request_private">好友请求</string>
     <string name="prompt">提示</string>
     <string name="confirm_handle_request">%sid为 %s 的请求?</string>
+    <string name="change_api_tips_1">· App与真寻本体通常<u><b>不在</b></u>同一个机器上, 需要先通过服务器代理或将<u><b>.env.dev</b></u>(如果为dev环境)中的<u><b>HOST</b></u>修改为本机地址<u><b>0.0.0.0</b></u>来对外开放接口</string>
+    <string name="change_api_tips_2">· 这里一般都是填入<u><b>http://服务器地址:真寻的端口</b></u></string>
 </resources>

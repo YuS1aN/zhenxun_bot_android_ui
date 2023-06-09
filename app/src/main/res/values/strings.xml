@@ -73,4 +73,6 @@
     <string name="tab_request_private">Private</string>
     <string name="prompt">Prompt</string>
     <string name="confirm_handle_request">%s the Request with id: %s ?</string>
+    <string name="change_api_tips_1">· The app and the Bot are usually <u><b>NOT</b></u> on the same machine. You need a reverse proxy server or edit <u><b>env.dev</b></u>(dev environment), change the <u><b>HOST</b></u> to <u><b>0.0.0.0</b></u></string>
+<string name="change_api_tips_2">· Usually input <u><b>http://server_host:api_port</b></u></string>
 </resources>

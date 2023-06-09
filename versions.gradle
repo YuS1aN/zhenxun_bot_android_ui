@@ -19,6 +19,7 @@ versions.lifecycle = "2.4.1"
 versions.glide = "4.15.1"
 versions.datastore = "1.0.0"
 versions.swiperefresh = "1.2.0-alpha01"
+versions.echartsjava = "1.0.7"
 
 deps.constraintlayout = "androidx.constraintlayout:constraintlayout:$versions.constraintlayout"
 

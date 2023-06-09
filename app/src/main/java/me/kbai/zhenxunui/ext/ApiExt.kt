@@ -3,7 +3,6 @@ package me.kbai.zhenxunui.ext
 import android.app.Application
 import android.view.View
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.collectLatest
 import me.kbai.zhenxunui.repository.Resource
 
 /**
