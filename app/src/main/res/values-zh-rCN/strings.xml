@@ -23,6 +23,7 @@
     <string name="error_input_username">账号捏账号捏账号捏</string>
     <string name="error_input_password">不会有人忘记密码了吧!</string>
     <string name="error_not_set_api">还没有设置小真寻的api地址哦</string>
+    <string name="error_wrong_api_address">api地址不正确哦</string>
     <string name="tab_normal">普通插件</string>
     <string name="tab_admin">管理员插件</string>
     <string name="tab_superuser">超级用户插件</string>
@@ -71,4 +72,12 @@
     <string name="confirm_handle_request">%sid为 %s 的请求?</string>
     <string name="change_api_tips_1">· App与真寻本体通常<u><b>不在</b></u>同一个机器上, 需要先通过服务器代理或将<u><b>.env.dev</b></u>(如果为dev环境)中的<u><b>HOST</b></u>修改为本机地址<u><b>0.0.0.0</b></u>来对外开放接口</string>
     <string name="change_api_tips_2">· 这里一般都是填入<u><b>http://服务器地址:真寻的端口</b></u></string>
+    <string name="system_status">系统状态</string>
+    <string name="cpu">处理器</string>
+    <string name="memory">内存</string>
+    <string name="disk">硬盘</string>
+    <string name="account_information">账号信息</string>
+    <string name="friends_label">好友数量:</string>
+    <string name="group_label">群组数量:</string>
+    <string name="connected_duration_format">已连接 %d天 %d时 %d分 %d秒</string>
 </resources>

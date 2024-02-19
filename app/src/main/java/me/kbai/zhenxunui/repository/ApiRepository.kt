@@ -44,6 +44,8 @@ object ApiRepository {
 
     fun getStatusList() = rawNetworkFlow { BotApi.service.getStatusList() }
 
+    fun getBotList() = networkFlow { BotApi.service.getBotList() }
+
     private fun <T> networkFlow(
         f: suspend () -> ApiResponse<T>
     ): Flow<Resource<T>> = flow {

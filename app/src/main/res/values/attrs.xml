@@ -22,4 +22,21 @@
         </attr>
         <attr name="rotationDegrees" format="float" />
     </declare-styleable>
+
+    <declare-styleable name="SemicircleProgressView">
+        <attr name="strokeWidth" format="dimension" />
+    </declare-styleable>
+
+    <declare-styleable name="LineWrapLayout">
+        <attr name="maxLineItemCount" format="integer" />
+        <attr name="enforceLineItemCount" format="boolean" />
+        <attr name="horizontalDistribution" format="flags">
+            <flag name="normal" value="0" />
+            <flag name="spread" value="1" />
+            <flag name="table" value="2" />
+        </attr>
+        <attr name="spreadIncludeSides" format="boolean" />
+        <attr name="spreadAsMaximum" format="boolean" />
+        <attr name="tableEnforceChildrenWidth" format="boolean" />
+    </declare-styleable>
 </resources>

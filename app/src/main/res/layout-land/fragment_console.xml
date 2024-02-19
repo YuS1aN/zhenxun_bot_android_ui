@@ -185,12 +185,12 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_normal"
-            app:horizontalDistribution="spread"
-            app:maxLineItemCount="2">
+            app:horizontalDistribution="normal">
 
             <RelativeLayout
                 android:layout_width="140dp"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_normal"
                 android:layout_marginTop="@dimen/margin_normal">
 
                 <me.kbai.zhenxunui.widget.SemicircleProgressView
@@ -231,6 +231,7 @@
             <RelativeLayout
                 android:layout_width="140dp"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_wider"
                 android:layout_marginTop="@dimen/margin_normal">
 
                 <me.kbai.zhenxunui.widget.SemicircleProgressView
@@ -269,8 +270,8 @@
             <RelativeLayout
                 android:layout_width="140dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/margin_wider"
-                android:layout_marginBottom="@dimen/margin_normal">
+                android:layout_marginVertical="@dimen/margin_normal"
+                android:layout_marginStart="@dimen/margin_wider">
 
                 <me.kbai.zhenxunui.widget.SemicircleProgressView
                     android:id="@+id/spv_disk_usage"

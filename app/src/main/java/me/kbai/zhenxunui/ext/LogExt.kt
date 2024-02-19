@@ -24,6 +24,11 @@ fun Any.logI(msg: String, tag: String? = null): Int {
     return Log.i(tagOrUnknown, msg)
 }
 
+fun Any.logE(t: Throwable) {
+    logE(t.message ?: t.toString())
+    t.printStackTrace()
+}
+
 fun Any.logE(msg: String, tag: String? = null): Int {
     val tagOrUnknown = tag ?: this::class.simpleName ?: "ERROR"
     outputLogFile(msg, tagOrUnknown)

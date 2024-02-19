@@ -1,9 +1,13 @@
 package me.kbai.zhenxunui.api
 
+import me.kbai.zhenxunui.model.ActiveGroup
+import me.kbai.zhenxunui.model.BotBaseInfo
+import me.kbai.zhenxunui.model.BotMessageCount
 import me.kbai.zhenxunui.model.GroupInfo
 import me.kbai.zhenxunui.model.HandleRequest
 import me.kbai.zhenxunui.model.LoginInfo
 import me.kbai.zhenxunui.model.PluginData
+import me.kbai.zhenxunui.model.PopularPlugin
 import me.kbai.zhenxunui.model.RequestResult
 import me.kbai.zhenxunui.model.UpdateConfig
 import me.kbai.zhenxunui.model.UpdateGroup
@@ -57,4 +61,16 @@ interface ApiService {
 
     @GET("system/statusList")
     suspend fun getStatusList(): RawApiResponse
+
+    @GET("main/get_base_info")
+    suspend fun getBotList(): ApiResponse<List<BotBaseInfo>>
+
+    @GET("main/get_all_ch_count")
+    suspend fun getBotMessageCount(@Query("bot_id") botId: String): ApiResponse<BotMessageCount>
+
+    @GET("main/get_active_group")
+    suspend fun getActiveGroup(): ApiResponse<List<ActiveGroup>>
+
+    @GET("main/get_hot_plugin")
+    suspend fun getPopularPlugin(): ApiResponse<List<PopularPlugin>>
 }

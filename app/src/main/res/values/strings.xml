@@ -27,6 +27,7 @@
     <string name="error_input_username">Please input username</string>
     <string name="error_input_password">Please input password</string>
     <string name="error_not_set_api">The api address has not been set yet</string>
+    <string name="error_wrong_api_address">The api address is wrong</string>
     <string name="tab_normal">Normal</string>
     <string name="tab_admin">Admin</string>
     <string name="tab_superuser">Superuser</string>
@@ -74,5 +75,14 @@
     <string name="prompt">Prompt</string>
     <string name="confirm_handle_request">%s the Request with id: %s ?</string>
     <string name="change_api_tips_1">· The app and the Bot are usually <u><b>NOT</b></u> on the same machine. You need a reverse proxy server or edit <u><b>env.dev</b></u>(dev environment), change the <u><b>HOST</b></u> to <u><b>0.0.0.0</b></u></string>
-<string name="change_api_tips_2">· Usually input <u><b>http://server_host:api_port</b></u></string>
+    <string name="change_api_tips_2">· Usually input <u><b>http://server_host:api_port</b></u></string>
+    <string name="system_status">System Status</string>
+    <string name="cpu">CPU</string>
+    <string name="memory">Memory</string>
+    <string name="disk">Disk</string>
+    <string name="percent_format" translatable="false">%.1f%%</string>
+    <string name="account_information">Account Information</string>
+    <string name="friends_label">Friends:</string>
+    <string name="group_label">Group:</string>
+    <string name="connected_duration_format">Connected for %dd %dh %dm %ds</string>
 </resources>

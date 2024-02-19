@@ -33,7 +33,10 @@ class ChangeApiDialog(context: Context) : BaseDialog(context) {
                 mBinding.tilApi.error = context.getString(R.string.error_input_api)
                 return@setOnClickListener
             }
-            Constants.updateApiUrl(text.toString())
+            if (!Constants.updateApiUrl(text.toString())) {
+                mBinding.tilApi.error = context.getString(R.string.error_wrong_api_address)
+                return@setOnClickListener
+            }
             dismiss()
         }
     }

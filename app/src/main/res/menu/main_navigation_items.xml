@@ -10,9 +10,9 @@
 <!--    <item android:title="@string/nav_title_func">-->
 <!--        <menu>-->
             <group android:checkableBehavior="single">
-<!--                <item-->
-<!--                    android:id="@+id/nav_console"-->
-<!--                    android:title="@string/nav_console"/>-->
+                <item
+                    android:id="@+id/nav_console"
+                    android:title="@string/nav_console"/>
                 <item
                     android:id="@+id/nav_plugin"
                     android:title="@string/nav_plugin" />
