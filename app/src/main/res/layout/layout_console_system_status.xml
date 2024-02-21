@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/bg_list_item_round"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margin_normal"
+        android:layout_marginTop="@dimen/margin_normal"
+        android:text="@string/system_status"
+        android:textColor="@color/dn_black"
+        android:textSize="@dimen/title_size_large"
+        android:textStyle="bold" />
+
+    <me.kbai.zhenxunui.widget.LineWrapLayout
+        android:id="@+id/lwl_system_status"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_normal"
+        app:horizontalDistribution="spread"
+        app:maxLineItemCount="2">
+
+        <RelativeLayout
+            android:layout_width="140dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_normal">
+
+            <me.kbai.zhenxunui.widget.SemicircleProgressView
+                android:id="@+id/spv_cpu_usage"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:strokeWidth="10dp" />
+
+            <TextView
+                android:id="@+id/tv_cpu_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@id/spv_cpu_usage"
+                android:layout_centerHorizontal="true"
+                android:drawablePadding="@dimen/margin_narrow"
+                android:gravity="center_vertical"
+                android:includeFontPadding="false"
+                android:text="@string/cpu"
+                android:textColor="@color/text_gray"
+                android:textSize="@dimen/title_size_normal"
+                android:textStyle="bold"
+                app:drawableStartCompat="@drawable/ic_cpu_20" />
+
+            <TextView
+                android:id="@+id/tv_cpu_usage"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_above="@id/tv_cpu_label"
+                android:layout_centerHorizontal="true"
+                android:textColor="@color/dn_black"
+                android:textSize="@dimen/title_size_normal"
+                android:textStyle="bold"
+                app:layout_constraintBaseline_toBaselineOf="@id/tv_cpu_label"
+                app:layout_constraintStart_toEndOf="@id/tv_cpu_label"
+                tools:text="11.4%" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="140dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_normal">
+
+            <me.kbai.zhenxunui.widget.SemicircleProgressView
+                android:id="@+id/spv_memory_usage"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:strokeWidth="10dp" />
+
+            <TextView
+                android:id="@+id/tv_memory_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@id/spv_memory_usage"
+                android:layout_centerHorizontal="true"
+                android:drawablePadding="@dimen/margin_narrow"
+                android:gravity="center_vertical"
+                android:includeFontPadding="false"
+                android:text="@string/memory"
+                android:textColor="@color/text_gray"
+                android:textSize="@dimen/title_size_normal"
+                android:textStyle="bold"
+                app:drawableStartCompat="@drawable/ic_memory_20" />
+
+            <TextView
+                android:id="@+id/tv_memory_usage"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_above="@id/tv_memory_label"
+                android:layout_centerHorizontal="true"
+                android:textColor="@color/dn_black"
+                android:textSize="@dimen/title_size_normal"
+                android:textStyle="bold"
+                tools:text="11.4%" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="140dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_wider"
+            android:layout_marginBottom="@dimen/margin_normal">
+
+            <me.kbai.zhenxunui.widget.SemicircleProgressView
+                android:id="@+id/spv_disk_usage"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:strokeWidth="10dp" />
+
+            <TextView
+                android:id="@+id/tv_disk_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@id/spv_disk_usage"
+                android:layout_centerHorizontal="true"
+                android:drawablePadding="@dimen/margin_narrow"
+                android:gravity="center_vertical"
+                android:includeFontPadding="false"
+                android:text="@string/disk"
+                android:textColor="@color/text_gray"
+                android:textSize="@dimen/title_size_normal"
+                android:textStyle="bold"
+                app:drawableStartCompat="@drawable/ic_disk_20" />
+
+            <TextView
+                android:id="@+id/tv_disk_usage"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_above="@id/tv_disk_label"
+                android:layout_centerHorizontal="true"
+                android:textColor="@color/dn_black"
+                android:textSize="@dimen/title_size_normal"
+                android:textStyle="bold"
+                tools:text="11.4%" />
+        </RelativeLayout>
+    </me.kbai.zhenxunui.widget.LineWrapLayout>
+</LinearLayout>

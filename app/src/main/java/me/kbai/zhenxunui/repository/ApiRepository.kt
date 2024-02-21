@@ -1,12 +1,16 @@
 package me.kbai.zhenxunui.repository
 
+import com.google.gson.JsonParseException
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import me.kbai.zhenxunui.api.ApiResponse
 import me.kbai.zhenxunui.api.BotApi
 import me.kbai.zhenxunui.api.RawApiResponse
+import me.kbai.zhenxunui.api.TypedWebSocketHolder
 import me.kbai.zhenxunui.model.HandleRequest
 import me.kbai.zhenxunui.model.PluginType
+import me.kbai.zhenxunui.model.SystemStatus
 import me.kbai.zhenxunui.model.UpdateConfig
 import me.kbai.zhenxunui.model.UpdateGroup
 import me.kbai.zhenxunui.model.UpdatePlugin
@@ -45,6 +49,23 @@ object ApiRepository {
     fun getStatusList() = rawNetworkFlow { BotApi.service.getStatusList() }
 
     fun getBotList() = networkFlow { BotApi.service.getBotList() }
+
+    fun getActiveGroup() = rawNetworkFlow { BotApi.service.getActiveGroup() }
+
+    fun getPopularPlugin() = rawNetworkFlow { BotApi.service.getPopularPlugin() }
+
+    fun newSystemStatusWebSocket(
+        scope: CoroutineScope,
+        onMessage: (message: SystemStatus?, exception: JsonParseException?) -> Unit
+    ) = object : TypedWebSocketHolder<SystemStatus>(
+        SystemStatus::class.java,
+        "system_status",
+        scope
+    ) {
+        override fun onMessage(message: SystemStatus?, exception: JsonParseException?) {
+            onMessage.invoke(message, exception)
+        }
+    }
 
     private fun <T> networkFlow(
         f: suspend () -> ApiResponse<T>

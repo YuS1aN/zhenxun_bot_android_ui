@@ -79,5 +79,7 @@
     <string name="account_information">账号信息</string>
     <string name="friends_label">好友数量:</string>
     <string name="group_label">群组数量:</string>
-    <string name="connected_duration_format">已连接 %d天 %d时 %d分 %d秒</string>
+    <string name="connected_duration_format">已连接 %d天%d时%d分%d秒</string>
+    <string name="active_group">活跃群聊</string>
+    <string name="popular_plugin">热门插件</string>
 </resources>

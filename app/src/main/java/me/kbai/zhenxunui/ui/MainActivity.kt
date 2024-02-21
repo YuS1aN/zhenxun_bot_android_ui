@@ -29,7 +29,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
                 R.id.nav_plugin,
                 R.id.nav_group,
                 R.id.nav_request,
-//                R.id.nav_info
+                R.id.nav_info
             ), viewBinding.drawerLayout
         )
         setupActionBarWithNavController(navController, mAppBarConfiguration)

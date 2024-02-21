@@ -69,8 +69,8 @@ interface ApiService {
     suspend fun getBotMessageCount(@Query("bot_id") botId: String): ApiResponse<BotMessageCount>
 
     @GET("main/get_active_group")
-    suspend fun getActiveGroup(): ApiResponse<List<ActiveGroup>>
+    suspend fun getActiveGroup(): RawApiResponse
 
     @GET("main/get_hot_plugin")
-    suspend fun getPopularPlugin(): ApiResponse<List<PopularPlugin>>
+    suspend fun getPopularPlugin(): RawApiResponse
 }

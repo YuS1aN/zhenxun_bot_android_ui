@@ -84,5 +84,7 @@
     <string name="account_information">Account Information</string>
     <string name="friends_label">Friends:</string>
     <string name="group_label">Group:</string>
-    <string name="connected_duration_format">Connected for %dd %dh %dm %ds</string>
+    <string name="connected_duration_format">Connected for %dd%dh%dm%ds</string>
+    <string name="active_group">Active Group</string>
+    <string name="popular_plugin">Popular Plugin</string>
 </resources>

@@ -13,13 +13,14 @@ versions.gson = '2.10.1'
 versions.navigation = '2.5.2'
 versions.hilt = '2.39.1'
 versions.retrofit = "2.9.0"
-versions.ktx_core = "1.9.0"
-versions.kotlin = "1.8.21"
+versions.ktx_core = "1.12.0"
+versions.kotlin = "1.9.22"
 versions.lifecycle = "2.4.1"
 versions.glide = "4.15.1"
 versions.datastore = "1.0.0"
 versions.swiperefresh = "1.2.0-alpha01"
 versions.echartsjava = "1.0.7"
+//versions.f2native = "2.1.16"
 
 deps.constraintlayout = "androidx.constraintlayout:constraintlayout:$versions.constraintlayout"
 
@@ -102,5 +103,7 @@ datastore.rxjava3 = "androidx.datastore:datastore-preferences-rxjava3:$versions.
 deps.datastore = datastore
 
 deps.swiperefreshlayout = "androidx.swiperefreshlayout:swiperefreshlayout:$versions.swiperefresh"
+
+//deps.f2native = "com.github.antvis:F2Native:$versions.f2native"
 
 ext.deps = deps

@@ -12,6 +12,7 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import me.kbai.zhenxunui.base.BaseFragment
 import me.kbai.zhenxunui.databinding.FragmentInfoBinding
+import me.kbai.zhenxunui.ext.isNightMode
 import me.kbai.zhenxunui.ext.viewLifecycleScope
 import me.kbai.zhenxunui.viewmodel.InfoViewModel
 
@@ -29,7 +30,7 @@ class InfoFragment : BaseFragment<FragmentInfoBinding>() {
 
     @SuppressLint("SetJavaScriptEnabled")
     override fun initView() {
-        viewBinding.wvTest.settings.run {
+        viewBinding.wvCharts.settings.run {
             javaScriptEnabled = true
             setSupportZoom(false)
             setNeedInitialFocus(false)
@@ -39,20 +40,18 @@ class InfoFragment : BaseFragment<FragmentInfoBinding>() {
             useWideViewPort = true
             loadsImagesAutomatically = true
         }
-        viewBinding.wvTest.loadUrl("file:///android_asset/info_charts.html")
-        viewBinding.wvTest.setBackgroundColor(0)
-
-        viewBinding.wvTest.webViewClient = object : WebViewClient() {
+        viewBinding.wvCharts.webViewClient = object : WebViewClient() {
             override fun onPageFinished(view: WebView?, url: String?) {
                 super.onPageFinished(view, url)
                 mPageFinished = true
 
                 val isNightMode =
                     resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK == Configuration.UI_MODE_NIGHT_YES
-                viewBinding.wvTest.evaluateJavascript("javascript:setDarkMode($isNightMode)") {}
+                viewBinding.wvCharts.evaluateJavascript("javascript:setDarkMode($isNightMode)") {}
             }
         }
-
+        viewBinding.wvCharts.setBackgroundColor(0)
+        viewBinding.wvCharts.loadUrl("file:///android_asset/info_charts.html")
     }
 
     private suspend fun waitingForPageFinish() {
@@ -69,7 +68,7 @@ class InfoFragment : BaseFragment<FragmentInfoBinding>() {
         viewLifecycleScope.launch {
             mViewModel.statusList.collect {
                 waitingForPageFinish()
-                viewBinding.wvTest.evaluateJavascript(
+                viewBinding.wvCharts.evaluateJavascript(
                     "javascript:setLineChartsData($it)",
                     voidCallback
                 )
@@ -78,7 +77,7 @@ class InfoFragment : BaseFragment<FragmentInfoBinding>() {
         viewLifecycleScope.launch {
             mViewModel.diskUsage.collect {
                 waitingForPageFinish()
-                viewBinding.wvTest.evaluateJavascript(
+                viewBinding.wvCharts.evaluateJavascript(
                     "javascript:setDiskChartData($it)",
                     voidCallback
                 )
@@ -90,11 +89,8 @@ class InfoFragment : BaseFragment<FragmentInfoBinding>() {
         super.onConfigurationChanged(newConfig)
         if (!mPageFinished) return
 
-        val isNightModeBefore =
-            resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK == Configuration.UI_MODE_NIGHT_YES
-        val isNightModeNow =
-            newConfig.uiMode and Configuration.UI_MODE_NIGHT_MASK == Configuration.UI_MODE_NIGHT_YES
-        if (isNightModeBefore != isNightModeNow)
-            viewBinding.wvTest.evaluateJavascript("javascript:setDarkMode($isNightModeNow)") {}
+        val isNightModeNow = newConfig.isNightMode()
+        if (resources.configuration.isNightMode() != isNightModeNow)
+            viewBinding.wvCharts.evaluateJavascript("javascript:setDarkMode($isNightModeNow)") {}
     }
 }

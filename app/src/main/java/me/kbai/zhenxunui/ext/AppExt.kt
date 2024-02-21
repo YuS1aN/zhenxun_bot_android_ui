@@ -133,14 +133,5 @@ fun Activity.grantUriPermission(intent: Intent, uri: Uri) {
 fun FragmentActivity.findNavControllerByManager(@IdRes id: Int) =
     (supportFragmentManager.findFragmentById(id) as NavHostFragment).navController
 
-fun Activity.showToast(s: String, duration: Int = Toast.LENGTH_LONG) =
-    Toast.makeText(this, s, duration).show()
-
-fun Fragment.showToast(s: String, duration: Int = Toast.LENGTH_LONG) =
-    Toast.makeText(context, s, duration).show()
-
-fun Activity.showToast(@StringRes resId: Int, duration: Int = Toast.LENGTH_LONG) =
-    Toast.makeText(this, resId, duration).show()
-
-fun Fragment.showToast(@StringRes resId: Int, duration: Int = Toast.LENGTH_LONG) =
-    Toast.makeText(context, resId, duration).show()
+fun Configuration.isNightMode(): Boolean =
+    uiMode and Configuration.UI_MODE_NIGHT_MASK == Configuration.UI_MODE_NIGHT_YES

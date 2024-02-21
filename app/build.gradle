@@ -6,12 +6,12 @@ plugins {
 
 android {
     namespace 'me.kbai.zhenxunui'
-    compileSdk 33
+    compileSdk 34
 
     defaultConfig {
         applicationId "me.kbai.zhenxunui"
         minSdk 23
-        targetSdk 33
+        targetSdk 34
         versionCode 1
         versionName "1.0"
 
@@ -58,7 +58,6 @@ android {
 }
 
 dependencies {
-
     implementation deps.kotlin.core
     implementation deps.kotlin.stdlib
     implementation deps.appcompat
@@ -77,4 +76,5 @@ dependencies {
     annotationProcessor deps.glide.compiler
     kapt deps.glide.compiler
     implementation deps.swiperefreshlayout
+//    implementation deps.f2native
 }
