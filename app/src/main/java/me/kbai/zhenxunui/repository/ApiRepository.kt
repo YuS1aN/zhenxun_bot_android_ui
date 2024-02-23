@@ -50,6 +50,8 @@ object ApiRepository {
 
     fun getBotList() = networkFlow { BotApi.service.getBotList() }
 
+    fun getMessageCount(botId: String) = networkFlow { BotApi.service.getBotMessageCount(botId) }
+
     fun getActiveGroup() = rawNetworkFlow { BotApi.service.getActiveGroup() }
 
     fun getPopularPlugin() = rawNetworkFlow { BotApi.service.getPopularPlugin() }

@@ -5,13 +5,12 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@drawable/bg_list_item_round"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:padding="@dimen/margin_normal">
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/margin_normal"
-        android:layout_marginTop="@dimen/margin_normal"
         android:text="@string/system_status"
         android:textColor="@color/dn_black"
         android:textSize="@dimen/title_size_large"
@@ -27,8 +26,7 @@
 
         <RelativeLayout
             android:layout_width="140dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/margin_normal">
+            android:layout_height="wrap_content">
 
             <me.kbai.zhenxunui.widget.SemicircleProgressView
                 android:id="@+id/spv_cpu_usage"
@@ -47,9 +45,9 @@
                 android:includeFontPadding="false"
                 android:text="@string/cpu"
                 android:textColor="@color/text_gray"
-                android:textSize="@dimen/title_size_normal"
+                android:textSize="@dimen/title_size_small"
                 android:textStyle="bold"
-                app:drawableStartCompat="@drawable/ic_cpu_20" />
+                app:drawableStartCompat="@drawable/ic_cpu_18" />
 
             <TextView
                 android:id="@+id/tv_cpu_usage"
@@ -67,8 +65,7 @@
 
         <RelativeLayout
             android:layout_width="140dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/margin_normal">
+            android:layout_height="wrap_content">
 
             <me.kbai.zhenxunui.widget.SemicircleProgressView
                 android:id="@+id/spv_memory_usage"
@@ -87,9 +84,9 @@
                 android:includeFontPadding="false"
                 android:text="@string/memory"
                 android:textColor="@color/text_gray"
-                android:textSize="@dimen/title_size_normal"
+                android:textSize="@dimen/title_size_small"
                 android:textStyle="bold"
-                app:drawableStartCompat="@drawable/ic_memory_20" />
+                app:drawableStartCompat="@drawable/ic_memory_18" />
 
             <TextView
                 android:id="@+id/tv_memory_usage"
@@ -106,8 +103,7 @@
         <RelativeLayout
             android:layout_width="140dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/margin_wider"
-            android:layout_marginBottom="@dimen/margin_normal">
+            android:layout_marginTop="@dimen/margin_wider">
 
             <me.kbai.zhenxunui.widget.SemicircleProgressView
                 android:id="@+id/spv_disk_usage"
@@ -126,9 +122,9 @@
                 android:includeFontPadding="false"
                 android:text="@string/disk"
                 android:textColor="@color/text_gray"
-                android:textSize="@dimen/title_size_normal"
+                android:textSize="@dimen/title_size_small"
                 android:textStyle="bold"
-                app:drawableStartCompat="@drawable/ic_disk_20" />
+                app:drawableStartCompat="@drawable/ic_disk_18" />
 
             <TextView
                 android:id="@+id/tv_disk_usage"

@@ -13,10 +13,9 @@ import kotlinx.coroutines.launch
 import me.kbai.zhenxunui.R
 import me.kbai.zhenxunui.base.BaseFragment
 import me.kbai.zhenxunui.databinding.FragmentPluginTypeBinding
-import me.kbai.zhenxunui.ext.apiCollect
-import me.kbai.zhenxunui.ext.dp
-import me.kbai.zhenxunui.ext.setOnDebounceClickListener
-import me.kbai.zhenxunui.ext.viewLifecycleScope
+import me.kbai.zhenxunui.extends.apiCollect
+import me.kbai.zhenxunui.extends.setOnDebounceClickListener
+import me.kbai.zhenxunui.extends.viewLifecycleScope
 import me.kbai.zhenxunui.model.PluginData
 import me.kbai.zhenxunui.model.PluginType
 import me.kbai.zhenxunui.model.UpdateConfig

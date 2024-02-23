@@ -9,7 +9,7 @@ import androidx.navigation.ui.setupWithNavController
 import me.kbai.zhenxunui.R
 import me.kbai.zhenxunui.base.BaseActivity
 import me.kbai.zhenxunui.databinding.ActivityMainBinding
-import me.kbai.zhenxunui.ext.findNavControllerByManager
+import me.kbai.zhenxunui.extends.findNavControllerByManager
 
 /**
  * @author Sean on 2023/5/30

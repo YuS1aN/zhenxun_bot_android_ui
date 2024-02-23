@@ -3,6 +3,7 @@ package me.kbai.zhenxunui.ui
 import android.content.Intent
 import android.view.LayoutInflater
 import androidx.activity.viewModels
+import androidx.core.view.isVisible
 import androidx.core.widget.addTextChangedListener
 import androidx.lifecycle.lifecycleScope
 import com.bumptech.glide.load.DecodeFormat
@@ -11,8 +12,9 @@ import me.kbai.zhenxunui.Constants
 import me.kbai.zhenxunui.R
 import me.kbai.zhenxunui.base.BaseActivity
 import me.kbai.zhenxunui.databinding.ActivityLoginBinding
-import me.kbai.zhenxunui.ext.apiCollect
-import me.kbai.zhenxunui.ext.setOnDebounceClickListener
+import me.kbai.zhenxunui.extends.apiCollect
+import me.kbai.zhenxunui.extends.hideSoftInputWhenInputDone
+import me.kbai.zhenxunui.extends.setOnDebounceClickListener
 import me.kbai.zhenxunui.tool.GlobalToast
 import me.kbai.zhenxunui.tool.glide.GlideApp
 import me.kbai.zhenxunui.viewmodel.LoginViewModel
@@ -44,8 +46,13 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>() {
             if (!it.isNullOrBlank()) tilUsername.isErrorEnabled = false
         }
         etPassword.addTextChangedListener {
-            if (!it.isNullOrBlank()) tilPassword.isErrorEnabled = false
+            if (!it.isNullOrBlank()) {
+                tilPassword.isErrorEnabled = false
+                cbSavePassword.isVisible = true
+            }
         }
+        etPassword.hideSoftInputWhenInputDone(btnLogin)
+
         btnLogin.setOnDebounceClickListener click@{ button ->
             val username = etUsername.text
             if (username.isNullOrBlank()) {
@@ -55,6 +62,7 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>() {
             val password = etPassword.text
             if (password.isNullOrBlank()) {
                 tilPassword.error = getString(R.string.error_input_password)
+                cbSavePassword.isVisible = false
                 return@click
             }
             if (Constants.apiBaseUrl.value.isNullOrBlank()) {
@@ -64,10 +72,14 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>() {
             }
 
             lifecycleScope.launch {
-                mViewModel.login(username.toString(), password.toString())
+                val usernameStr = username.toString()
+                val passwordStr = password.toString()
+
+                mViewModel.login(usernameStr, passwordStr)
                     .apiCollect(button) {
                         GlobalToast.showToast(it.message)
                         if (it.success()) {
+                            savePasswordIfChecked(usernameStr, passwordStr)
                             startActivity(
                                 Intent(this@LoginActivity, MainActivity::class.java)
                                     .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
@@ -76,5 +88,30 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>() {
                     }
             }
         }
+    }
+
+    override fun initData() {
+        readSavedAccount()
+    }
+
+    private fun savePasswordIfChecked(username: String, password: String) {
+        val editor = getSharedPreferences(Constants.SP_NAME_CONFIG, MODE_PRIVATE)
+            .edit()
+            .putString(Constants.SP_KEY_USERNAME, username)
+
+        if (viewBinding.cbSavePassword.isChecked) {
+            editor.putString(Constants.SP_KEY_PASSWORD, password)
+        } else {
+            editor.remove(Constants.SP_KEY_PASSWORD)
+        }
+        editor.apply()
+    }
+
+    private fun readSavedAccount() = viewBinding.run {
+        val sp = getSharedPreferences(Constants.SP_NAME_CONFIG, MODE_PRIVATE)
+        etUsername.setText(sp.getString(Constants.SP_KEY_USERNAME, ""))
+        val password = sp.getString(Constants.SP_KEY_PASSWORD, "")
+        etPassword.setText(password)
+        cbSavePassword.isChecked = !password.isNullOrBlank()
     }
 }

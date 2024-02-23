@@ -1,6 +1,6 @@
-<resources xmlns:tools="http://schemas.android.com/tools">
+<resources>
     <!-- Base application theme. -->
-    <style name="Theme.ZhenxunUI" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+    <style name="Theme.ZhenxunBotManager" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <!-- Primary brand color. -->
         <item name="colorPrimary">@color/pink_100</item>
         <item name="colorPrimaryDark">@color/pink_200</item>
@@ -16,5 +16,7 @@
         <item name="android:textSize">@dimen/text_size_normal</item>
         <item name="android:windowTranslucentNavigation">true</item>
         <item name="android:windowTranslucentStatus">true</item>
+
+        <item name="colorControlActivated">?attr/colorPrimaryDark</item>
     </style>
 </resources>

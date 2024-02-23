@@ -7,8 +7,8 @@ import android.view.View
 import me.kbai.zhenxunui.R
 import me.kbai.zhenxunui.base.BaseDialog
 import me.kbai.zhenxunui.databinding.DialogEditConfigBinding
-import me.kbai.zhenxunui.ext.displaySize
-import me.kbai.zhenxunui.ext.dp
+import me.kbai.zhenxunui.extends.displaySize
+import me.kbai.zhenxunui.extends.dp
 import me.kbai.zhenxunui.model.PluginData
 import me.kbai.zhenxunui.model.UpdateConfig
 import me.kbai.zhenxunui.widget.CommonDecoration
@@ -61,7 +61,7 @@ class EditConfigDialog(
 
         mBinding.run {
             root.post {
-                val maxHeight = (size.y - 125.dp - btnCancel.height).toInt()
+                val maxHeight = (size.height - 125.dp - btnCancel.height).toInt()
 
                 rvConfig.run {
                     if (height > maxHeight) layoutParams =

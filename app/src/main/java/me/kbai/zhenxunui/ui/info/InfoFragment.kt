@@ -12,8 +12,9 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import me.kbai.zhenxunui.base.BaseFragment
 import me.kbai.zhenxunui.databinding.FragmentInfoBinding
-import me.kbai.zhenxunui.ext.isNightMode
-import me.kbai.zhenxunui.ext.viewLifecycleScope
+import me.kbai.zhenxunui.extends.detach
+import me.kbai.zhenxunui.extends.isNightMode
+import me.kbai.zhenxunui.extends.viewLifecycleScope
 import me.kbai.zhenxunui.viewmodel.InfoViewModel
 
 /**
@@ -92,5 +93,10 @@ class InfoFragment : BaseFragment<FragmentInfoBinding>() {
         val isNightModeNow = newConfig.isNightMode()
         if (resources.configuration.isNightMode() != isNightModeNow)
             viewBinding.wvCharts.evaluateJavascript("javascript:setDarkMode($isNightModeNow)") {}
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        viewBinding.wvCharts.detach()
     }
 }

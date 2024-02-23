@@ -3,8 +3,8 @@ package me.kbai.zhenxunui.api
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
-import me.kbai.zhenxunui.ext.logE
-import me.kbai.zhenxunui.ext.logI
+import me.kbai.zhenxunui.extends.logE
+import me.kbai.zhenxunui.extends.logI
 import okhttp3.Response
 import okhttp3.WebSocket
 import okhttp3.WebSocketListener

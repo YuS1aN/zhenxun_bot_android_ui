@@ -21,7 +21,7 @@
     <div id="barChart" class="bar"></div>
 </div>
 
-<script>
+<script type="text/javascript">
     let chart = echarts.init(document.getElementById("barChart"));
 
     chart.setOption({
@@ -32,23 +32,22 @@
             },
             confine: true
         },
+        grid: {
+            left: 0,
+            right: 18,
+            bottom: 0,
+            top: 0,
+            containLabel: true
+        },
         xAxis: {
+            type: 'value',
+            max: 'dataMax'
+        },
+        yAxis: {
             type: 'category',
-            splitLine: {
-                show: false
-            },
             axisLabel: {
                 overflow: 'truncate',
                 interval: 0
-            }
-        },
-        yAxis: {
-            type: 'value',
-            splitLine: {
-                show: false
-            },
-            axisLabel: {
-                show: false
             }
         },
         series: [
@@ -57,40 +56,23 @@
                 showSymbol: false,
                 label: {
                     show: true
+                },
+                itemStyle: {
+                    normal: {
+                        color: function(params) {
+                            let colorList = ['#ee6666', '#73c0de', '#fc8452', '#9a60b4', '#ea7ccc'];
+                            return colorList[params.dataIndex];
+                        }
+                    }
                 }
             }
-        ],
-        grid: {
-            left: 0,
-            right: 1,
-            bottom: 0,
-            top: 10,
-            containLabel: true
-        },
-        color: '#F48FB1'
+        ]
     });
 
     function setChartData(data, xField, yField, ...fields) {
         chart.setOption({
-            xAxis: {
-                axisLabel: {
-                    width: chart.getWidth() / data.length
-                }
-            },
             dataset: {
-                dimensions: [xField, yField],
                 source: data
-            },
-            tooltip: {
-                formatter: function (params, ticket, callback) {
-                    let item = params[0];
-                    let str = `<b>${item.name}</b><br />`;
-                    for (i in fields) {
-                        str += `<span style="font-size:13px;">${item.value[fields[i]]}</span><br />`;
-                    }
-                    str+=`${item.marker} <b>${item.value[item.dimensionNames[item.encode.y[0]]]}</b>`;
-                    return str;
-                }
             }
         });
     }

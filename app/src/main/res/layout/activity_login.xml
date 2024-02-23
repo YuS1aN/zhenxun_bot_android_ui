@@ -22,108 +22,133 @@
         app:clipTarget="@+id/iv_form_background"
         app:roundRadius="@dimen/box_round_radius" />
 
-
     <me.kbai.zhenxunui.widget.CornerImageView
         android:id="@id/iv_form_background"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:src="@color/dn_trans_white_75"
-        app:blurRadius="25"
         app:cornerRadius="@dimen/box_round_radius"
-        app:layout_constraintBottom_toBottomOf="@+id/ll_form"
-        app:layout_constraintEnd_toEndOf="@id/ll_form"
-        app:layout_constraintStart_toStartOf="@id/ll_form"
-        app:layout_constraintTop_toTopOf="@id/ll_form" />
+        app:layout_constraintBottom_toBottomOf="@+id/ll_button"
+        app:layout_constraintEnd_toEndOf="@id/tv_title"
+        app:layout_constraintStart_toStartOf="@id/tv_title"
+        app:layout_constraintTop_toTopOf="@+id/tv_title" />
 
-    <LinearLayout
-        android:id="@+id/ll_form"
+    <TextView
+        android:id="@id/tv_title"
+        style="@style/SingleLineText"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="@dimen/box_padding"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginTop="@dimen/line_margin"
+        android:paddingHorizontal="@dimen/box_padding"
+        android:paddingTop="@dimen/box_padding"
+        android:text="@string/welcome"
+        android:textColor="@color/dn_black"
+        android:textSize="@dimen/title_size_large"
+        app:layout_constraintBottom_toTopOf="@+id/tv_subtitle"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_chainStyle="packed" />
 
-        <me.kbai.zhenxunui.widget.CornerImageView
-            android:id="@+id/iv_avatar"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@mipmap/ic_launcher_round" />
+    <TextView
+        android:id="@id/tv_subtitle"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/line_margin"
+        android:paddingHorizontal="@dimen/box_padding"
+        android:text="@string/welcome2"
+        android:textColor="@color/text_gray"
+        android:textSize="@dimen/text_size_small"
+        app:layout_constraintBottom_toTopOf="@+id/til_username"
+        app:layout_constraintEnd_toEndOf="@id/tv_title"
+        app:layout_constraintStart_toStartOf="@id/tv_title"
+        app:layout_constraintTop_toBottomOf="@id/tv_title" />
 
-        <TextView
-            android:id="@+id/tv_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/line_margin"
-            android:text="@string/welcome"
-            android:textColor="@color/dn_black"
-            android:textSize="@dimen/title_size_large" />
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@id/til_username"
+        style="@style/TextInputLayout"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_normal"
+        android:hint="@string/username_hint"
+        android:orientation="horizontal"
+        android:paddingHorizontal="@dimen/box_padding"
+        app:layout_constraintBottom_toTopOf="@+id/til_password"
+        app:layout_constraintEnd_toEndOf="@id/tv_title"
+        app:layout_constraintStart_toStartOf="@id/tv_title"
+        app:layout_constraintTop_toBottomOf="@id/tv_subtitle"
+        app:startIconDrawable="@drawable/ic_login_user">
 
-        <TextView
-            android:id="@+id/tv_subtitle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/line_margin"
-            android:text="@string/welcome2"
-            android:textColor="@color/text_gray"
-            android:textSize="@dimen/text_size_small" />
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/til_username"
-            style="@style/TextInputLayout"
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/et_username"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/margin_normal"
-            android:hint="@string/username_hint"
-            android:orientation="horizontal">
+            android:autofillHints="username"
+            android:inputType="textAutoComplete"
+            android:textSize="@dimen/et_text_size" />
+    </com.google.android.material.textfield.TextInputLayout>
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/et_username"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="text"
-                android:textSize="@dimen/et_text_size" />
-        </com.google.android.material.textfield.TextInputLayout>
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@id/til_password"
+        style="@style/TextInputLayout"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:hint="@string/password_hint"
+        android:orientation="horizontal"
+        android:paddingHorizontal="@dimen/box_padding"
+        app:layout_constraintBottom_toTopOf="@+id/ll_button"
+        app:layout_constraintEnd_toEndOf="@id/tv_title"
+        app:layout_constraintStart_toStartOf="@id/tv_title"
+        app:layout_constraintTop_toBottomOf="@id/til_username"
+        app:passwordToggleEnabled="true"
+        app:startIconDrawable="@drawable/ic_login_password">
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/til_password"
-            style="@style/TextInputLayout"
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/et_password"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/password_hint"
-            android:orientation="horizontal"
-            app:passwordToggleEnabled="true">
+            android:imeOptions="actionDone"
+            android:inputType="textPassword"
+            android:textSize="@dimen/et_text_size" />
+    </com.google.android.material.textfield.TextInputLayout>
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/et_password"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="textPassword"
-                android:textSize="@dimen/et_text_size" />
-        </com.google.android.material.textfield.TextInputLayout>
+    <CheckBox
+        android:id="@+id/cb_save_password"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/box_padding"
+        android:minHeight="36dp"
+        android:text="@string/save_password"
+        app:layout_constraintBottom_toTopOf="@id/ll_button"
+        app:layout_constraintEnd_toEndOf="@id/til_password" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
+    <LinearLayout
+        android:id="@id/ll_button"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:orientation="horizontal"
+        android:paddingHorizontal="@dimen/box_padding"
+        android:paddingBottom="@dimen/box_padding"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@id/tv_title"
+        app:layout_constraintStart_toStartOf="@id/tv_title"
+        app:layout_constraintTop_toBottomOf="@id/til_password">
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_api"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:layout_marginEnd="@dimen/margin_normal"
+            android:layout_weight="1"
+            android:text="@string/change_api_address" />
 
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/btn_api"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="@dimen/margin_normal"
-                android:layout_weight="1"
-                android:text="@string/change_api_address" />
-
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/btn_login"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/margin_normal"
-                android:layout_weight="1"
-                android:text="@string/login" />
-        </LinearLayout>
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_login"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_normal"
+            android:layout_weight="1"
+            android:text="@string/login" />
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

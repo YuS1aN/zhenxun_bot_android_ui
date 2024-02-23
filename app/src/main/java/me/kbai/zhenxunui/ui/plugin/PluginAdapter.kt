@@ -4,13 +4,12 @@ import android.annotation.SuppressLint
 import android.graphics.drawable.ColorDrawable
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.widget.CompoundButton
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
 import me.kbai.zhenxunui.R
 import me.kbai.zhenxunui.databinding.ItemPluginListBinding
-import me.kbai.zhenxunui.ext.getThemeColor
-import me.kbai.zhenxunui.ext.setOnDebounceClickListener
+import me.kbai.zhenxunui.extends.getThemeColor
+import me.kbai.zhenxunui.extends.setOnDebounceClickListener
 import me.kbai.zhenxunui.model.PluginData
 
 /**

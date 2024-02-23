@@ -1,8 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- 0 ... 25 -->
-    <attr name="blurRadius" format="integer" />
-
     <declare-styleable name="ClipAreaImageView">
         <attr name="clipTarget" format="reference" />
         <attr name="roundRadius" format="dimension" />

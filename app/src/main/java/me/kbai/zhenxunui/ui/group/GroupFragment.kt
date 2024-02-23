@@ -9,9 +9,9 @@ import kotlinx.coroutines.launch
 import me.kbai.zhenxunui.R
 import me.kbai.zhenxunui.base.BaseFragment
 import me.kbai.zhenxunui.databinding.FragmentGroupBinding
-import me.kbai.zhenxunui.ext.apiCollect
-import me.kbai.zhenxunui.ext.setOnDebounceClickListener
-import me.kbai.zhenxunui.ext.viewLifecycleScope
+import me.kbai.zhenxunui.extends.apiCollect
+import me.kbai.zhenxunui.extends.setOnDebounceClickListener
+import me.kbai.zhenxunui.extends.viewLifecycleScope
 import me.kbai.zhenxunui.repository.Resource
 import me.kbai.zhenxunui.tool.GlobalToast
 import me.kbai.zhenxunui.tool.glide.GlideApp

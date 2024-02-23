@@ -8,8 +8,8 @@ import android.os.Build
 import android.view.View
 import android.view.View.OnAttachStateChangeListener
 import android.view.WindowManager
-import me.kbai.zhenxunui.ext.displaySize
-import me.kbai.zhenxunui.ext.dp
+import me.kbai.zhenxunui.extends.displaySize
+import me.kbai.zhenxunui.extends.dp
 import java.util.function.Consumer
 import kotlin.math.min
 
@@ -23,10 +23,10 @@ open class BaseDialog(context: Context) : Dialog(context) {
     override fun onStart() {
         super.onStart()
 
-        val size = context.displaySize()
         window?.run {
+            val size = displaySize()
             setLayout(
-                min(size.x - minMarginHorizontal, maxWidth),
+                min(size.width - minMarginHorizontal, maxWidth),
                 WindowManager.LayoutParams.WRAP_CONTENT
             )
             setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))

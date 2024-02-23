@@ -24,6 +24,13 @@
             android:layout_marginTop="@dimen/block_margin" />
 
         <include
+            android:id="@+id/ic_message_count"
+            layout="@layout/layout_console_charts"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/block_margin" />
+
+        <include
             android:id="@+id/ic_active_group"
             layout="@layout/layout_console_charts"
             android:layout_width="match_parent"

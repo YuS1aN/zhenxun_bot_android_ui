@@ -1,4 +1,4 @@
-package me.kbai.zhenxunui.ext
+package me.kbai.zhenxunui.extends
 
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle

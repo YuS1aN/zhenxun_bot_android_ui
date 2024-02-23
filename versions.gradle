@@ -20,7 +20,6 @@ versions.glide = "4.15.1"
 versions.datastore = "1.0.0"
 versions.swiperefresh = "1.2.0-alpha01"
 versions.echartsjava = "1.0.7"
-//versions.f2native = "2.1.16"
 
 deps.constraintlayout = "androidx.constraintlayout:constraintlayout:$versions.constraintlayout"
 
@@ -103,7 +102,5 @@ datastore.rxjava3 = "androidx.datastore:datastore-preferences-rxjava3:$versions.
 deps.datastore = datastore
 
 deps.swiperefreshlayout = "androidx.swiperefreshlayout:swiperefreshlayout:$versions.swiperefresh"
-
-//deps.f2native = "com.github.antvis:F2Native:$versions.f2native"
 
 ext.deps = deps

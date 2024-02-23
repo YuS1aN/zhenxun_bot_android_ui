@@ -9,7 +9,7 @@ import kotlinx.coroutines.launch
 import me.kbai.zhenxunui.R
 import me.kbai.zhenxunui.base.BaseFragment
 import me.kbai.zhenxunui.databinding.FragmentRequestBinding
-import me.kbai.zhenxunui.ext.viewLifecycleScope
+import me.kbai.zhenxunui.extends.viewLifecycleScope
 
 /**
  * @author Sean on 2023/5/30

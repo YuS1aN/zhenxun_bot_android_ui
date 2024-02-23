@@ -6,6 +6,8 @@ import me.kbai.zhenxunui.Constants
 import me.kbai.zhenxunui.R
 import me.kbai.zhenxunui.base.BaseDialog
 import me.kbai.zhenxunui.databinding.DialogChangeApiBinding
+import me.kbai.zhenxunui.extends.dp
+import me.kbai.zhenxunui.extends.hideSoftInputWhenInputDone
 
 /**
  * @author Sean on 2023/6/1
@@ -16,28 +18,35 @@ class ChangeApiDialog(context: Context) : BaseDialog(context) {
     init {
         setContentView(mBinding.root)
         setCancelable(false)
+        maxWidth = 300.dp.toInt()
 
-        mBinding.etApi.setText(Constants.apiBaseUrl.value)
-        mBinding.etApi.addTextChangedListener {
-            if (!it.isNullOrBlank()) {
-                mBinding.tilApi.isErrorEnabled = false
+        mBinding.run {
+            etApi.run {
+                setText(Constants.apiBaseUrl.value)
+                hideSoftInputWhenInputDone(btnConfirm)
+                addTextChangedListener {
+                    if (!it.isNullOrBlank()) {
+                        tilApi.isErrorEnabled = false
+                    }
+                }
             }
-        }
-        mBinding.btnBack.setOnClickListener {
-            dismiss()
-        }
 
-        mBinding.btnConfirm.setOnClickListener {
-            val text = mBinding.etApi.text
-            if (text.isNullOrBlank()) {
-                mBinding.tilApi.error = context.getString(R.string.error_input_api)
-                return@setOnClickListener
+            btnBack.setOnClickListener {
+                dismiss()
             }
-            if (!Constants.updateApiUrl(text.toString())) {
-                mBinding.tilApi.error = context.getString(R.string.error_wrong_api_address)
-                return@setOnClickListener
+
+            btnConfirm.setOnClickListener {
+                val text = etApi.text
+                if (text.isNullOrBlank()) {
+                    tilApi.error = context.getString(R.string.error_input_api)
+                    return@setOnClickListener
+                }
+                if (!Constants.updateApiUrl(text.toString())) {
+                    tilApi.error = context.getString(R.string.error_wrong_api_address)
+                    return@setOnClickListener
+                }
+                dismiss()
             }
-            dismiss()
         }
     }
 }

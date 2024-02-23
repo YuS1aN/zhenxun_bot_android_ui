@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">ZhenxunBot UI</string>
+    <string name="app_name">ZhenxunBot Manager</string>
     <string name="nav_header_desc" translatable="false">Navigation Header</string>
     <string name="nav_header_title" translatable="false">@string/app_name</string>
     <string name="nav_header_subtitle" translatable="false">114514</string>
@@ -74,8 +74,9 @@
     <string name="tab_request_private">Private</string>
     <string name="prompt">Prompt</string>
     <string name="confirm_handle_request">%s the Request with id: %s ?</string>
-    <string name="change_api_tips_1">· The app and the Bot are usually <u><b>NOT</b></u> on the same machine. You need a reverse proxy server or edit <u><b>env.dev</b></u>(dev environment), change the <u><b>HOST</b></u> to <u><b>0.0.0.0</b></u></string>
-    <string name="change_api_tips_2">· Usually input <u><b>http://server_host:api_port</b></u></string>
+    <string name="change_api_tips">· The app and the Bot are usually <u><b>NOT</b></u> on the same machine. You need a reverse proxy server or edit <u><b>env.dev</b></u>(dev environment), change the <u><b>HOST</b></u> to <u><b>0.0.0.0</b></u>
+        \n\n· Usually input <u><b>http://server_host:api_port</b></u>
+    </string>
     <string name="system_status">System Status</string>
     <string name="cpu">CPU</string>
     <string name="memory">Memory</string>
@@ -85,6 +86,18 @@
     <string name="friends_label">Friends:</string>
     <string name="group_label">Group:</string>
     <string name="connected_duration_format">Connected for %dd%dh%dm%ds</string>
+    <string name="plugin_status">Plugin Status</string>
+    <string name="message_count">Message Count</string>
     <string name="active_group">Active Group</string>
     <string name="popular_plugin">Popular Plugin</string>
+    <string name="save_password">Save Password</string>
+    <string name="message_count_data_format">
+        [
+        {\"name\":\"Day\",\"count\":%d},
+        {\"name\":\"Week\",\"count\":%d},
+        {\"name\":\"Month\",\"count\":%d},
+        {\"name\":\"Year\",\"count\":%d},
+        {\"name\":\"Total\",\"count\":%d}
+        ]
+    </string>
 </resources>

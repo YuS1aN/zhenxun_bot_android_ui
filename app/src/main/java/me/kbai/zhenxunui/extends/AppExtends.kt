@@ -1,4 +1,4 @@
-package me.kbai.zhenxunui.ext
+package me.kbai.zhenxunui.extends
 
 import android.app.Activity
 import android.app.Application
@@ -10,11 +10,12 @@ import android.graphics.Point
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
+import android.util.Size
+import android.view.Window
+import android.view.WindowInsets
 import android.view.WindowManager
-import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.annotation.IdRes
-import androidx.annotation.StringRes
 import androidx.core.content.getSystemService
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
@@ -73,29 +74,42 @@ fun Fragment.startActivity(
     if (finish) requireActivity().finish()
 }
 
-fun Activity.displaySize(): Point {
+fun Window.displaySize() = windowManager.displaySize()
+
+fun WindowManager.displaySize(): Size =
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+        val metrics = currentWindowMetrics
+        val windowInsets = metrics.windowInsets
+        val insets = windowInsets.getInsetsIgnoringVisibility(
+            WindowInsets.Type.navigationBars() or WindowInsets.Type.displayCutout()
+        )
+        val insetsWidth = insets.right + insets.left
+        val insetsHeight = insets.top + insets.bottom
+        val bounds = metrics.bounds
+        Size(
+            bounds.width() - insetsWidth,
+            bounds.height() - insetsHeight
+        )
+    } else {
+        val point = Point()
+        @Suppress("DEPRECATION")
+        defaultDisplay.getSize(point)
+        Size(point.x, point.y)
+    }
+
+fun Context.displaySize(): Size {
     val point0 = Point()
     val point1 = Point()
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-        display?.getCurrentSizeRange(point0, point1)
+        display
     } else {
         @Suppress("DEPRECATION")
-        windowManager.defaultDisplay.getCurrentSizeRange(point0, point1)
-    }
-    return when (resources.configuration.orientation) {
-        Configuration.ORIENTATION_LANDSCAPE -> Point(point1.x, point0.y)
-        else -> Point(point0.x, point1.y)
-    }
-}
+        getSystemService<WindowManager>()?.defaultDisplay
+    }?.getCurrentSizeRange(point0, point1)
 
-fun Context.displaySize(): Point {
-    val point0 = Point()
-    val point1 = Point()
-    @Suppress("DEPRECATION")
-    getSystemService<WindowManager>()!!.defaultDisplay.getCurrentSizeRange(point0, point1)
     return when (resources.configuration.orientation) {
-        Configuration.ORIENTATION_LANDSCAPE -> Point(point1.x, point0.y)
-        else -> Point(point0.x, point1.y)
+        Configuration.ORIENTATION_LANDSCAPE -> Size(point1.x, point0.y)
+        else -> Size(point0.x, point1.y)
     }
 }
 

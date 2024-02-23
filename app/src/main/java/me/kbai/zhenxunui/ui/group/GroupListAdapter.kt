@@ -12,9 +12,8 @@ import androidx.core.content.res.ResourcesCompat
 import androidx.recyclerview.widget.RecyclerView
 import me.kbai.zhenxunui.R
 import me.kbai.zhenxunui.databinding.ItemGroupListBinding
-import me.kbai.zhenxunui.ext.setOnDebounceClickListener
+import me.kbai.zhenxunui.extends.setOnDebounceClickListener
 import me.kbai.zhenxunui.model.GroupInfo
-import java.time.format.TextStyle
 
 /**
  * @author Sean on 2023/6/7

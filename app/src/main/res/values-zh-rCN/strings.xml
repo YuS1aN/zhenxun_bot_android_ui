@@ -70,8 +70,10 @@
     <string name="tab_request_private">好友请求</string>
     <string name="prompt">提示</string>
     <string name="confirm_handle_request">%sid为 %s 的请求?</string>
-    <string name="change_api_tips_1">· App与真寻本体通常<u><b>不在</b></u>同一个机器上, 需要先通过服务器代理或将<u><b>.env.dev</b></u>(如果为dev环境)中的<u><b>HOST</b></u>修改为本机地址<u><b>0.0.0.0</b></u>来对外开放接口</string>
-    <string name="change_api_tips_2">· 这里一般都是填入<u><b>http://服务器地址:真寻的端口</b></u></string>
+    <string name="change_api_tips">
+        · App与真寻本体通常<u><b>不在</b></u>同一个机器上, 需要先通过服务器代理或将<u><b>.env.dev</b></u>(如果为dev环境)中的<u><b>HOST</b></u>修改为本机地址<u><b>0.0.0.0</b></u>来对外开放接口
+        \n\n· 这里一般都是填入<u><b>http://服务器地址:真寻的端口</b></u>
+    </string>
     <string name="system_status">系统状态</string>
     <string name="cpu">处理器</string>
     <string name="memory">内存</string>
@@ -80,6 +82,18 @@
     <string name="friends_label">好友数量:</string>
     <string name="group_label">群组数量:</string>
     <string name="connected_duration_format">已连接 %d天%d时%d分%d秒</string>
+    <string name="plugin_status">插件状态</string>
+    <string name="message_count">消息接收</string>
     <string name="active_group">活跃群聊</string>
     <string name="popular_plugin">热门插件</string>
+    <string name="save_password">保存密码</string>
+    <string name="message_count_data_format">
+        [
+        {\"name\":\"一日内\",\"count\":%d},
+        {\"name\":\"一周内\",\"count\":%d},
+        {\"name\":\"一月内\",\"count\":%d},
+        {\"name\":\"一年内\",\"count\":%d},
+        {\"name\":\"总数\",\"count\":%d}
+        ]
+    </string>
 </resources>

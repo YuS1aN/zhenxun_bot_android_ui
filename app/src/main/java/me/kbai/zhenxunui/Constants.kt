@@ -5,6 +5,7 @@ import android.content.Context
 import android.util.Patterns
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import me.kbai.zhenxunui.api.ErrorHandleAdapterFactory
 
@@ -20,10 +21,12 @@ object Constants {
 
     private lateinit var mApplication: Application
 
-    const val SP_NAME = "zhenxunui"
-    const val SP_KEY_API = "api"
+    const val SP_NAME_CONFIG = "config"
+    private const val SP_KEY_API = "key0"
+    const val SP_KEY_USERNAME = "key1"
+    const val SP_KEY_PASSWORD = "key2"
 
-    val gson = GsonBuilder()
+    val gson: Gson = GsonBuilder()
         .registerTypeAdapterFactory(ErrorHandleAdapterFactory())
         .create()
 
@@ -31,7 +34,7 @@ object Constants {
     fun init(app: Application) {
         mApplication = app
 
-        mApplication.getSharedPreferences(SP_NAME, Context.MODE_PRIVATE)
+        mApplication.getSharedPreferences(SP_NAME_CONFIG, Context.MODE_PRIVATE)
             .getString(SP_KEY_API, "")
             ?.let { url ->
                 apiBaseUrl_.value = url
@@ -42,7 +45,7 @@ object Constants {
         if (!Patterns.WEB_URL.matcher(url).find()) return false
 
         apiBaseUrl_.value = url
-        mApplication.getSharedPreferences(SP_NAME, Context.MODE_PRIVATE)
+        mApplication.getSharedPreferences(SP_NAME_CONFIG, Context.MODE_PRIVATE)
             .edit()
             .putString(SP_KEY_API, url)
             .apply()

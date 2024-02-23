@@ -1,4 +1,4 @@
-package me.kbai.zhenxunui.ext
+package me.kbai.zhenxunui.extends
 
 import android.app.Application
 import android.view.View

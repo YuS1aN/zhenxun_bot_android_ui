@@ -6,8 +6,8 @@ import android.graphics.Paint
 import android.util.AttributeSet
 import android.view.View
 import me.kbai.zhenxunui.R
-import me.kbai.zhenxunui.ext.dp
-import me.kbai.zhenxunui.ext.getThemeColor
+import me.kbai.zhenxunui.extends.dp
+import me.kbai.zhenxunui.extends.getThemeColor
 import kotlin.math.min
 
 class SemicircleProgressView @JvmOverloads constructor(

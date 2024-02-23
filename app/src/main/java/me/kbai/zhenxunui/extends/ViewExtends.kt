@@ -1,9 +1,13 @@
-package me.kbai.zhenxunui.ext
+package me.kbai.zhenxunui.extends
 
 import android.content.res.Resources
 import android.util.TypedValue
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.EditorInfo
+import android.view.inputmethod.InputMethodManager
+import android.webkit.WebView
+import android.widget.EditText
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayout.OnTabSelectedListener
 
@@ -43,10 +47,23 @@ inline fun View.setOnDebounceClickListener(
     }
 }
 
-fun View.removeFromParent() {
+fun EditText.hideSoftInputWhenInputDone() = hideSoftInputWhenInputDone(null)
+fun EditText.hideSoftInputWhenInputDone(next: View?) =
+    setOnEditorActionListener { v, actionId, event ->
+        if (actionId == EditorInfo.IME_ACTION_DONE || event != null) {
+            v.context.getSystemService(InputMethodManager::class.java)
+                .hideSoftInputFromWindow(v.windowToken, 0)
+            next?.requestFocus()
+            return@setOnEditorActionListener true
+        }
+        false
+    }
+
+fun View.removeFromParent(requestLayout: Boolean = true) {
     val parent = parent
     if (parent is ViewGroup) {
-        parent.removeView(this)
+        if (requestLayout) parent.removeView(this)
+        else parent.removeViewInLayout(this)
     }
 }
 
@@ -68,4 +85,11 @@ inline fun TabLayout.addOnTabSelectedListener(
             reselected.invoke(tab)
         }
     })
+}
+
+fun WebView.detach() {
+    loadDataWithBaseURL(null, "", "text/html", "utf-8", null)
+    clearHistory()
+    removeFromParent(false)
+    //destroy()
 }
