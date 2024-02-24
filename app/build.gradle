@@ -86,4 +86,6 @@ dependencies {
     kapt deps.glide.compiler
     implementation deps.swiperefreshlayout
     implementation deps.webkit
+    implementation deps.ansi4j_api
+    implementation deps.ansi4j_impl
 }

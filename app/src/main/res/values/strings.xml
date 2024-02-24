@@ -100,4 +100,5 @@
         {\"name\":\"Total\",\"count\":%d}
         ]
     </string>
+    <string name="bot_logs">Bot Logs</string>
 </resources>

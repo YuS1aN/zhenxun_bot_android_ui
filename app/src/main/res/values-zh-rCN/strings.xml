@@ -96,4 +96,5 @@
         {\"name\":\"总数\",\"count\":%d}
         ]
     </string>
+    <string name="bot_logs">后台日志</string>
 </resources>

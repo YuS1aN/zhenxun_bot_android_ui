@@ -8,6 +8,7 @@ import me.kbai.zhenxunui.api.ApiResponse
 import me.kbai.zhenxunui.api.BotApi
 import me.kbai.zhenxunui.api.RawApiResponse
 import me.kbai.zhenxunui.api.TypedWebSocketHolder
+import me.kbai.zhenxunui.api.WebSocketHolder
 import me.kbai.zhenxunui.model.HandleRequest
 import me.kbai.zhenxunui.model.PluginType
 import me.kbai.zhenxunui.model.SystemStatus
@@ -66,6 +67,15 @@ object ApiRepository {
     ) {
         override fun onMessage(message: SystemStatus?, exception: JsonParseException?) {
             onMessage.invoke(message, exception)
+        }
+    }
+
+    fun newBotLogsWebSocket(
+        scope: CoroutineScope,
+        onMessage: (message: String) -> Unit
+    ) = object : WebSocketHolder("logs", scope) {
+        override fun onMessage(text: String) {
+            onMessage.invoke(text)
         }
     }
 

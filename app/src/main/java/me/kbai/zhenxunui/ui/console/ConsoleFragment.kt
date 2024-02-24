@@ -2,7 +2,10 @@ package me.kbai.zhenxunui.ui.console
 
 import android.annotation.SuppressLint
 import android.content.res.Configuration
+import android.graphics.PointF
+import android.text.method.ScrollingMovementMethod
 import android.view.LayoutInflater
+import android.view.MotionEvent
 import android.view.ViewGroup
 import android.webkit.WebResourceRequest
 import android.webkit.WebResourceResponse
@@ -21,10 +24,13 @@ import me.kbai.zhenxunui.base.BaseFragment
 import me.kbai.zhenxunui.databinding.FragmentConsoleBinding
 import me.kbai.zhenxunui.extends.detach
 import me.kbai.zhenxunui.extends.isNightMode
-import me.kbai.zhenxunui.extends.runWithNoReturn
+import me.kbai.zhenxunui.extends.launchAndCollectIn
+import me.kbai.zhenxunui.extends.logI
+import me.kbai.zhenxunui.extends.runWithoutReturn
 import me.kbai.zhenxunui.extends.viewLifecycleScope
 import me.kbai.zhenxunui.tool.glide.GlideApp
 import me.kbai.zhenxunui.viewmodel.ConsoleViewModel
+import kotlin.math.abs
 
 /**
  * @author Sean on 2023/5/30
@@ -57,6 +63,7 @@ class ConsoleFragment : BaseFragment<FragmentConsoleBinding>() {
         inflater: LayoutInflater, container: ViewGroup?
     ): FragmentConsoleBinding = FragmentConsoleBinding.inflate(inflater)
 
+    @SuppressLint("ClickableViewAccessibility")
     override fun initView() = viewBinding.run {
         icMessageCount.run {
             tvTitle.setText(R.string.message_count)
@@ -69,6 +76,41 @@ class ConsoleFragment : BaseFragment<FragmentConsoleBinding>() {
         icPopularPlugin.run {
             tvTitle.setText(R.string.popular_plugin)
             mPopularPluginWebClient = wvCharts.initChartWebView(BAR_CHART_FILE)
+        }
+        tvLogs.run {
+            movementMethod = ScrollingMovementMethod.getInstance()
+
+            var lastPoint: PointF? = null
+
+            setOnTouchListener { v, event ->
+                when (event.action) {
+                    MotionEvent.ACTION_DOWN -> {
+                        lastPoint = PointF(event.x, event.y)
+                        v.parent.parent.requestDisallowInterceptTouchEvent(true)
+                    }
+
+                    MotionEvent.ACTION_MOVE -> lastPoint?.let {
+                        val dy = event.y - it.y
+                        if (abs(dy) > 10) {
+                            v.parent.requestDisallowInterceptTouchEvent(true)
+                        }
+                        if (dy > 0) {
+                            v.parent.parent.requestDisallowInterceptTouchEvent(canScrollVertically(-1))
+                        } else if (dy < 0) {
+                            v.parent.parent.requestDisallowInterceptTouchEvent(canScrollVertically(1))
+                        }
+                        it.set(event.x, event.y)
+                        logI("DY:$dy  SY:$scrollY  SB:${lineCount * lineHeight - height}")
+                    }
+
+                    MotionEvent.ACTION_UP -> {
+                        lastPoint = null
+                        v.parent.requestDisallowInterceptTouchEvent(false)
+                        v.parent.parent.requestDisallowInterceptTouchEvent(false)
+                    }
+                }
+                false
+            }
         }
     }
 
@@ -94,9 +136,9 @@ class ConsoleFragment : BaseFragment<FragmentConsoleBinding>() {
         return client
     }
 
-    override fun initData() = viewBinding.runWithNoReturn {
+    override fun initData() = viewBinding.runWithoutReturn {
         icSystemStatus.run {
-            mViewModel.systemStatus.observe(this@ConsoleFragment) {
+            mViewModel.systemStatus.observe(viewLifecycleOwner) {
                 tvCpuUsage.text = getString(R.string.percent_format, it.cpu)
                 spvCpuUsage.setProgressSmooth(it.cpu / 100)
                 tvMemoryUsage.text = getString(R.string.percent_format, it.memory)
@@ -106,7 +148,7 @@ class ConsoleFragment : BaseFragment<FragmentConsoleBinding>() {
             }
         }
         icInformation.run {
-            mViewModel.botList.observe(this@ConsoleFragment) { list ->
+            mViewModel.botList.observe(viewLifecycleOwner) { list ->
                 list.find { it.isSelect }?.let { info ->
                     GlideApp.with(ivAvatar)
                         .load(info.avatarUrl)
@@ -121,40 +163,40 @@ class ConsoleFragment : BaseFragment<FragmentConsoleBinding>() {
                 }
             }
         }
-        icMessageCount.wvCharts.run {
-            viewLifecycleScope.launch {
-                mViewModel.messageCount.collect { data ->
-                    mMessageCountWebClient.blockDuringLoading {
-                        setChartData(
-                            getString(
-                                R.string.message_count_data_format,
-                                data.day, data.week, data.month, data.year, data.num
-                            ),
-                            "name",
-                            "count"
-                        )
+        mViewModel.messageCount.launchAndCollectIn(this@ConsoleFragment) { data ->
+            mMessageCountWebClient.blockDuringLoading {
+                icMessageCount.wvCharts.setChartData(
+                    getString(
+                        R.string.message_count_data_format,
+                        data.day, data.week, data.month, data.year, data.num
+                    ),
+                    "name",
+                    "count"
+                )
+            }
+        }
+        mViewModel.activeGroup.launchAndCollectIn(this@ConsoleFragment) { data ->
+            mActiveGroupWebClient.blockDuringLoading {
+                icActiveGroup.wvCharts.setChartData(data, "name", "chat_num", "group_id")
+            }
+        }
+        mViewModel.popularPlugin.launchAndCollectIn(this@ConsoleFragment) { data ->
+            mActiveGroupWebClient.blockDuringLoading {
+                icPopularPlugin.wvCharts.setChartData(data, "name", "count", "module")
+            }
+        }
+        mViewModel.botLogs.launchAndCollectIn(this@ConsoleFragment) { data ->
+            tvLogs.run {
+                text = data.obj
+                post {
+                    val y = lineCount * lineHeight - height
+                    if (y > height) {
+                        scrollTo(0, y)
                     }
                 }
             }
         }
-        icActiveGroup.wvCharts.run {
-            viewLifecycleScope.launch {
-                mViewModel.activeGroup.collect { data ->
-                    mActiveGroupWebClient.blockDuringLoading {
-                        setChartData(data, "name", "chat_num", "group_id")
-                    }
-                }
-            }
-        }
-        icPopularPlugin.wvCharts.run {
-            viewLifecycleScope.launch {
-                mViewModel.popularPlugin.collect { data ->
-                    mActiveGroupWebClient.blockDuringLoading {
-                        setChartData(data, "name", "count", "module")
-                    }
-                }
-            }
-        }
+
         mViewModel.requestBotList()
         mViewModel.requestActiveGroup()
         mViewModel.requestPopularPlugin()

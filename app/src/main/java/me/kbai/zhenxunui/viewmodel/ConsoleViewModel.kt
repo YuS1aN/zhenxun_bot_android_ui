@@ -1,5 +1,17 @@
 package me.kbai.zhenxunui.viewmodel
 
+import android.graphics.Color
+import android.graphics.Typeface
+import android.text.Html
+import android.text.SpannableString
+import android.text.SpannableStringBuilder
+import android.text.Spanned
+import android.text.style.ForegroundColorSpan
+import android.text.style.StyleSpan
+import android.text.style.TextAppearanceSpan
+import android.text.style.TypefaceSpan
+import androidx.core.text.toSpannable
+import androidx.core.text.toSpanned
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -14,6 +26,17 @@ import me.kbai.zhenxunui.model.BotBaseInfo
 import me.kbai.zhenxunui.model.BotMessageCount
 import me.kbai.zhenxunui.model.SystemStatus
 import me.kbai.zhenxunui.repository.ApiRepository
+import me.kbai.zhenxunui.tool.AlwaysDifferent
+import me.kbai.zhenxunui.tool.Ansi2SpannedHelper
+import pk.ansi4j.core.DefaultFunctionFinder
+import pk.ansi4j.core.DefaultParserFactory
+import pk.ansi4j.core.DefaultTextHandler
+import pk.ansi4j.core.api.Environment
+import pk.ansi4j.core.iso6429.C0ControlFunctionHandler
+import pk.ansi4j.core.iso6429.C1ControlFunctionHandler
+import pk.ansi4j.core.iso6429.ControlSequenceHandler
+import pk.ansi4j.core.iso6429.ControlStringHandler
+import pk.ansi4j.core.iso6429.IndependentControlFunctionHandler
 
 class ConsoleViewModel : ViewModel() {
 
@@ -32,7 +55,7 @@ class ConsoleViewModel : ViewModel() {
     private val _popularPlugin: MutableStateFlow<String> = MutableStateFlow("[]")
     val popularPlugin: StateFlow<String> = _popularPlugin
 
-    private val mWebSocketHolder =
+    private val mStatusWebSocketHolder =
         ApiRepository.newSystemStatusWebSocket(viewModelScope) { message, exception ->
             if (message == null) {
                 logE(exception!!)
@@ -40,6 +63,25 @@ class ConsoleViewModel : ViewModel() {
             }
             _systemStatus.value = message
         }
+
+    private val _botLogs: MutableStateFlow<AlwaysDifferent<SpannableStringBuilder>> =
+        MutableStateFlow(AlwaysDifferent(SpannableStringBuilder()))
+    val botLogs: StateFlow<AlwaysDifferent<SpannableStringBuilder>> = _botLogs
+    private val mAnsi2SpannedHelper = Ansi2SpannedHelper()
+    private var mLogsLines = 0
+
+    private val mLogsWebSocketHolder = ApiRepository.newBotLogsWebSocket(viewModelScope) {
+        val builder = _botLogs.value.obj
+
+        if (builder.isNotEmpty()) builder.append("\n")
+        builder.append(mAnsi2SpannedHelper.parse(it))
+        if (mLogsLines >= 100) {
+            builder.delete(0, builder.indexOf('\n') + 1)
+        } else {
+            mLogsLines++
+        }
+        _botLogs.value = _botLogs.value
+    }
 
     fun requestBotList() = viewModelScope.launch {
         ApiRepository.getBotList()
@@ -73,14 +115,17 @@ class ConsoleViewModel : ViewModel() {
     }
 
     fun openWebSocket() {
-        mWebSocketHolder.connect()
+        mStatusWebSocketHolder.connect()
+        mLogsWebSocketHolder.connect()
     }
 
     fun closeWebSocket() {
-        mWebSocketHolder.close(1001, null)
+        mStatusWebSocketHolder.close()
+        mLogsWebSocketHolder.close()
     }
 
     override fun onCleared() {
-        mWebSocketHolder.cancel()
+        mStatusWebSocketHolder.cancel()
+        mLogsWebSocketHolder.cancel()
     }
 }

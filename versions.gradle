@@ -21,6 +21,8 @@ versions.datastore = "1.0.0"
 versions.swiperefresh = "1.2.0-alpha01"
 versions.echartsjava = "1.0.7"
 versions.webkit = "1.10.0"
+versions.ansi4j = "ansi4j-1.1.0"
+versions.free_reflection = "3.2.0"
 
 deps.constraintlayout = "androidx.constraintlayout:constraintlayout:$versions.constraintlayout"
 
@@ -105,5 +107,10 @@ deps.datastore = datastore
 deps.swiperefreshlayout = "androidx.swiperefreshlayout:swiperefreshlayout:$versions.swiperefresh"
 
 deps.webkit = "androidx.webkit:webkit:$versions.webkit"
+
+deps.ansi4j_api = "com.github.PavelKastornyy.ansi4j:ansi4j-core-api:$versions.ansi4j"
+deps.ansi4j_impl = "com.github.PavelKastornyy.ansi4j:ansi4j-core-impl:$versions.ansi4j"
+
+deps.free_reflection = "com.github.tiann:FreeReflection:$versions.free_reflection"
 
 ext.deps = deps

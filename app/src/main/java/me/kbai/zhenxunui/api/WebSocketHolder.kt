@@ -37,7 +37,7 @@ open class WebSocketHolder(private val path: String, private val scope: Coroutin
                 logE("WebSocket on failure: $response \n $t")
                 webSocket.cancel()
                 scope.launch {
-                    delay(10_000)
+                    delay(5_000)
                     connect()
                 }
             }
@@ -60,7 +60,7 @@ open class WebSocketHolder(private val path: String, private val scope: Coroutin
 
     fun send(text: String) = mWebSocket?.send(text)
 
-    fun close(code: Int, reason: String?) = mWebSocket?.close(code, reason)
+    fun close(code: Int = 1001, reason: String? = null) = mWebSocket?.close(code, reason)
 
     fun cancel() {
         mWebSocket?.cancel()
