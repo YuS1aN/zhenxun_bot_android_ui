@@ -26,10 +26,10 @@ class ConsoleViewModel : ViewModel() {
     private val _messageCount = MutableStateFlow(BotMessageCount())
     val messageCount: StateFlow<BotMessageCount> = _messageCount
 
-    private val _activeGroup: MutableStateFlow<String> = MutableStateFlow("")
+    private val _activeGroup: MutableStateFlow<String> = MutableStateFlow("[]")
     val activeGroup: StateFlow<String> = _activeGroup
 
-    private val _popularPlugin: MutableStateFlow<String> = MutableStateFlow("")
+    private val _popularPlugin: MutableStateFlow<String> = MutableStateFlow("[]")
     val popularPlugin: StateFlow<String> = _popularPlugin
 
     private val mWebSocketHolder =
