@@ -4,10 +4,14 @@ import android.annotation.SuppressLint
 import android.content.res.Configuration
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.webkit.WebResourceRequest
+import android.webkit.WebResourceResponse
 import android.webkit.WebSettings
 import android.webkit.WebView
 import android.webkit.WebViewClient
 import androidx.fragment.app.viewModels
+import androidx.webkit.WebViewAssetLoader
+import androidx.webkit.WebViewAssetLoader.AssetsPathHandler
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.isActive
@@ -28,9 +32,10 @@ import me.kbai.zhenxunui.viewmodel.ConsoleViewModel
 class ConsoleFragment : BaseFragment<FragmentConsoleBinding>() {
 
     companion object {
-        private const val BAR_CHART_FILE = "file:///android_asset/console_bar_charts.html"
+        private const val LOCAL_DOMAIN = "local.host"
+        private const val BAR_CHART_FILE = "$LOCAL_DOMAIN/assets/console_bar_charts.html"
         private const val TANGENTIAL_BAR_FILE =
-            "file:///android_asset/console_horizontal_bar_charts.html"
+            "$LOCAL_DOMAIN/assets/console_horizontal_bar_charts.html"
     }
 
     private val mViewModel by viewModels<ConsoleViewModel>()
@@ -40,6 +45,13 @@ class ConsoleFragment : BaseFragment<FragmentConsoleBinding>() {
     private lateinit var mMessageCountWebClient: ConsoleChartWebViewClient
     private lateinit var mActiveGroupWebClient: ConsoleChartWebViewClient
     private lateinit var mPopularPluginWebClient: ConsoleChartWebViewClient
+    private val mAssetLoader by lazy {
+        WebViewAssetLoader.Builder()
+            .setDomain(LOCAL_DOMAIN)
+            .setHttpAllowed(true)
+            .addPathHandler("/assets/", AssetsPathHandler(requireContext()))
+            .build()
+    }
 
     override fun getViewBinding(
         inflater: LayoutInflater, container: ViewGroup?
@@ -66,14 +78,14 @@ class ConsoleFragment : BaseFragment<FragmentConsoleBinding>() {
             javaScriptEnabled = true
             setSupportZoom(false)
             setNeedInitialFocus(false)
-            allowFileAccess = true
             builtInZoomControls = true
             loadWithOverviewMode = true
             useWideViewPort = true
             loadsImagesAutomatically = true
             cacheMode = WebSettings.LOAD_NO_CACHE
+            setSupportMultipleWindows(true)
         }
-        val client = ConsoleChartWebViewClient { webView, _ ->
+        val client = ConsoleChartWebViewClient(mAssetLoader) { webView, _ ->
             webView.setChartNightMode(resources.configuration.isNightMode())
         }
         webViewClient = client
@@ -212,6 +224,7 @@ class ConsoleFragment : BaseFragment<FragmentConsoleBinding>() {
     }
 
     class ConsoleChartWebViewClient(
+        private val assetsLoader: WebViewAssetLoader,
         private val doOnPageFinished: (webView: WebView, url: String) -> Unit
     ) : WebViewClient() {
         private var mLoading = true
@@ -220,6 +233,13 @@ class ConsoleFragment : BaseFragment<FragmentConsoleBinding>() {
             super.onPageFinished(view, url)
             mLoading = false
             doOnPageFinished.invoke(view, url)
+        }
+
+        override fun shouldInterceptRequest(
+            view: WebView,
+            request: WebResourceRequest
+        ): WebResourceResponse? {
+            return assetsLoader.shouldInterceptRequest(request.url)
         }
 
         suspend fun blockDuringLoading(block: () -> Unit) {

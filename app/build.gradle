@@ -55,6 +55,15 @@ android {
             version '3.22.1'
         }
     }
+    sourceSets {
+        def commonDir = 'src/assets'
+        debug {
+            assets.srcDirs = ['src/debug/assets'] + commonDir
+        }
+        release {
+            assets.srcDirs = ['src/release/assets'] + commonDir
+        }
+    }
 }
 
 dependencies {
@@ -76,5 +85,5 @@ dependencies {
     annotationProcessor deps.glide.compiler
     kapt deps.glide.compiler
     implementation deps.swiperefreshlayout
-//    implementation deps.f2native
+    implementation deps.webkit
 }

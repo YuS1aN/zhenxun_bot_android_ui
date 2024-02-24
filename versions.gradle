@@ -20,6 +20,7 @@ versions.glide = "4.15.1"
 versions.datastore = "1.0.0"
 versions.swiperefresh = "1.2.0-alpha01"
 versions.echartsjava = "1.0.7"
+versions.webkit = "1.10.0"
 
 deps.constraintlayout = "androidx.constraintlayout:constraintlayout:$versions.constraintlayout"
 
@@ -102,5 +103,7 @@ datastore.rxjava3 = "androidx.datastore:datastore-preferences-rxjava3:$versions.
 deps.datastore = datastore
 
 deps.swiperefreshlayout = "androidx.swiperefreshlayout:swiperefreshlayout:$versions.swiperefresh"
+
+deps.webkit = "androidx.webkit:webkit:$versions.webkit"
 
 ext.deps = deps
