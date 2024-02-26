@@ -13,7 +13,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginEnd="@dimen/margin_normal"
-        android:layout_toStartOf="@id/sw_enabled"
+        android:layout_toStartOf="@+id/sw_enabled"
         android:ellipsize="end"
         android:maxLines="1"
         android:textColor="@color/dn_black"
@@ -23,15 +23,24 @@
 
     <TextView
         android:id="@+id/tv_module"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/tv_name"
         android:layout_marginTop="@dimen/margin_narrower"
         android:layout_marginEnd="@dimen/margin_normal"
+        tools:text="dialogue" />
+
+    <TextView
+        android:id="@+id/tv_author"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@id/tv_module"
+        android:layout_marginEnd="@dimen/margin_normal"
         android:layout_toStartOf="@id/sw_enabled"
+        android:layout_toEndOf="@id/tv_module"
         android:ellipsize="end"
         android:maxLines="1"
-        tools:text="dialogue" />
+        tools:text="@string/plugin_author_format" />
 
     <androidx.appcompat.widget.SwitchCompat
         android:id="@+id/sw_enabled"
@@ -44,40 +53,257 @@
         app:track="@drawable/switch_track" />
 
     <LinearLayout
-        android:id="@+id/ll_button"
+        android:id="@+id/ll_divider_0"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="1dp"
         android:layout_below="@id/tv_module"
         android:layout_marginTop="@dimen/margin_normal"
-        android:gravity="end"
         android:orientation="horizontal">
 
-        <TextView
-            android:id="@+id/btn_config"
-            style="@style/AutoSizeButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/bg_list_button"
-            android:gravity="center"
-            android:paddingVertical="4dp"
-            android:text="@string/edit_config" />
+        <View
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_marginHorizontal="@dimen/margin_normal"
+            android:layout_weight="1"
+            android:background="@color/window_background" />
 
-        <TextView
-            android:id="@+id/btn_edit"
-            style="@style/AutoSizeButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/margin_normal"
-            android:background="@drawable/bg_list_button"
-            android:gravity="center"
-            android:text="@string/edit" />
+        <View
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_marginHorizontal="@dimen/margin_normal"
+            android:layout_weight="1"
+            android:background="@color/window_background" />
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_marginHorizontal="@dimen/margin_normal"
+            android:layout_weight="1"
+            android:background="@color/window_background" />
     </LinearLayout>
 
+    <LinearLayout
+        android:id="@+id/ll_info_0"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/ll_divider_0"
+        android:layout_marginTop="@dimen/margin_normal"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_version"
+                style="@style/SingleLineText"
+                android:layout_width="match_parent"
+                android:layout_height="24dp"
+                android:gravity="center"
+                android:textColor="@color/dn_black"
+                android:textSize="@dimen/text_size_large"
+                android:textStyle="bold"
+                tools:text="v0.1" />
+
+            <TextView
+                style="@style/SingleLineText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_narrower"
+                android:gravity="center_horizontal"
+                android:text="@string/version" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:layout_marginVertical="@dimen/margin_normal"
+            android:background="@color/window_background" />
+
+        <TextView
+            android:id="@+id/tv_default_state"
+            style="@style/SingleLineText"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:drawablePadding="@dimen/margin_narrower"
+            android:gravity="center"
+            android:text="@string/default_state"
+            app:drawableTopCompat="@drawable/ic_plugin_enabled" />
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:layout_marginVertical="@dimen/margin_normal"
+            android:background="@color/window_background" />
+
+        <TextView
+            android:id="@+id/tv_superuser_only"
+            style="@style/SingleLineText"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:drawablePadding="@dimen/margin_narrower"
+            android:gravity="center"
+            android:text="@string/superuser_only"
+            app:drawableTopCompat="@drawable/ic_plugin_enabled" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_divider_1"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_below="@id/ll_info_0"
+        android:layout_marginTop="@dimen/margin_normal"
+        android:orientation="horizontal">
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_marginHorizontal="@dimen/margin_normal"
+            android:layout_weight="1"
+            android:background="@color/window_background" />
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_marginHorizontal="@dimen/margin_normal"
+            android:layout_weight="1"
+            android:background="@color/window_background" />
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_marginHorizontal="@dimen/margin_normal"
+            android:layout_weight="1"
+            android:background="@color/window_background" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_info_1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/ll_divider_1"
+        android:layout_marginTop="@dimen/margin_normal"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_cost"
+                style="@style/SingleLineText"
+                android:layout_width="match_parent"
+                android:layout_height="24dp"
+                android:gravity="center"
+                android:textColor="@color/dn_black"
+                android:textSize="@dimen/text_size_large"
+                android:textStyle="bold"
+                tools:text="100" />
+
+            <TextView
+                style="@style/SingleLineText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_narrower"
+                android:gravity="center_horizontal"
+                android:text="@string/cost_gold" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:layout_marginVertical="@dimen/margin_normal"
+            android:background="@color/window_background" />
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_group_level"
+                style="@style/SingleLineText"
+                android:layout_width="match_parent"
+                android:layout_height="24dp"
+                android:gravity="center"
+                android:textColor="@color/dn_black"
+                android:textSize="@dimen/text_size_large"
+                android:textStyle="bold"
+                tools:text="5" />
+
+            <TextView
+                style="@style/SingleLineText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_narrower"
+                android:gravity="center_horizontal"
+                android:text="@string/group_level" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:layout_marginVertical="@dimen/margin_normal"
+            android:background="@color/window_background" />
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_menu_type"
+                style="@style/SingleLineText"
+                android:layout_width="match_parent"
+                android:layout_height="24dp"
+                android:gravity="center"
+                android:textColor="@color/dn_black"
+                android:textSize="@dimen/text_size_large"
+                android:textStyle="bold"
+                tools:text="normal" />
+
+            <TextView
+                style="@style/SingleLineText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_narrower"
+                android:gravity="center_horizontal"
+                android:text="@string/menu_type" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <!--    <TextView-->
+    <!--        android:id="@+id/btn_edit"-->
+    <!--        style="@style/AutoSizeButton"-->
+    <!--        android:layout_width="wrap_content"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:layout_below="@id/ll_info_1"-->
+    <!--        android:layout_alignParentEnd="true"-->
+    <!--        android:layout_marginStart="@dimen/margin_normal"-->
+    <!--        android:layout_marginTop="@dimen/margin_widest"-->
+    <!--        android:background="@drawable/bg_list_button"-->
+    <!--        android:gravity="center"-->
+    <!--        android:text="@string/edit" />-->
+
     <me.kbai.zhenxunui.widget.CornerImageView
-        android:id="@+id/dividing_line"
+        android:id="@+id/status_line"
         android:layout_width="match_parent"
         android:layout_height="2dp"
-        android:layout_below="@id/ll_button"
+        android:layout_below="@id/ll_info_1"
+        android:layout_marginHorizontal="@dimen/margin_normal"
         android:layout_marginTop="@dimen/list_item_padding_subtract_2dp"
         app:cornerRadius="1dp"
         tools:src="?colorPrimaryDark" />

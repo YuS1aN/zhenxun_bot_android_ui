@@ -39,7 +39,7 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>() {
             .into(caBackground)
 
         btnApi.setOnDebounceClickListener {
-            ChangeApiDialog(this@LoginActivity).show()
+            ChangeApiDialogFragment().show(supportFragmentManager)
         }
 
         etUsername.addTextChangedListener {
@@ -67,7 +67,7 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>() {
             }
             if (Constants.apiBaseUrl.value.isNullOrBlank()) {
                 GlobalToast.showToast(R.string.error_not_set_api)
-                ChangeApiDialog(this@LoginActivity).show()
+                ChangeApiDialogFragment().show(supportFragmentManager)
                 return@click
             }
 

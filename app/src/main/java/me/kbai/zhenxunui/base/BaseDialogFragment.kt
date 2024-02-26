@@ -1,13 +1,13 @@
 package me.kbai.zhenxunui.base
 
-import android.app.Dialog
-import android.content.Context
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Build
 import android.view.View
 import android.view.View.OnAttachStateChangeListener
 import android.view.WindowManager
+import androidx.fragment.app.DialogFragment
+import androidx.fragment.app.FragmentManager
 import me.kbai.zhenxunui.extends.displaySize
 import me.kbai.zhenxunui.extends.dp
 import java.util.function.Consumer
@@ -16,14 +16,14 @@ import kotlin.math.min
 /**
  * @author Sean on 2023/6/1
  */
-open class BaseDialog(context: Context) : Dialog(context) {
+open class BaseDialogFragment : DialogFragment() {
     protected var minMarginHorizontal = 80.dp.toInt()
     protected var maxWidth = 280.dp.toInt()
 
     override fun onStart() {
         super.onStart()
 
-        window?.run {
+        dialog?.window?.run {
             val size = displaySize()
             setLayout(
                 min(size.width - minMarginHorizontal, maxWidth),
@@ -51,6 +51,12 @@ open class BaseDialog(context: Context) : Dialog(context) {
                     }
                 })
             }
+        }
+    }
+
+    fun show(fragmentManager: FragmentManager) {
+        if (!fragmentManager.isStateSaved) {
+            show(fragmentManager, this::class.simpleName ?: BaseDialogFragment::class.simpleName)
         }
     }
 }

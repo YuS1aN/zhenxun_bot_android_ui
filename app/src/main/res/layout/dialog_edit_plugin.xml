@@ -1,279 +1,67 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="wrap_content"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@drawable/bg_dialog_round"
-    android:scrollbars="none">
+    android:orientation="vertical"
+    android:padding="@dimen/box_padding"
+    tools:layout_width="300dp">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/cl_body"
+    <TextView
+        android:id="@+id/tv_title"
+        style="@style/SingleLineText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:maxWidth="170dp"
+        android:textColor="@color/dn_black"
+        android:textSize="@dimen/title_size_large"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="11451419191919119119191919" />
+
+    <TextView
+        android:id="@+id/tv_author"
+        style="@style/SingleLineText"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margin_normal"
+        android:layout_toEndOf="@id/tv_title"
+        android:textSize="@dimen/text_size_small"
+        app:layout_constraintBaseline_toBaselineOf="@id/tv_title"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/tv_title"
+        tools:text="\@Hibikier" />
+
+    <TextView
+        android:id="@+id/tv_module"
+        style="@style/SingleLineText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:minWidth="260dp"
-        android:padding="@dimen/box_padding">
+        android:textColor="@color/text_gray"
+        app:layout_constraintTop_toBottomOf="@id/tv_title"
+        tools:text="1919810" />
 
-        <TextView
-            android:id="@+id/tv_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:ellipsize="end"
-            android:maxWidth="170dp"
-            android:maxLines="1"
-            android:textColor="@color/dn_black"
-            android:textSize="@dimen/title_size_large"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toTopOf="@+id/tv_module"
-            app:layout_constraintEnd_toStartOf="@+id/tv_author"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_chainStyle="spread_inside"
-            tools:text="11451419191919119119191919" />
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_config"
+        android:layout_width="match_parent"
+        android:layout_height="250dp"
+        android:layout_marginTop="@dimen/margin_normal"
+        android:orientation="vertical"
+        android:scrollbars="none"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_constraintTop_toBottomOf="@id/tv_module"
+        tools:itemCount="1"
+        tools:listitem="@layout/layout_plugin_configs" />
 
-        <TextView
-            android:id="@+id/tv_author"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/margin_normal"
-            android:ellipsize="end"
-            android:maxLines="1"
-            android:textSize="@dimen/text_size_small"
-            app:layout_constraintBaseline_toBaselineOf="@id/tv_title"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/tv_title"
-            tools:text="\@Hibikier" />
-
-        <TextView
-            android:id="@+id/tv_module"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ellipsize="end"
-            android:textColor="@color/text_gray"
-            app:layout_constraintBottom_toTopOf="@+id/sw_enabled"
-            app:layout_constraintTop_toBottomOf="@id/tv_title"
-            tools:text="1919810" />
-
-        <androidx.appcompat.widget.SwitchCompat
-            android:id="@+id/sw_enabled"
-            style="@style/Switch"
-            android:layout_width="wrap_content"
-            android:layout_height="@dimen/normal_line_height"
-            android:layout_marginTop="@dimen/margin_wide"
-            android:text="@string/enabled"
-            app:layout_constraintBottom_toTopOf="@+id/sw_default_status"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_module"
-            app:switchPadding="@dimen/margin_normal" />
-
-        <TextView
-            android:id="@+id/tv_block_type"
-            android:layout_width="wrap_content"
-            android:layout_height="@dimen/normal_line_height"
-            android:gravity="center_vertical"
-            android:labelFor="@id/tl_block_type"
-            android:text="@string/block_type"
-            android:textColor="@color/dn_black"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toTopOf="@id/sw_default_status"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/sw_enabled" />
-
-        <com.google.android.material.tabs.TabLayout
-            android:id="@+id/tl_block_type"
-            android:layout_width="0dp"
-            android:layout_height="@dimen/normal_line_height"
-            android:layout_marginStart="@dimen/margin_normal"
-            app:layout_constraintBottom_toBottomOf="@id/tv_block_type"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/tv_block_type"
-            app:tabBackground="@null"
-            app:tabPaddingEnd="0dp"
-            app:tabPaddingStart="0dp"
-            app:tabRippleColor="@null" />
-
-        <androidx.appcompat.widget.SwitchCompat
-            android:id="@+id/sw_default_status"
-            style="@style/Switch"
-            android:layout_width="wrap_content"
-            android:layout_height="@dimen/normal_line_height"
-            android:layout_marginTop="@dimen/margin_normal"
-            android:text="@string/default_is_enabled"
-            app:layout_constraintBottom_toTopOf="@+id/sw_superuser"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tl_block_type"
-            app:switchPadding="@dimen/margin_normal" />
-
-        <androidx.appcompat.widget.SwitchCompat
-            android:id="@+id/sw_superuser"
-            style="@style/Switch"
-            android:layout_width="wrap_content"
-            android:layout_height="@dimen/normal_line_height"
-            android:layout_marginTop="@dimen/margin_normal"
-            android:text="@string/superuser_only"
-            app:layout_constraintBottom_toTopOf="@+id/til_cost"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/sw_default_status"
-            app:switchPadding="@dimen/margin_normal" />
-
-
-        <TextView
-            android:id="@+id/tv_cost"
-            android:layout_width="wrap_content"
-            android:layout_height="@dimen/normal_line_height"
-            android:gravity="center_vertical"
-            android:labelFor="@+id/til_cost"
-            android:text="@string/cost"
-            android:textColor="@color/dn_black"
-            android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@id/til_cost" />
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/til_cost"
-            style="@style/TextInputLayout.Thin"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/margin_normal"
-            android:layout_marginTop="@dimen/margin_normal"
-            android:orientation="horizontal"
-            app:hintEnabled="false"
-            app:layout_constraintBottom_toTopOf="@+id/til_type"
-            app:layout_constraintStart_toEndOf="@id/tv_cost"
-            app:layout_constraintTop_toBottomOf="@id/sw_superuser">
-
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/et_cost"
-                android:layout_width="wrap_content"
-                android:layout_height="@dimen/normal_line_height"
-                android:gravity="center"
-                android:inputType="number"
-                android:padding="0dp"
-                android:textSize="@dimen/et_text_size"
-                tools:text="100" />
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <TextView
-            android:id="@+id/tv_type"
-            android:layout_width="wrap_content"
-            android:layout_height="@dimen/normal_line_height"
-            android:gravity="center_vertical"
-            android:labelFor="@+id/til_type"
-            android:text="@string/type"
-            android:textColor="@color/dn_black"
-            android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@id/til_type" />
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/til_type"
-            style="@style/TextInputLayout.Thin"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/margin_normal"
-            android:layout_marginTop="@dimen/margin_normal"
-            android:orientation="horizontal"
-            app:hintEnabled="false"
-            app:layout_constraintBottom_toTopOf="@id/til_command"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/tv_type"
-            app:layout_constraintTop_toBottomOf="@id/til_cost">
-
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/et_type"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/normal_line_height"
-                android:inputType="text"
-                android:padding="0dp"
-                android:textSize="@dimen/et_text_size"
-                tools:text="一些工具" />
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <TextView
-            android:id="@+id/tv_command"
-            android:layout_width="wrap_content"
-            android:layout_height="@dimen/normal_line_height"
-            android:gravity="center_vertical"
-            android:labelFor="@+id/til_alias"
-            android:text="@string/commend"
-            android:textColor="@color/dn_black"
-            android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@id/til_command" />
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/til_command"
-            style="@style/TextInputLayout.Thin"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/margin_normal"
-            android:layout_marginTop="@dimen/margin_normal"
-            android:orientation="horizontal"
-            app:hintEnabled="false"
-            app:layout_constraintBottom_toTopOf="@id/tv_group_level"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/tv_command"
-            app:layout_constraintTop_toBottomOf="@id/til_type">
-
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/et_command"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/normal_line_height"
-                android:inputType="text"
-                android:padding="0dp"
-                android:textSize="@dimen/et_text_size"
-                tools:text="A_nmi114514,123" />
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <TextView
-            android:id="@+id/tv_group_level"
-            android:layout_width="wrap_content"
-            android:layout_height="@dimen/normal_line_height"
-            android:layout_marginTop="@dimen/margin_normal"
-            android:gravity="center_vertical"
-            android:text="@string/group_level"
-            android:textColor="@color/dn_black"
-            android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_command" />
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/til_group_level"
-            style="@style/TextInputLayout.Thin"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/margin_normal"
-            android:minWidth="0dp"
-            android:orientation="horizontal"
-            app:hintEnabled="false"
-            app:layout_constraintBottom_toBottomOf="@id/tv_group_level"
-            app:layout_constraintEnd_toEndOf="parent">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/et_group_level"
-                android:layout_width="wrap_content"
-                android:layout_height="@dimen/normal_line_height"
-                android:cursorVisible="false"
-                android:focusable="false"
-                android:padding="0dp"
-                android:textSize="@dimen/et_text_size"
-                tools:text="0" />
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <androidx.appcompat.widget.AppCompatSeekBar
-            android:id="@+id/sb_group_level"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:max="10"
-            android:progressTint="?colorPrimary"
-            android:thumbTint="?colorPrimaryDark"
-            app:layout_constraintBottom_toBottomOf="@id/tv_group_level"
-            app:layout_constraintEnd_toStartOf="@id/til_group_level"
-            app:layout_constraintStart_toEndOf="@id/tv_group_level"
-            app:layout_constraintTop_toTopOf="@id/tv_group_level" />
+    <LinearLayout
+        android:id="@+id/ll_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintTop_toBottomOf="@id/rv_config">
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btn_cancel"
@@ -281,10 +69,8 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_normal"
             android:layout_marginEnd="@dimen/margin_normal"
-            android:text="@string/cancel"
-            app:layout_constraintEnd_toStartOf="@+id/btn_confirm"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_group_level" />
+            android:layout_weight="1"
+            android:text="@string/cancel" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btn_confirm"
@@ -292,9 +78,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/margin_normal"
             android:layout_marginTop="@dimen/margin_normal"
-            android:text="@string/confirm"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/btn_cancel"
-            app:layout_constraintTop_toBottomOf="@id/tv_group_level" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
-</ScrollView>
+            android:layout_weight="1"
+            android:text="@string/confirm" />
+    </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

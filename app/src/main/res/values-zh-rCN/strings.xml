@@ -32,7 +32,7 @@
     <string name="edit">编辑</string>
     <string name="default_is_enabled">默认开关</string>
     <string name="superuser_only">仅限超级用户</string>
-    <string name="cost">花费</string>
+    <string name="cost_gold">花费金币</string>
     <string name="type">类型</string>
     <string name="commend">命令</string>
     <string name="group_level">群权限</string>
@@ -40,13 +40,13 @@
     <string name="enabled">启用</string>
     <string name="error_valid_number">输入数字!数字!数字!</string>
     <string name="error_string_is_empty">不准留空啊笨蛋!</string>
-    <string name="description_label">说明: %s</string>
+    <string name="description_label"><b>描述:</b> %s</string>
     <string name="edit_config">配置项</string>
     <string name="value_label">值:</string>
     <string name="block_type">禁用类型</string>
-    <string name="tab_all">全部</string>
-    <string name="tab_group">群组</string>
-    <string name="tab_private">私聊</string>
+    <string name="block_type_all">全部</string>
+    <string name="block_type_group">群组</string>
+    <string name="block_type_private">私聊</string>
     <string name="error_network_error">是不是断网了…</string>
     <string name="error_no_data">好像没有数据呢</string>
     <string name="enabled_task_format">已开启被动: %s</string>
@@ -97,4 +97,10 @@
         ]
     </string>
     <string name="bot_logs">后台日志</string>
+    <string name="default_state">默认开关</string>
+    <string name="version">版本</string>
+    <string name="menu_type">菜单类型</string>
+    <string name="default_value_format"><b>默认值:</b> %s</string>
+    <string name="add">增加</string>
+    <string name="reduce">减少</string>
 </resources>

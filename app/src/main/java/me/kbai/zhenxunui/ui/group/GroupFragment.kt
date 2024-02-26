@@ -33,14 +33,14 @@ class GroupFragment : BaseFragment<FragmentGroupBinding>() {
         rvGroup.adapter = mAdapter
         rvGroup.addItemDecoration(CommonDecoration(resources.getDimensionPixelSize(R.dimen.list_item_margin)))
         mAdapter.onItemClickListener = { position ->
-            EditGroupDialog(root.context, mAdapter.data[position]) { dialog, button, update ->
+            EditGroupDialogFragment(mAdapter.data[position]) { dialog, button, update ->
                 viewLifecycleScope.launch {
                     val result = mViewModel.updateGroup(update).apiCollect(button)
                     GlobalToast.showToast(result.message)
                     dialog.dismiss()
                     requestGroupData(true)
                 }
-            }.show()
+            }.show(childFragmentManager)
         }
         root.setOnRefreshListener { requestGroupData(true) }
         icError.btnRetry.setOnDebounceClickListener { requestGroupData() }

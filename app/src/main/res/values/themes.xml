@@ -2,9 +2,9 @@
     <!-- Base application theme. -->
     <style name="Theme.ZhenxunBotManager" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <!-- Primary brand color. -->
-        <item name="colorPrimary">@color/pink_100</item>
-        <item name="colorPrimaryDark">@color/pink_200</item>
-        <item name="colorPrimaryVariant">@color/pink_200</item>
+        <item name="colorPrimary">@color/pink_A100</item>
+        <item name="colorPrimaryDark">@color/pink_A100</item>
+        <item name="colorPrimaryVariant">@color/pink_A100</item>
         <item name="colorOnPrimary">@color/white</item>
         <!-- Secondary brand color. -->
         <item name="colorSecondary">@color/teal_200</item>

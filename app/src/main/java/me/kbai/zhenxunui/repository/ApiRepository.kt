@@ -10,9 +10,10 @@ import me.kbai.zhenxunui.api.RawApiResponse
 import me.kbai.zhenxunui.api.TypedWebSocketHolder
 import me.kbai.zhenxunui.api.WebSocketHolder
 import me.kbai.zhenxunui.model.HandleRequest
+import me.kbai.zhenxunui.model.PluginDetail
+import me.kbai.zhenxunui.model.PluginInfo
 import me.kbai.zhenxunui.model.PluginType
 import me.kbai.zhenxunui.model.SystemStatus
-import me.kbai.zhenxunui.model.UpdateConfig
 import me.kbai.zhenxunui.model.UpdateGroup
 import me.kbai.zhenxunui.model.UpdatePlugin
 import org.json.JSONObject
@@ -32,12 +33,15 @@ object ApiRepository {
     fun updateGroup(updateGroup: UpdateGroup) =
         networkFlow { BotApi.service.updateGroup(updateGroup) }
 
-    fun getPlugins(type: PluginType) = networkFlow { BotApi.service.getPlugins(type.string) }
+    fun getPluginList(type: PluginType) = networkFlow { BotApi.service.getPluginList(type.string) }
+
+    fun getPluginDetail(pluginInfo: PluginInfo) = networkFlow(PluginDetail(pluginInfo, null)) {
+        BotApi.service.getPluginDetail(pluginInfo.module)
+    }
 
     fun updatePlugin(plugin: UpdatePlugin) = networkFlow { BotApi.service.updatePlugin(plugin) }
 
-    fun updateConfig(configs: List<UpdateConfig>) =
-        networkFlow { BotApi.service.updateConfig(configs) }
+    fun getPluginMenuTypes() = networkFlow { BotApi.service.getPluginMenuType() }
 
     fun getRequest(type: String) = networkFlow { BotApi.service.getRequest(type) }
 
@@ -80,9 +84,10 @@ object ApiRepository {
     }
 
     private fun <T> networkFlow(
+        tempData: T? = null,
         f: suspend () -> ApiResponse<T>
     ): Flow<Resource<T>> = flow {
-        emit(Resource.loading(null))
+        emit(Resource.loading(tempData))
         val resp: ApiResponse<T>
         try {
             resp = f.invoke()

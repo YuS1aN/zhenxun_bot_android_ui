@@ -5,19 +5,18 @@ import com.google.gson.annotations.SerializedName
 /**
  * @author Sean on 2023/6/4
  */
-class UpdatePlugin(
+data class UpdatePlugin(
     val module: String,
     @SerializedName("default_status")
-    val defaultStatus: Boolean,
+    var defaultStatus: Boolean,
     @SerializedName("limit_superuser")
-    val superuser: Boolean,
+    var limitSuperuser: Boolean,
     @SerializedName("cost_gold")
-    val costGold: Int,
-    val cmd: List<String>,
+    var costGold: Int?,
     @SerializedName("menu_type")
-    val menuType: String,
-    @SerializedName("group_level")
-    val groupLevel: Int,
+    var menuType: String,
+    var level: Int,
     @SerializedName("block_type")
-    var blockType: String
+    var blockType: BlockType?,
+    val configs: MutableMap<String, Any?>
 )

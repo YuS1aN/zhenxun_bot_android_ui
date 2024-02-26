@@ -8,6 +8,7 @@ import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
 import android.webkit.WebView
 import android.widget.EditText
+import android.widget.SeekBar
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayout.OnTabSelectedListener
 
@@ -17,16 +18,12 @@ import com.google.android.material.tabs.TabLayout.OnTabSelectedListener
 
 val Number.dp: Float
     get() = TypedValue.applyDimension(
-        TypedValue.COMPLEX_UNIT_DIP,
-        toFloat(),
-        Resources.getSystem().displayMetrics
+        TypedValue.COMPLEX_UNIT_DIP, toFloat(), Resources.getSystem().displayMetrics
     )
 
 val Number.sp: Float
     get() = TypedValue.applyDimension(
-        TypedValue.COMPLEX_UNIT_SP,
-        toFloat(),
-        Resources.getSystem().displayMetrics
+        TypedValue.COMPLEX_UNIT_SP, toFloat(), Resources.getSystem().displayMetrics
     )
 
 fun View.setOnDebounceClickListener(delay: Int = 500, listener: View.OnClickListener) {
@@ -34,8 +31,7 @@ fun View.setOnDebounceClickListener(delay: Int = 500, listener: View.OnClickList
 }
 
 inline fun View.setOnDebounceClickListener(
-    delay: Int = 500,
-    crossinline listener: (view: View) -> Unit
+    delay: Int = 500, crossinline listener: (view: View) -> Unit
 ) {
     var last = 0L
     setOnClickListener {
@@ -92,4 +88,16 @@ fun WebView.detach() {
     clearHistory()
     removeFromParent(false)
     //destroy()
+}
+
+inline fun SeekBar.setOnProgressChangedListener(crossinline block: SeekBar.(progress: Int, fromUser: Boolean) -> Unit) {
+    setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
+        override fun onProgressChanged(seekBar: SeekBar, progress: Int, fromUser: Boolean) {
+            block(seekBar, progress, fromUser)
+        }
+
+        override fun onStartTrackingTouch(seekBar: SeekBar?) {}
+
+        override fun onStopTrackingTouch(seekBar: SeekBar?) {}
+    })
 }

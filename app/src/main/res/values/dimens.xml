@@ -8,8 +8,9 @@
     <dimen name="box_padding">18dp</dimen>
     <dimen name="list_item_round">12dp</dimen>
     <dimen name="list_item_padding">12dp</dimen>
-    <dimen name="list_item_margin">12dp</dimen>
+    <dimen name="list_item_padding_subtract_1dp">11dp</dimen>
     <dimen name="list_item_padding_subtract_2dp">10dp</dimen>
+    <dimen name="list_item_margin">12dp</dimen>
     <dimen name="et_text_size">13sp</dimen>
     <dimen name="title_size_large">16sp</dimen>
     <dimen name="title_size_normal">15sp</dimen>

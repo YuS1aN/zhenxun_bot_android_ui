@@ -4,13 +4,15 @@ import android.annotation.SuppressLint
 import android.graphics.drawable.ColorDrawable
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.TextView
+import androidx.core.content.res.ResourcesCompat
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
 import me.kbai.zhenxunui.R
 import me.kbai.zhenxunui.databinding.ItemPluginListBinding
 import me.kbai.zhenxunui.extends.getThemeColor
 import me.kbai.zhenxunui.extends.setOnDebounceClickListener
-import me.kbai.zhenxunui.model.PluginData
+import me.kbai.zhenxunui.model.PluginInfo
 
 /**
  * TODO 在切换 PluginTypeFragment 后 Switch 切换没有动画, 主要是由于 View.isLaidOut() == false, 可以尝试 requestLayout 修复
@@ -21,13 +23,14 @@ class PluginViewHolder(val binding: ItemPluginListBinding) : RecyclerView.ViewHo
 
     fun setEnabled(enabled: Boolean): Unit = binding.run {
         swEnabled.isEnabled = enabled
-        btnEdit.isEnabled = enabled
-        btnConfig.isEnabled = enabled
+        llInfo0.isEnabled = enabled
+        llDivider1.isEnabled = enabled
+        llInfo1.isEnabled = enabled
     }
 }
 
 class PluginAdapter : RecyclerView.Adapter<PluginViewHolder>() {
-    var data: List<PluginData> = emptyList()
+    var data: List<PluginInfo> = emptyList()
         @SuppressLint("NotifyDataSetChanged")
         set(value) {
             field = value
@@ -39,9 +42,7 @@ class PluginAdapter : RecyclerView.Adapter<PluginViewHolder>() {
     val nonEditableSet: HashSet<String> = HashSet()
 
     var onItemEditClickListener: ((position: Int) -> Unit)? = null
-    var onItemConfigClickListener: ((position: Int) -> Unit)? = null
-    var onItemSwitchClickListener: ((position: Int, isChecked: Boolean) -> Unit)? =
-        null
+    var onItemSwitchClickListener: ((position: Int, isChecked: Boolean) -> Unit)? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
         PluginViewHolder(
@@ -60,7 +61,7 @@ class PluginAdapter : RecyclerView.Adapter<PluginViewHolder>() {
 
         holder.binding.run {
             swEnabled.setOnCheckedChangeListener { _, isChecked ->
-                dividingLine.run {
+                statusLine.run {
                     setImageDrawable(
                         ColorDrawable(
                             if (isChecked) {
@@ -73,24 +74,36 @@ class PluginAdapter : RecyclerView.Adapter<PluginViewHolder>() {
                 }
             }
 
+            tvName.text = item.name
             tvModule.text = item.module
+            tvAuthor.text = tvAuthor.context.getString(R.string.plugin_author_format, item.author)
+            swEnabled.isChecked = item.status
+            tvVersion.text = item.version
+            tvDefaultState.setStateDrawableTop(item.defaultStatus)
+            tvSuperuserOnly.setStateDrawableTop(item.limitSuperuser)
+            tvCost.text = item.costGold.toString()
+            tvGroupLevel.text = item.level.toString()
+            tvMenuType.text = item.menuType
 
-            item.manager.let { manager ->
-                tvName.text = manager.name
-                swEnabled.isChecked = manager.status
-            }
+            llInfo0.setOnDebounceClickListener { onItemEditClickListener?.invoke(position) }
+            llInfo1.setOnDebounceClickListener { onItemEditClickListener?.invoke(position) }
+            llDivider1.setOnDebounceClickListener { onItemEditClickListener?.invoke(position) }
 
-            swEnabled.isVisible = item.setting != null
-            btnEdit.isVisible = item.setting != null
-            btnConfig.isVisible = item.config != null
-
-            btnEdit.setOnDebounceClickListener { onItemEditClickListener?.invoke(position) }
-            btnConfig.setOnDebounceClickListener { onItemConfigClickListener?.invoke(position) }
             swEnabled.setOnDebounceClickListener {
                 onItemSwitchClickListener?.invoke(position, swEnabled.isChecked)
             }
 
             holder.setEnabled(!nonEditableSet.contains(item.module))
         }
+    }
+
+    private fun TextView.setStateDrawableTop(state: Boolean) {
+        val bounds = compoundDrawablesRelative[1].bounds
+        val drawable = ResourcesCompat.getDrawable(
+            resources,
+            if (state) R.drawable.ic_plugin_enabled else R.drawable.ic_plugin_disabled,
+            null
+        )?.apply { setBounds(bounds) }
+        setCompoundDrawablesRelative(null, drawable, null, null)
     }
 }

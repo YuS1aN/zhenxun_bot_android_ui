@@ -1,9 +1,7 @@
 package me.kbai.zhenxunui.ui.plugin
 
-import android.app.Dialog
 import android.os.Bundle
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
@@ -14,12 +12,10 @@ import me.kbai.zhenxunui.R
 import me.kbai.zhenxunui.base.BaseFragment
 import me.kbai.zhenxunui.databinding.FragmentPluginTypeBinding
 import me.kbai.zhenxunui.extends.apiCollect
+import me.kbai.zhenxunui.extends.launchAndCollectIn
 import me.kbai.zhenxunui.extends.setOnDebounceClickListener
 import me.kbai.zhenxunui.extends.viewLifecycleScope
-import me.kbai.zhenxunui.model.PluginData
 import me.kbai.zhenxunui.model.PluginType
-import me.kbai.zhenxunui.model.UpdateConfig
-import me.kbai.zhenxunui.model.UpdatePlugin
 import me.kbai.zhenxunui.repository.Resource
 import me.kbai.zhenxunui.tool.GlobalToast
 import me.kbai.zhenxunui.tool.glide.GlideApp
@@ -58,73 +54,75 @@ class PluginTypeFragment : BaseFragment<FragmentPluginTypeBinding>() {
             .load(R.drawable.ic_error)
             .into(viewBinding.icError.ivImage)
 
-        val onEditPluginListener =
-            { dialog: Dialog, button: View, position: Int, update: UpdatePlugin ->
-                viewLifecycleScope.launch {
-                    mViewModel.updatePlugin(update)
-                        .apiCollect(button) {
-                            if (it.status == Resource.Status.LOADING) return@apiCollect
-                            if (it.status == Resource.Status.FAIL) GlobalToast.showToast(it.message)
-                            dialog.dismiss()
-                            syncPluginData(position, mAdapter.data[position], update)
-                        }
-                }
-                Unit
-            }
-
+//        val onEditPluginListener =
+//            { dialog: Dialog, button: View, position: Int, update: UpdatePlugin ->
+//                viewLifecycleScope.launch {
+//                    mViewModel.updatePlugin(update)
+//                        .apiCollect(button) {
+//                            if (it.status == Resource.Status.LOADING) return@apiCollect
+//                            if (it.status == Resource.Status.FAIL) GlobalToast.showToast(it.message)
+//                            dialog.dismiss()
+//                            syncPluginData(position, mAdapter.data[position], update)
+//                        }
+//                }
+//                Unit
+//            }
+//
         mAdapter.onItemEditClickListener = {
-            EditPluginDialog(it, mAdapter.data[it], requireContext(), onEditPluginListener).show()
+            EditPluginDialogFragment(mAdapter.data[it]) {
+                //TODO
+            }.show(childFragmentManager)
         }
+//
+//        val onEditConfigListener =
+//            { dialog: Dialog, button: View, position: Int, updateConfigs: List<UpdateConfig> ->
+//                viewLifecycleScope.launch {
+//                    mViewModel.updateConfig(updateConfigs)
+//                        .apiCollect(button) {
+//                            if (it.status == Resource.Status.LOADING) return@apiCollect
+//                            if (it.status == Resource.Status.FAIL) GlobalToast.showToast(it.message)
+//                            dialog.dismiss()
+//                            syncPluginData(position, mAdapter.data[position], updateConfigs)
+//                        }
+//                }
+//                Unit
+//            }
 
-        val onEditConfigListener =
-            { dialog: Dialog, button: View, position: Int, updateConfigs: List<UpdateConfig> ->
-                viewLifecycleScope.launch {
-                    mViewModel.updateConfig(updateConfigs)
-                        .apiCollect(button) {
-                            if (it.status == Resource.Status.LOADING) return@apiCollect
-                            if (it.status == Resource.Status.FAIL) GlobalToast.showToast(it.message)
-                            dialog.dismiss()
-                            syncPluginData(position, mAdapter.data[position], updateConfigs)
-                        }
-                }
-                Unit
-            }
+//        mAdapter.onItemConfigClickListener = {
+//            EditConfigDialog(
+//                it,
+//                mAdapter.data[it].config!!,
+//                requireContext(),
+//                onEditConfigListener
+//            ).show()
+//        }
 
-        mAdapter.onItemConfigClickListener = {
-            EditConfigDialog(
-                it,
-                mAdapter.data[it].config!!,
-                requireContext(),
-                onEditConfigListener
-            ).show()
-        }
-
-        mAdapter.onItemSwitchClickListener = { position, isChecked ->
-            viewLifecycleScope.launch {
-                val plugin = mAdapter.data[position]
-                val update = plugin.makeUpdatePlugin(blockType = if (isChecked) "" else "全部")
-
-                val holder = mAdapter.holderMap[plugin.module]!!
-                holder.binding.run {
-                    root.tag = plugin.module
-                    holder.setEnabled(false)
-                    mAdapter.nonEditableSet.add(plugin.module)
-                }
-
-                mViewModel.updatePlugin(update)
-                    .apiCollect {
-                        if (it.status == Resource.Status.LOADING) return@apiCollect
-                        mAdapter.nonEditableSet.remove(plugin.module)
-                        mAdapter.holderMap[plugin.module]?.run {
-                            if (module == plugin.module) setEnabled(true)
-                        }
-                        if (!it.success()) {
-                            update.blockType = if (plugin.manager.status) "" else "全部"
-                        }
-                        syncPluginData(position, plugin, update)
-                    }
-            }
-        }
+//        mAdapter.onItemSwitchClickListener = { position, isChecked ->
+//            viewLifecycleScope.launch {
+//                val plugin = mAdapter.data[position]
+//                val update = plugin.makeUpdatePlugin(blockType = if (isChecked) "" else "全部")
+//
+//                val holder = mAdapter.holderMap[plugin.module]!!
+//                holder.binding.run {
+//                    root.tag = plugin.module
+//                    holder.setEnabled(false)
+//                    mAdapter.nonEditableSet.add(plugin.module)
+//                }
+//
+//                mViewModel.updatePlugin(update)
+//                    .apiCollect {
+//                        if (it.status == Resource.Status.LOADING) return@apiCollect
+//                        mAdapter.nonEditableSet.remove(plugin.module)
+//                        mAdapter.holderMap[plugin.module]?.run {
+//                            if (module == plugin.module) setEnabled(true)
+//                        }
+//                        if (!it.success()) {
+//                            update.blockType = if (plugin.manager.status) "" else "全部"
+//                        }
+//                        syncPluginData(position, plugin, update)
+//                    }
+//            }
+//        }
 
         viewBinding.rvPlugin.run {
             adapter = mAdapter
@@ -153,45 +151,42 @@ class PluginTypeFragment : BaseFragment<FragmentPluginTypeBinding>() {
         viewBinding.icError.btnRetry.setOnDebounceClickListener { requestPlugins() }
     }
 
-    private fun updateLocalPluginData(position: Int, plugin: PluginData) {
-        mViewModel.modifyPluginData(position, plugin, false)
-        mAdapter.notifyItemChanged(position)
-    }
+//    private fun updateLocalPluginData(position: Int, plugin: PluginInfo) {
+//        mViewModel.modifyPluginData(position, plugin, false)
+//        mAdapter.notifyItemChanged(position)
+//    }
+//
+//    private suspend fun syncByRemoteData(position: Int, plugin: PluginInfo) {
+//        val result = mViewModel.requestPlugin(mType, plugin.module).apiCollect()
+//        if (result.success() && result.data != null) {
+//            updateLocalPluginData(position, result.data)
+//        }
+//    }
 
-    private suspend fun syncByRemoteData(position: Int, plugin: PluginData) {
-        val result = mViewModel.requestPlugin(mType, plugin.module).apiCollect()
-        if (result.success() && result.data != null) {
-            updateLocalPluginData(position, result.data)
-        }
-    }
+//    private suspend fun syncPluginData(position: Int, plugin: PluginInfo, update: UpdatePlugin) {
+//        //先展示本地修改后的数据
+//        updateLocalPluginData(position, plugin.applyUpdatePlugin(update))
+//        //再向服务端同步一次插件数据
+//        syncByRemoteData(position, plugin)
+//    }
 
-    private suspend fun syncPluginData(position: Int, plugin: PluginData, update: UpdatePlugin) {
-        //先展示本地修改后的数据
-        updateLocalPluginData(position, plugin.applyUpdatePlugin(update))
-        //再向服务端同步一次插件数据
-        syncByRemoteData(position, plugin)
-    }
-
-    private suspend fun syncPluginData(
-        position: Int,
-        plugin: PluginData,
-        updateConfigs: List<UpdateConfig>
-    ) {
-        //先展示本地修改后的数据
-        updateLocalPluginData(position, plugin.applyUpdateConfig(updateConfigs))
-        //再向服务端同步一次插件数据
-        syncByRemoteData(position, plugin)
-    }
+//    private suspend fun syncPluginData(
+//        position: Int,
+//        plugin: PluginInfo,
+//        updateConfigs: List<UpdateConfig>
+//    ) {
+//        //先展示本地修改后的数据
+//        updateLocalPluginData(position, plugin.applyUpdateConfig(updateConfigs))
+//        //再向服务端同步一次插件数据
+//        syncByRemoteData(position, plugin)
+//    }
 
     override fun initData() {
         @Suppress("DEPRECATION")
         mType = arguments?.getSerializable(ARGS_TYPE) as PluginType
 
+        mViewModel.plugins.launchAndCollectIn(this) { mAdapter.data = it }
         if (mViewModel.plugins.value.isEmpty()) requestPlugins()
-
-        viewLifecycleScope.launch {
-            mViewModel.plugins.collect { mAdapter.data = it }
-        }
     }
 
     private fun requestPlugins() = viewLifecycleScope.launch {

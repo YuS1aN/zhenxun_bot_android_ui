@@ -36,7 +36,7 @@
     <string name="edit">Edit</string>
     <string name="default_is_enabled">Default is Enabled</string>
     <string name="superuser_only">Superuser Only</string>
-    <string name="cost">Cost</string>
+    <string name="cost_gold">Cost Gold</string>
     <string name="type">Type</string>
     <string name="commend">Commend</string>
     <string name="group_level">Group Level</string>
@@ -44,13 +44,13 @@
     <string name="enabled">Enabled</string>
     <string name="error_valid_number">Please enter the valid number</string>
     <string name="error_string_is_empty">Please enter text</string>
-    <string name="description_label">Description: %s</string>
+    <string name="description_label"><b>Description:</b> %s</string>
     <string name="edit_config">Config</string>
     <string name="value_label">Value:</string>
     <string name="block_type">Block Type</string>
-    <string name="tab_all">All</string>
-    <string name="tab_group">Group</string>
-    <string name="tab_private">Private</string>
+    <string name="block_type_all">All</string>
+    <string name="block_type_group">Group</string>
+    <string name="block_type_private">Private</string>
     <string name="error_network_error">There was an error with the network connection.</string>
     <string name="error_no_data">There seems to be no data.</string>
     <string name="enabled_task_format">Enabled Task: %s</string>
@@ -101,4 +101,11 @@
         ]
     </string>
     <string name="bot_logs">Bot Logs</string>
+    <string name="default_state">Default State</string>
+    <string name="plugin_author_format" translatable="false">\@%s</string>
+    <string name="version">Version</string>
+    <string name="menu_type">Menu Type</string>
+    <string name="default_value_format"><b>Default Value:</b> %s</string>
+    <string name="add">Add</string>
+    <string name="reduce">Reduce</string>
 </resources>

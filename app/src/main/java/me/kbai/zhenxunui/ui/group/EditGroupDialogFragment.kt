@@ -1,10 +1,12 @@
 package me.kbai.zhenxunui.ui.group
 
-import android.content.Context
-import android.content.DialogInterface
+import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
+import androidx.fragment.app.DialogFragment
 import me.kbai.zhenxunui.R
-import me.kbai.zhenxunui.base.BaseDialog
+import me.kbai.zhenxunui.base.BaseDialogFragment
 import me.kbai.zhenxunui.databinding.DialogEditGroupBinding
 import me.kbai.zhenxunui.model.GroupInfo
 import me.kbai.zhenxunui.model.UpdateGroup
@@ -12,17 +14,25 @@ import me.kbai.zhenxunui.model.UpdateGroup
 /**
  * @author Sean on 2023/6/7
  */
-class EditGroupDialog(
-    context: Context,
+class EditGroupDialogFragment(
     private val group: GroupInfo,
-    private val onConfirmListener: (dialog: DialogInterface, button: View, update: UpdateGroup) -> Unit
-) : BaseDialog(context) {
-    private val mBinding = DialogEditGroupBinding.inflate(layoutInflater)
+    private val onConfirmListener: (dialog: DialogFragment, button: View, update: UpdateGroup) -> Unit
+) : BaseDialogFragment() {
+    private lateinit var mBinding: DialogEditGroupBinding
     private val mUpdateGroup = group.makeUpdateGroup()
 
     init {
-        setContentView(mBinding.root)
-        setCancelable(false)
+        isCancelable = false
+    }
+
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ) = DialogEditGroupBinding.inflate(inflater).also { mBinding = it }.root
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         initView()
     }
 
@@ -40,12 +50,12 @@ class EditGroupDialog(
             val level = try {
                 etGroupLevel.text.toString().toInt()
             } catch (e: NumberFormatException) {
-                tilGroupLevel.error = context.getString(R.string.error_valid_number)
+                tilGroupLevel.error = tilGroupLevel.context.getString(R.string.error_valid_number)
                 return@setOnClickListener
             }
             mUpdateGroup.level = level
 
-            onConfirmListener.invoke(this@EditGroupDialog, it, mUpdateGroup)
+            onConfirmListener.invoke(this@EditGroupDialogFragment, it, mUpdateGroup)
         }
     }
 }

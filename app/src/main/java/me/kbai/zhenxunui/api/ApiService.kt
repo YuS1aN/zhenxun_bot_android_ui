@@ -1,15 +1,13 @@
 package me.kbai.zhenxunui.api
 
-import me.kbai.zhenxunui.model.ActiveGroup
 import me.kbai.zhenxunui.model.BotBaseInfo
 import me.kbai.zhenxunui.model.BotMessageCount
 import me.kbai.zhenxunui.model.GroupInfo
 import me.kbai.zhenxunui.model.HandleRequest
 import me.kbai.zhenxunui.model.LoginInfo
-import me.kbai.zhenxunui.model.PluginData
-import me.kbai.zhenxunui.model.PopularPlugin
+import me.kbai.zhenxunui.model.PluginDetail
+import me.kbai.zhenxunui.model.PluginInfo
 import me.kbai.zhenxunui.model.RequestResult
-import me.kbai.zhenxunui.model.UpdateConfig
 import me.kbai.zhenxunui.model.UpdateGroup
 import me.kbai.zhenxunui.model.UpdatePlugin
 import retrofit2.http.Body
@@ -38,14 +36,20 @@ interface ApiService {
     @POST("update_group")
     suspend fun updateGroup(@Body updateGroup: UpdateGroup): ApiResponse<Unit>
 
-    @GET("get_plugins")
-    suspend fun getPlugins(@Query("plugin_type") type: String): ApiResponse<List<PluginData>>
+    @GET("plugin/get_plugin_list")
+    suspend fun getPluginList(
+        @Query("plugin_type") type: String,
+        @Query("menu_type") menuType: String? = null
+    ): ApiResponse<List<PluginInfo>>
 
-    @POST("update_plugins")
+    @GET("plugin/get_plugin")
+    suspend fun getPluginDetail(@Query("module") module: String): ApiResponse<PluginDetail>
+
+    @POST("plugin/update_plugin")
     suspend fun updatePlugin(@Body updatePlugin: UpdatePlugin): ApiResponse<Unit>
 
-    @POST("update_config")
-    suspend fun updateConfig(@Body updateConfigs: List<UpdateConfig>): ApiResponse<Unit>
+    @GET("plugin/get_plugin_menu_type")
+    suspend fun getPluginMenuType(): ApiResponse<List<String>>
 
     @GET("get_request")
     suspend fun getRequest(@Query("request_type") type: String): ApiResponse<List<RequestResult>>

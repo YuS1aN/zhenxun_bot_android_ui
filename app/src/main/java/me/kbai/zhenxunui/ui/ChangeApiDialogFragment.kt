@@ -1,10 +1,13 @@
 package me.kbai.zhenxunui.ui
 
-import android.content.Context
+import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import androidx.core.widget.addTextChangedListener
 import me.kbai.zhenxunui.Constants
 import me.kbai.zhenxunui.R
-import me.kbai.zhenxunui.base.BaseDialog
+import me.kbai.zhenxunui.base.BaseDialogFragment
 import me.kbai.zhenxunui.databinding.DialogChangeApiBinding
 import me.kbai.zhenxunui.extends.dp
 import me.kbai.zhenxunui.extends.hideSoftInputWhenInputDone
@@ -12,14 +15,22 @@ import me.kbai.zhenxunui.extends.hideSoftInputWhenInputDone
 /**
  * @author Sean on 2023/6/1
  */
-class ChangeApiDialog(context: Context) : BaseDialog(context) {
-    private val mBinding = DialogChangeApiBinding.inflate(layoutInflater)
+class ChangeApiDialogFragment : BaseDialogFragment() {
+    private lateinit var mBinding: DialogChangeApiBinding
+
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ) = DialogChangeApiBinding.inflate(layoutInflater).also { mBinding = it }.root
 
     init {
-        setContentView(mBinding.root)
-        setCancelable(false)
+        isCancelable = false
         maxWidth = 300.dp.toInt()
+    }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         mBinding.run {
             etApi.run {
                 setText(Constants.apiBaseUrl.value)
@@ -38,11 +49,11 @@ class ChangeApiDialog(context: Context) : BaseDialog(context) {
             btnConfirm.setOnClickListener {
                 val text = etApi.text
                 if (text.isNullOrBlank()) {
-                    tilApi.error = context.getString(R.string.error_input_api)
+                    tilApi.error = view.context.getString(R.string.error_input_api)
                     return@setOnClickListener
                 }
                 if (!Constants.updateApiUrl(text.toString())) {
-                    tilApi.error = context.getString(R.string.error_wrong_api_address)
+                    tilApi.error = view.context.getString(R.string.error_wrong_api_address)
                     return@setOnClickListener
                 }
                 dismiss()
