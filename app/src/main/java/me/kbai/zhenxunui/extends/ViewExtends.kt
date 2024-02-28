@@ -67,8 +67,8 @@ inline fun TabLayout.addOnTabSelectedListener(
     crossinline selected: (tab: TabLayout.Tab) -> Unit = {},
     crossinline unselected: (tab: TabLayout.Tab) -> Unit = {},
     crossinline reselected: (tab: TabLayout.Tab) -> Unit = {}
-) {
-    addOnTabSelectedListener(object : OnTabSelectedListener {
+): OnTabSelectedListener {
+    val listener = object : OnTabSelectedListener {
         override fun onTabSelected(tab: TabLayout.Tab) {
             selected.invoke(tab)
         }
@@ -80,7 +80,9 @@ inline fun TabLayout.addOnTabSelectedListener(
         override fun onTabReselected(tab: TabLayout.Tab) {
             reselected.invoke(tab)
         }
-    })
+    }
+    addOnTabSelectedListener(listener)
+    return listener
 }
 
 fun WebView.detach() {

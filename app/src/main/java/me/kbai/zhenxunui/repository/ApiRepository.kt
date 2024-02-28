@@ -12,6 +12,7 @@ import me.kbai.zhenxunui.api.WebSocketHolder
 import me.kbai.zhenxunui.model.HandleRequest
 import me.kbai.zhenxunui.model.PluginDetail
 import me.kbai.zhenxunui.model.PluginInfo
+import me.kbai.zhenxunui.model.PluginSwitch
 import me.kbai.zhenxunui.model.PluginType
 import me.kbai.zhenxunui.model.SystemStatus
 import me.kbai.zhenxunui.model.UpdateGroup
@@ -42,6 +43,8 @@ object ApiRepository {
     fun updatePlugin(plugin: UpdatePlugin) = networkFlow { BotApi.service.updatePlugin(plugin) }
 
     fun getPluginMenuTypes() = networkFlow { BotApi.service.getPluginMenuType() }
+
+    fun pluginSwitch(switch: PluginSwitch) = networkFlow { BotApi.service.pluginSwitch(switch) }
 
     fun getRequest(type: String) = networkFlow { BotApi.service.getRequest(type) }
 

@@ -1,33 +1,52 @@
 package me.kbai.zhenxunui.ui.plugin
 
+import android.content.Context
+import android.graphics.Typeface
 import android.text.Editable
+import android.text.InputType
+import android.text.Spannable
+import android.text.SpannableString
 import android.text.TextWatcher
+import android.text.style.StyleSpan
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.AdapterView.OnItemSelectedListener
 import android.widget.ArrayAdapter
+import android.widget.EditText
+import android.widget.LinearLayout
 import androidx.constraintlayout.widget.ConstraintSet
 import androidx.core.view.isVisible
+import androidx.core.view.size
 import androidx.core.widget.addTextChangedListener
 import androidx.recyclerview.widget.RecyclerView
 import androidx.transition.TransitionManager
 import me.kbai.zhenxunui.R
+import me.kbai.zhenxunui.databinding.BtnEditConfigValueListAddBinding
 import me.kbai.zhenxunui.databinding.ItemEditConfigBinding
+import me.kbai.zhenxunui.databinding.ItemEditConfigValueBoolBinding
+import me.kbai.zhenxunui.databinding.ItemEditConfigValueListBoolBinding
+import me.kbai.zhenxunui.databinding.ItemEditConfigValueListTextBinding
+import me.kbai.zhenxunui.databinding.ItemEditConfigValueTextBinding
 import me.kbai.zhenxunui.databinding.LayoutPluginConfigsBinding
 import me.kbai.zhenxunui.extends.addOnTabSelectedListener
+import me.kbai.zhenxunui.extends.logI
 import me.kbai.zhenxunui.extends.setOnProgressChangedListener
 import me.kbai.zhenxunui.model.BlockType
+import me.kbai.zhenxunui.model.ConfigValueType
 import me.kbai.zhenxunui.model.PluginDetail
 import me.kbai.zhenxunui.model.UpdatePlugin
+import me.kbai.zhenxunui.tool.GlobalToast
+import java.util.Objects
+import kotlin.math.max
 
 /**
  * @author Sean on 2023/6/6
  */
 class PluginConfigAdapter(
     val data: PluginDetail
-) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+) : RecyclerView.Adapter<PluginConfigAdapter.TextWatcherHolder>() {
     companion object {
         private const val TYPE_HEAD = 0
         private const val TYPE_ITEM = 1
@@ -43,10 +62,16 @@ class PluginConfigAdapter(
 
     private val mEditableData: UpdatePlugin = data.createUpdateData()
 
-    private val mTextWatchers: HashMap<ItemViewHolder, ConfigTextWatcher> = HashMap()
-
     fun checkAndGetUpdateData(): UpdatePlugin? {
-        return null
+        if (mEditableData.costGold == null) {
+            GlobalToast.showToast(R.string.error_cost_gold)
+            return null
+        }
+        if (mEditableData.menuType.isBlank()) {
+            GlobalToast.showToast(R.string.error_menu_type)
+            return null
+        }
+        return mEditableData
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = when (viewType) {
@@ -64,9 +89,9 @@ class PluginConfigAdapter(
 
     override fun getItemViewType(position: Int) = if (position == 0) TYPE_HEAD else TYPE_ITEM
 
-    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: TextWatcherHolder, position: Int) {
         if (position == 0) {
-            bindHead((holder as HeadViewHolder).binding)
+            bindHead(holder as HeadViewHolder)
             return
         }
 
@@ -77,17 +102,22 @@ class PluginConfigAdapter(
             tvDescription.text =
                 tvDescription.context.getString(R.string.description_label, item.help)
 
-            //TODO 插件参数
-//            etValue.setText(mEditableData.configs[item.key]?.toString() ?: "")
-//            val textWatcher = mTextWatchers[holder] ?: ConfigTextWatcher(item.key).also {
-//                mTextWatchers[holder] = it
-//            }
-//            etValue.addTextChangedListener(textWatcher)
-//            textWatcher.key = item.key
+            when (item.type) {
+                ConfigValueType.BOOL -> setBoolValueConfig(llValue, item)
+                ConfigValueType.LIST, ConfigValueType.TUPLE -> setListValueConfig(holder, item)
+                else -> setTextValueConfig(holder, item)
+            }
         }
     }
 
-    private fun bindHead(binding: LayoutPluginConfigsBinding) = binding.run binding@{
+    override fun onViewRecycled(holder: TextWatcherHolder) = holder.run {
+        editTexts.forEach {
+            it.removeTextChangedListener(it.tag as TextWatcher)
+        }
+        editTexts.clear()
+    }
+
+    private fun bindHead(holder: HeadViewHolder) = holder.binding.run binding@{
         swEnabled.apply {
             setOnCheckedChangeListener { _, isChecked ->
                 setBlockTypeVisibility(this@binding, !isChecked)
@@ -104,6 +134,8 @@ class PluginConfigAdapter(
                 newTab().setText(it.nameResId).setTag(it)
             }
             tabs.forEach { addTab(it) }
+
+            clearOnTabSelectedListeners()
             addOnTabSelectedListener {
                 mEditableData.blockType = if (swEnabled.isChecked) null else it.tag as BlockType
             }
@@ -130,15 +162,13 @@ class PluginConfigAdapter(
         }
 
         etCost.apply {
-            addTextChangedListener {
+            val textWatcher = addTextChangedListener {
                 val cost = it.toString().toIntOrNull()
-                if (cost != null) {
-                    tilCost.isErrorEnabled = false
-                }
                 mEditableData.costGold = cost
             }
-
-            setText(mEditableData.costGold?.toString() ?: "")
+            tag = textWatcher
+            holder.editTexts.add(this)
+            setText(mEditableData.costGold?.toString())
         }
 
         pluginMenuTypes?.also { initHeadMenuType(it) }
@@ -151,12 +181,13 @@ class PluginConfigAdapter(
 
             progress = mEditableData.level
         }
+
+        tvExtraConfigs.isVisible = (data.configList?.size ?: 0) > 0
     }
 
     private fun LayoutPluginConfigsBinding.initHeadMenuType(menuTypes: List<String>) =
         spType.apply {
             if (adapter != null) return@apply
-
             adapter = ArrayAdapter(
                 context, R.layout.item_config_spinner, 0, menuTypes
             )
@@ -192,32 +223,170 @@ class PluginConfigAdapter(
                 }
         }
 
-    inner class ConfigTextWatcher(var key: String) : TextWatcher {
-        override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+    private fun setBoolValueConfig(layout: LinearLayout, config: PluginDetail.Config) {
+        layout.removeAllViews()
+        val binding = ItemEditConfigValueBoolBinding.inflate(
+            LayoutInflater.from(layout.context),
+            layout,
+            true
+        )
+        binding.tvDefaultValue.text = defaultValueSpan(layout.context, config)
+        binding.swValue.setOnCheckedChangeListener { _, isChecked ->
+            mEditableData.configs[config.key] = isChecked
+        }
+        binding.swValue.isChecked = mEditableData.configs[config.key] as Boolean? ?: false
+    }
 
-        override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
-
-        override fun afterTextChanged(s: Editable?) {
-            val config = data.configList!!.find { it.key == key }
-            config!!.run {
-                val newValue = try {
-                    when (value) {
-                        is Boolean -> s.toString().toBoolean()
-                        is Int -> s.toString().toInt()
-                        is Long -> s.toString().toLong()
-                        else -> s?.toString()
+    private fun setTextValueConfig(holder: ItemViewHolder, config: PluginDetail.Config) =
+        holder.binding.run {
+            llValue.removeAllViews()
+            val binding = ItemEditConfigValueTextBinding.inflate(
+                LayoutInflater.from(llValue.context),
+                llValue,
+                true
+            )
+            binding.tvDefaultValue.text = defaultValueSpan(llValue.context, config)
+            binding.etValue.inputType = getConfigInputType(config.type)
+            binding.etValue.apply {
+                val textWatcher = addTextChangedListener {
+                    val strVal = it?.toString()
+                    try {
+                        mEditableData.configs[config.key] = when (config.type) {
+                            ConfigValueType.INT -> strVal?.toInt()
+                            ConfigValueType.FLOAT -> strVal?.toFloat()
+                            ConfigValueType.BOOL -> strVal?.lowercase()?.toBoolean()
+                            else -> strVal
+                        }
+                    } catch (e: NumberFormatException) {
+                        //
                     }
-                } catch (e: Exception) {
-                    null
                 }
-                if (newValue != null) mEditableData.configs[key] = newValue
+                tag = textWatcher
+                holder.editTexts.add(binding.etValue)
             }
+            binding.etValue.setText(mEditableData.configs[config.key]?.toString())
+        }
+
+    private fun defaultValueSpan(context: Context, config: PluginDetail.Config) = SpannableString(
+        context.getString(R.string.default_value_format, config.defaultValue ?: "")
+    ).apply {
+        setSpan(StyleSpan(Typeface.BOLD), 0, indexOf(':') + 1, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+    }
+
+    private fun setListValueConfig(holder: ItemViewHolder, config: PluginDetail.Config) =
+        holder.binding.run {
+            llValue.removeAllViews()
+            val end = max(
+                config.typeInner?.size ?: 0,
+                (mEditableData.configs[config.key] as List<*>?)?.size ?: 0
+            )
+
+            for (index in 0..<end) {
+                addListValue(index, holder, config)
+            }
+            val btnAdd = BtnEditConfigValueListAddBinding.inflate(
+                LayoutInflater.from(llValue.context),
+                llValue,
+                true
+            )
+            btnAdd.root.setOnClickListener {
+                addListValue(llValue.size - 1, holder, config)
+            }
+        }
+
+    private fun addListValue(
+        index: Int,
+        holder: ItemViewHolder,
+        config: PluginDetail.Config
+    ) = holder.binding.run {
+        val inflater = LayoutInflater.from(llValue.context)
+        val typeInnerSize = config.typeInner?.size ?: 0
+
+        val type = if (index < typeInnerSize) {
+            config.typeInner!![index]
+        } else if (typeInnerSize > 0) {
+            config.typeInner!![0]
+        } else {
+            ConfigValueType.STRING
+        }
+
+        val child = when (type) {
+            ConfigValueType.BOOL -> ItemEditConfigValueListBoolBinding.inflate(
+                inflater,
+                llValue,
+                false
+            ).apply { initListBoolValue(llValue, index, config) }
+
+            else -> ItemEditConfigValueListTextBinding.inflate(inflater, llValue, false)
+                .apply { initListTextValue(llValue, holder, index, type, config) }
+        }
+        llValue.addView(child.root, index)
+    }
+
+    private fun ItemEditConfigValueListBoolBinding.initListBoolValue(
+        parent: ViewGroup,
+        index: Int,
+        config: PluginDetail.Config
+    ) {
+        @Suppress("UNCHECKED_CAST")
+        val list = mEditableData.configs[config.key] as MutableList<Any?>? ?: ArrayList()
+        for (i in list.size..index) {
+            list.add(null)
+        }
+        if (index > (config.typeInner?.size ?: 1)) ivReduce.isVisible = true
+        swValue.isChecked = list[index] as Boolean? ?: false
+        mEditableData.configs[config.key] = list
+
+        ivReduce.setOnClickListener {
+            list.removeAt(parent.indexOfChild(root))
+            parent.removeView(root)
+        }
+        swValue.setOnCheckedChangeListener { _, isChecked ->
+            list[parent.indexOfChild(root)] = isChecked
         }
     }
 
+    private fun ItemEditConfigValueListTextBinding.initListTextValue(
+        parent: ViewGroup,
+        holder: ItemViewHolder,
+        index: Int,
+        innerType: ConfigValueType,
+        config: PluginDetail.Config
+    ) {
+        @Suppress("UNCHECKED_CAST")
+        val list = mEditableData.configs[config.key] as MutableList<Any?>? ?: ArrayList()
+        for (i in list.size..index) {
+            list.add(null)
+        }
+        if (index >= (config.typeInner?.size ?: 1)) ivReduce.isVisible = true
+        ivReduce.setOnClickListener {
+            list.removeAt(parent.indexOfChild(root))
+            parent.removeView(root)
+        }
+        etValue.inputType = getConfigInputType(innerType)
+        etValue.setText(list[index]?.toString())
+        mEditableData.configs[config.key] = list
+
+        val textWatcher = etValue.addTextChangedListener {
+            list[parent.indexOfChild(root)] = it?.toString() ?: ""
+        }
+        etValue.tag = textWatcher
+        holder.editTexts.add(etValue)
+    }
+
+    private fun getConfigInputType(config: ConfigValueType?) = when (config) {
+        ConfigValueType.INT -> InputType.TYPE_CLASS_NUMBER
+        ConfigValueType.FLOAT -> InputType.TYPE_CLASS_NUMBER or InputType.TYPE_NUMBER_FLAG_DECIMAL
+        else -> InputType.TYPE_CLASS_TEXT
+    }
+
+    open class TextWatcherHolder(view: View) : RecyclerView.ViewHolder(view) {
+        val editTexts: ArrayList<EditText> = ArrayList()
+    }
+
     private class HeadViewHolder(val binding: LayoutPluginConfigsBinding) :
-        RecyclerView.ViewHolder(binding.root)
+        TextWatcherHolder(binding.root)
 
     private class ItemViewHolder(val binding: ItemEditConfigBinding) :
-        RecyclerView.ViewHolder(binding.root)
+        TextWatcherHolder(binding.root)
 }

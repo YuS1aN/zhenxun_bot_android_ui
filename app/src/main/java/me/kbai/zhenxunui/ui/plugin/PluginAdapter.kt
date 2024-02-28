@@ -3,8 +3,10 @@ package me.kbai.zhenxunui.ui.plugin
 import android.annotation.SuppressLint
 import android.graphics.drawable.ColorDrawable
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.appcompat.widget.SwitchCompat
 import androidx.core.content.res.ResourcesCompat
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
@@ -34,15 +36,11 @@ class PluginAdapter : RecyclerView.Adapter<PluginViewHolder>() {
         @SuppressLint("NotifyDataSetChanged")
         set(value) {
             field = value
-            holderMap.clear()
-            nonEditableSet.clear()
             notifyDataSetChanged()
         }
-    val holderMap: HashMap<String, PluginViewHolder> = HashMap()
-    val nonEditableSet: HashSet<String> = HashSet()
 
     var onItemEditClickListener: ((position: Int) -> Unit)? = null
-    var onItemSwitchClickListener: ((position: Int, isChecked: Boolean) -> Unit)? = null
+    var onItemSwitchClickListener: ((position: Int, button: SwitchCompat) -> Unit)? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
         PluginViewHolder(
@@ -56,7 +54,6 @@ class PluginAdapter : RecyclerView.Adapter<PluginViewHolder>() {
     override fun onBindViewHolder(holder: PluginViewHolder, position: Int) {
         val item = data[position]
 
-        holderMap[item.module] = holder
         holder.module = item.module
 
         holder.binding.run {
@@ -90,10 +87,8 @@ class PluginAdapter : RecyclerView.Adapter<PluginViewHolder>() {
             llDivider1.setOnDebounceClickListener { onItemEditClickListener?.invoke(position) }
 
             swEnabled.setOnDebounceClickListener {
-                onItemSwitchClickListener?.invoke(position, swEnabled.isChecked)
+                onItemSwitchClickListener?.invoke(position, swEnabled)
             }
-
-            holder.setEnabled(!nonEditableSet.contains(item.module))
         }
     }
 

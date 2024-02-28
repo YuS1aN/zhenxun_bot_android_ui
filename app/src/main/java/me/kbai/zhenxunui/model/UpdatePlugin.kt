@@ -19,4 +19,18 @@ data class UpdatePlugin(
     @SerializedName("block_type")
     var blockType: BlockType?,
     val configs: MutableMap<String, Any?>
-)
+) {
+    fun applyToPluginInfo(pluginInfo: PluginInfo) = PluginInfo(
+        module,
+        pluginInfo.name,
+        defaultStatus,
+        limitSuperuser,
+        costGold ?: 0,
+        menuType,
+        pluginInfo.version,
+        level,
+        blockType != BlockType.ALL,
+        pluginInfo.author,
+        blockType
+    )
+}

@@ -7,6 +7,7 @@ import me.kbai.zhenxunui.model.HandleRequest
 import me.kbai.zhenxunui.model.LoginInfo
 import me.kbai.zhenxunui.model.PluginDetail
 import me.kbai.zhenxunui.model.PluginInfo
+import me.kbai.zhenxunui.model.PluginSwitch
 import me.kbai.zhenxunui.model.RequestResult
 import me.kbai.zhenxunui.model.UpdateGroup
 import me.kbai.zhenxunui.model.UpdatePlugin
@@ -50,6 +51,9 @@ interface ApiService {
 
     @GET("plugin/get_plugin_menu_type")
     suspend fun getPluginMenuType(): ApiResponse<List<String>>
+
+    @POST("plugin/change_switch")
+    suspend fun pluginSwitch(@Body switch: PluginSwitch): ApiResponse<Unit>
 
     @GET("get_request")
     suspend fun getRequest(@Query("request_type") type: String): ApiResponse<List<RequestResult>>

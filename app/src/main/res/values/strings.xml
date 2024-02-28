@@ -108,4 +108,7 @@
     <string name="default_value_format"><b>Default Value:</b> %s</string>
     <string name="add">Add</string>
     <string name="reduce">Reduce</string>
+    <string name="extra_configs">Extra Configs</string>
+    <string name="error_cost_gold">Please enter the valid `Cost Gold`</string>
+    <string name="error_menu_type">Please select a `Menu Type`</string>
 </resources>

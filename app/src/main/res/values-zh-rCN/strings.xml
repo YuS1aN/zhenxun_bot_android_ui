@@ -103,4 +103,7 @@
     <string name="default_value_format"><b>默认值:</b> %s</string>
     <string name="add">增加</string>
     <string name="reduce">减少</string>
+    <string name="extra_configs">配置项</string>
+    <string name="error_cost_gold">给我输入正确的金币数量！</string>
+    <string name="error_menu_type">要选一个类型！</string>
 </resources>

@@ -14,6 +14,7 @@ class PluginDetail(
     status: Boolean,
     author: String?,
     blockType: BlockType?,
+    @SerializedName("config_list")
     val configList: List<Config>?
 ) : PluginInfo(
     module,
@@ -36,6 +37,7 @@ class PluginDetail(
         @SerializedName("default_value")
         val defaultValue: Any?,
         val type: ConfigValueType?,
+        @SerializedName("type_inner")
         val typeInner: List<ConfigValueType>?
     )
 
@@ -71,19 +73,17 @@ class PluginDetail(
         }
     }
 
+    override fun hashCode(): Int {
+        var result = super.hashCode()
+        result = 31 * result + configList.hashCode()
+        return result
+    }
+
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other !is PluginDetail) return false
         if (!super.equals(other)) return false
 
-        if (configList != other.configList) return false
-
-        return true
-    }
-
-    override fun hashCode(): Int {
-        var result = super.hashCode()
-        result = 31 * result + configList.hashCode()
-        return result
+        return configList == other.configList
     }
 }

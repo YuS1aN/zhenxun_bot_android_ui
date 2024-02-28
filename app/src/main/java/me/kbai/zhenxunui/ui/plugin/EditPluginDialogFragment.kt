@@ -73,7 +73,10 @@ class EditPluginDialogFragment(
                 mViewModel.updatePlugin(data)
                     .apiCollect(it) {
                         GlobalToast.showToast(it.message)
-                        if (it.success()) dismiss()
+                        if (it.success()) {
+                            onConfirmListener.invoke(data)
+                            dismiss()
+                        }
                     }
             }
         }

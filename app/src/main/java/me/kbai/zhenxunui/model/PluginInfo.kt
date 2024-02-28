@@ -39,9 +39,8 @@ open class PluginInfo(
         if (level != other.level) return false
         if (status != other.status) return false
         if (author != other.author) return false
-        if (blockType != other.blockType) return false
 
-        return true
+        return blockType == other.blockType
     }
 
     override fun hashCode(): Int {
@@ -58,4 +57,30 @@ open class PluginInfo(
         result = 31 * result + (blockType?.hashCode() ?: 0)
         return result
     }
+
+    fun copy(
+        module: String = this.module,
+        name: String = this.name,
+        defaultStatus: Boolean = this.defaultStatus,
+        limitSuperuser: Boolean = this.limitSuperuser,
+        costGold: Int = this.costGold,
+        menuType: String = this.menuType,
+        version: String = this.version,
+        level: Int = this.level,
+        status: Boolean = this.status,
+        author: String? = this.author,
+        blockType: BlockType? = this.blockType
+    ) = PluginInfo(
+        module,
+        name,
+        defaultStatus,
+        limitSuperuser,
+        costGold,
+        menuType,
+        version,
+        level,
+        status,
+        author,
+        blockType
+    )
 }
