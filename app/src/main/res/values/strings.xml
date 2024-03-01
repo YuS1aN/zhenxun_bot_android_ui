@@ -111,4 +111,5 @@
     <string name="extra_configs">Extra Configs</string>
     <string name="error_cost_gold">Please enter the valid `Cost Gold`</string>
     <string name="error_menu_type">Please select a `Menu Type`</string>
+    <string name="no_requests">There are no friend/group requests</string>
 </resources>

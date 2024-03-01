@@ -17,7 +17,7 @@ import me.kbai.zhenxunui.extends.viewLifecycleScope
 class RequestFragment : BaseFragment<FragmentRequestBinding>() {
     private val mFragments = listOf(
         RequestTypeFragment.newInstance("group"),
-        RequestTypeFragment.newInstance("private")
+        RequestTypeFragment.newInstance("friend")
     )
 
     private val mTabTextRes = arrayOf(

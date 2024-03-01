@@ -18,7 +18,7 @@ import me.kbai.zhenxunui.repository.Resource
 import me.kbai.zhenxunui.tool.GlobalToast
 import me.kbai.zhenxunui.tool.glide.GlideApp
 import me.kbai.zhenxunui.ui.common.PromptDialogFragment
-import me.kbai.zhenxunui.viewmodel.RequestTypeViewModel
+import me.kbai.zhenxunui.viewmodel.RequestViewModel
 import me.kbai.zhenxunui.widget.CommonDecoration
 
 /**
@@ -38,7 +38,7 @@ class RequestTypeFragment : BaseFragment<FragmentRequestTypeBinding>() {
     }
 
     private val mType by lazy { requireArguments().getString(ARGS_TYPE)!! }
-    private val mViewModel by viewModels<RequestTypeViewModel>()
+    private val mViewModel by viewModels<RequestViewModel>({ requireParentFragment() })
     private val mListAdapter = RequestListAdapter()
 
     override fun getViewBinding(
@@ -64,18 +64,21 @@ class RequestTypeFragment : BaseFragment<FragmentRequestTypeBinding>() {
                             "delete" -> context.getString(R.string.delete)
                             else -> ""
                         },
-                        request.oid
+                        request.botId
                     )
                 )
                 .setOnConfirmClickListener { dialog ->
                     dialog.dismiss()
                     viewLifecycleScope.launch {
-                        mListAdapter.setItemEnabled(request.oid, false)
+                        mListAdapter.setItemEnabled(request.botId, false)
 
-                        mViewModel.handleRequest(HandleRequest(request.oid, handle, mType))
+                        mViewModel.handleRequest(
+                            handle,
+                            HandleRequest(request.botId, request.flag, mType)
+                        )
                             .filter { it.status != Resource.Status.LOADING }
                             .apiCollect {
-                                mListAdapter.setItemEnabled(request.oid, true)
+                                mListAdapter.setItemEnabled(request.botId, true)
                                 GlobalToast.showToast(it.message)
                                 getRequest(true)
                             }
@@ -90,7 +93,11 @@ class RequestTypeFragment : BaseFragment<FragmentRequestTypeBinding>() {
     }
 
     private fun getRequest(refresh: Boolean = false) = viewLifecycleScope.launch {
-        val latestData = mViewModel.requests
+        val latestData = when (mType) {
+            "friend" -> mViewModel.friendRequests
+            "group" -> mViewModel.groupRequests
+            else -> return@launch
+        }
         if (!refresh && latestData != null) {
             mListAdapter.data = latestData
             if (latestData.isEmpty()) {
@@ -102,7 +109,7 @@ class RequestTypeFragment : BaseFragment<FragmentRequestTypeBinding>() {
         if (refresh) viewBinding.root.isRefreshing = true
         viewBinding.icError.root.isVisible = false
 
-        mViewModel.getRequest(mType).apiCollect {
+        mViewModel.getRequest().apiCollect {
             if (it.status == Resource.Status.LOADING) {
                 if (!refresh) viewBinding.icLoading.root.isVisible = true
                 return@apiCollect
@@ -110,16 +117,22 @@ class RequestTypeFragment : BaseFragment<FragmentRequestTypeBinding>() {
             viewBinding.root.isRefreshing = false
             viewBinding.icLoading.root.isVisible = false
 
-            if (!it.success()) {
+            if (!it.success() || it.data == null) {
                 showErrorPage()
                 GlobalToast.showToast(it.message)
                 return@apiCollect
             }
-            if (it.data.isNullOrEmpty()) {
+
+            val data = when (mType) {
+                "friend" -> it.data.friend
+                "group" -> it.data.group
+                else -> return@apiCollect
+            }
+            if (data.isEmpty()) {
                 showNoDataPage()
                 return@apiCollect
             }
-            mListAdapter.data = it.data
+            mListAdapter.data = data
         }
     }
 
@@ -128,7 +141,7 @@ class RequestTypeFragment : BaseFragment<FragmentRequestTypeBinding>() {
         GlideApp.with(ivImage)
             .load(R.drawable.ic_no_data)
             .into(ivImage)
-        tvText.setText(R.string.error_no_data)
+        tvText.setText(R.string.no_requests)
         btnRetry.isVisible = false
     }
 

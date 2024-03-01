@@ -46,11 +46,15 @@ object ApiRepository {
 
     fun pluginSwitch(switch: PluginSwitch) = networkFlow { BotApi.service.pluginSwitch(switch) }
 
-    fun getRequest(type: String) = networkFlow { BotApi.service.getRequest(type) }
+    fun getRequestList() = networkFlow { BotApi.service.getRequestList() }
 
     fun clearRequest(type: String) = networkFlow { BotApi.service.clearRequest(type) }
 
-    fun handleRequest(handle: HandleRequest) = networkFlow { BotApi.service.handleRequest(handle) }
+    fun approveRequest(handle:HandleRequest)= networkFlow { BotApi.service.approveRequest(handle) }
+
+    fun refuseRequest(handle:HandleRequest)= networkFlow { BotApi.service.refuseRequest(handle) }
+
+    fun deleteRequest(handle:HandleRequest)= networkFlow { BotApi.service.deleteRequest(handle) }
 
     fun getDiskUsage() = rawNetworkFlow { BotApi.service.getDiskUsage() }
 

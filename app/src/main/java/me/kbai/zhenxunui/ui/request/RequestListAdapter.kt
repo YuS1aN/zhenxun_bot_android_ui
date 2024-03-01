@@ -15,7 +15,7 @@ import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
 import me.kbai.zhenxunui.R
 import me.kbai.zhenxunui.databinding.ItemRequestListBinding
-import me.kbai.zhenxunui.model.RequestResult
+import me.kbai.zhenxunui.model.BotRequest
 
 /**
  * @author Sean on 2023/6/8
@@ -32,7 +32,7 @@ class RequestListAdapter : RecyclerView.Adapter<RequestListAdapter.ViewHolder>()
         }
     }
 
-    var data: List<RequestResult> = emptyList()
+    var data: List<BotRequest> = emptyList()
         @SuppressLint("NotifyDataSetChanged")
         set(value) {
             field = value
@@ -44,7 +44,7 @@ class RequestListAdapter : RecyclerView.Adapter<RequestListAdapter.ViewHolder>()
     private val mNonEditableSet: HashSet<String> = HashSet()
     private val mHolderMap: HashMap<String, ViewHolder> = HashMap()
 
-    var onItemClickListener: ((handle: String, request: RequestResult) -> Unit)? =
+    var onItemClickListener: ((handle: String, request: BotRequest) -> Unit)? =
         null
 
     private lateinit var mColorSpan: ForegroundColorSpan
@@ -60,8 +60,8 @@ class RequestListAdapter : RecyclerView.Adapter<RequestListAdapter.ViewHolder>()
         val item = data[position]
         val context = holder.binding.root.context
 
-        mHolderMap[item.oid] = holder
-        holder.oid = item.oid
+        mHolderMap[item.botId] = holder
+        holder.oid = item.botId
 
         holder.binding.run {
             if (!this@RequestListAdapter::mColorSpan.isInitialized) {
@@ -98,7 +98,7 @@ class RequestListAdapter : RecyclerView.Adapter<RequestListAdapter.ViewHolder>()
             tvDelete.setOnClickListener {
                 onItemClickListener?.invoke("delete", item)
             }
-            holder.setEnabled(!mNonEditableSet.contains(item.oid))
+            holder.setEnabled(!mNonEditableSet.contains(item.botId))
         }
     }
 

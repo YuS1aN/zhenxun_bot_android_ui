@@ -8,7 +8,8 @@ import me.kbai.zhenxunui.model.LoginInfo
 import me.kbai.zhenxunui.model.PluginDetail
 import me.kbai.zhenxunui.model.PluginInfo
 import me.kbai.zhenxunui.model.PluginSwitch
-import me.kbai.zhenxunui.model.RequestResult
+import me.kbai.zhenxunui.model.BotRequest
+import me.kbai.zhenxunui.model.RequestListResult
 import me.kbai.zhenxunui.model.UpdateGroup
 import me.kbai.zhenxunui.model.UpdatePlugin
 import retrofit2.http.Body
@@ -55,14 +56,20 @@ interface ApiService {
     @POST("plugin/change_switch")
     suspend fun pluginSwitch(@Body switch: PluginSwitch): ApiResponse<Unit>
 
-    @GET("get_request")
-    suspend fun getRequest(@Query("request_type") type: String): ApiResponse<List<RequestResult>>
+    @GET("manage/get_request_list")
+    suspend fun getRequestList(): ApiResponse<RequestListResult>
 
-    @DELETE("clear_request")
+    @DELETE("manage/clear_request")
     suspend fun clearRequest(@Query("request_type") type: String): ApiResponse<Unit>
 
-    @POST("handle_request")
-    suspend fun handleRequest(@Body handleRequest: HandleRequest): ApiResponse<Unit>
+    @POST("manage/approve_request")
+    suspend fun approveRequest(@Body handleRequest: HandleRequest): ApiResponse<Unit>
+
+    @POST("manage/refuse_request")
+    suspend fun refuseRequest(@Body handleRequest: HandleRequest): ApiResponse<Unit>
+
+    @POST("manage/delete_request")
+    suspend fun deleteRequest(@Body handleRequest: HandleRequest): ApiResponse<Unit>
 
     @GET("system/disk")
     suspend fun getDiskUsage(): RawApiResponse
