@@ -7,7 +7,7 @@
     <string name="nav_title_func"> </string>
     <string name="nav_console">Console</string>
     <string name="nav_plugin">Plugin</string>
-    <string name="nav_group">Group</string>
+    <string name="nav_friend_list">Friend/Group</string>
     <string name="nav_request">Request</string>
     <string name="nav_info">SysInfo</string>
     <string name="username_label">Username</string>
@@ -112,4 +112,7 @@
     <string name="error_cost_gold">Please enter the valid `Cost Gold`</string>
     <string name="error_menu_type">Please select a `Menu Type`</string>
     <string name="no_requests">There are no friend/group requests</string>
+    <string name="dropdown">dropdown</string>
+    <string name="groups">Groups</string>
+    <string name="friends">Friends</string>
 </resources>

@@ -17,8 +17,8 @@
                     android:id="@+id/nav_plugin"
                     android:title="@string/nav_plugin" />
                 <item
-                    android:id="@+id/nav_group"
-                    android:title="@string/nav_group" />
+                    android:id="@+id/nav_friend_list"
+                    android:title="@string/nav_friend_list" />
                 <item
                     android:id="@+id/nav_request"
                     android:title="@string/nav_request" />

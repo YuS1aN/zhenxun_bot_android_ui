@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center_vertical"
+    android:orientation="horizontal"
+    android:padding="@dimen/margin_normal"
+    tools:ignore="UseCompoundDrawables">
+
+    <ImageView
+        android:id="@+id/iv_arrow"
+        android:layout_width="16dp"
+        android:layout_height="16dp"
+        android:contentDescription="@string/dropdown"
+        android:src="@drawable/ic_arrow_drop_down_16" />
+
+    <TextView
+        android:id="@+id/tv_classify"
+        style="@style/SingleLineText"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/normal_line_height"
+        android:layout_marginStart="@dimen/margin_normal"
+        android:gravity="center_vertical"
+        android:textColor="@color/dn_black"
+        android:textSize="@dimen/text_size_large"
+        tools:text="群组" />
+</LinearLayout>

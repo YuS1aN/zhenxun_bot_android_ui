@@ -29,7 +29,9 @@ object ApiRepository {
         BotApi.service.login(username, password)
     }
 
-    fun getGroup() = networkFlow { BotApi.service.getGroup() }
+    fun getFriendList(botId: String) = networkFlow { BotApi.service.getFriendList(botId) }
+
+    fun getGroupList(botId: String) = networkFlow { BotApi.service.getGroupList(botId) }
 
     fun updateGroup(updateGroup: UpdateGroup) =
         networkFlow { BotApi.service.updateGroup(updateGroup) }

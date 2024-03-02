@@ -9,6 +9,8 @@ import me.kbai.zhenxunui.model.PluginDetail
 import me.kbai.zhenxunui.model.PluginInfo
 import me.kbai.zhenxunui.model.PluginSwitch
 import me.kbai.zhenxunui.model.BotRequest
+import me.kbai.zhenxunui.model.FriendListItem
+import me.kbai.zhenxunui.model.GroupListItem
 import me.kbai.zhenxunui.model.RequestListResult
 import me.kbai.zhenxunui.model.UpdateGroup
 import me.kbai.zhenxunui.model.UpdatePlugin
@@ -34,6 +36,12 @@ interface ApiService {
 
     @GET("get_group")
     suspend fun getGroup(): ApiResponse<List<GroupInfo>>
+
+    @GET("manage/get_friend_list")
+    suspend fun getFriendList(@Query("bot_id") botId: String): ApiResponse<List<FriendListItem>>
+
+    @GET("manage/get_group_list")
+    suspend fun getGroupList(@Query("bot_id") botId: String): ApiResponse<List<GroupListItem>>
 
     @POST("update_group")
     suspend fun updateGroup(@Body updateGroup: UpdateGroup): ApiResponse<Unit>

@@ -5,7 +5,7 @@
     <string name="nav_console">控制台</string>
     <string name="nav_plugin">插件列表</string>
     <string name="nav_request">请求管理</string>
-    <string name="nav_group">群组管理</string>
+    <string name="nav_friend_list">好友/群组</string>
     <string name="nav_info">系统信息</string>
     <string name="nav_title_func">" "</string>
     <string name="username_hint">请输入用户名</string>
@@ -107,4 +107,7 @@
     <string name="error_cost_gold">给我输入正确的金币数量！</string>
     <string name="error_menu_type">要选一个类型！</string>
     <string name="no_requests">这里空空如也呢</string>
+    <string name="dropdown">下拉列表</string>
+    <string name="groups">群组</string>
+    <string name="friends">好友</string>
 </resources>

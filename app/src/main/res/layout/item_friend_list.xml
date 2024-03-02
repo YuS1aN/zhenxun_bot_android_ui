@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="@dimen/list_item_padding">
+
+    <me.kbai.zhenxunui.widget.CornerImageView
+        android:id="@+id/iv_avatar"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        app:cornerRadius="999dp"
+        tools:src="@mipmap/ic_launcher" />
+
+    <TextView
+        android:id="@+id/tv_nickname"
+        style="@style/SingleLineText"
+        android:layout_width="match_parent"
+        android:layout_height="24dp"
+        android:layout_marginStart="@dimen/margin_normal"
+        android:layout_toEndOf="@id/iv_avatar"
+        android:gravity="center_vertical"
+        android:textColor="@color/dn_black"
+        android:textSize="@dimen/title_size_normal"
+        app:autoSizeMaxTextSize="@dimen/title_size_normal"
+        app:autoSizeMinTextSize="@dimen/text_size_small"
+        app:autoSizeTextType="uniform"
+        tools:text="是真寻酱哒" />
+
+    <TextView
+        android:id="@+id/tv_id"
+        style="@style/SingleLineText"
+        android:layout_width="match_parent"
+        android:layout_height="24dp"
+        android:layout_below="@id/tv_nickname"
+        android:layout_marginStart="@dimen/margin_normal"
+        android:layout_toEndOf="@id/iv_avatar"
+        android:gravity="center_vertical"
+        android:textColor="@color/text_gray"
+        android:textSize="@dimen/title_size_small"
+        app:autoSizeMaxTextSize="@dimen/title_size_small"
+        app:autoSizeMinTextSize="@dimen/text_size_small"
+        app:autoSizeTextType="uniform"
+        tools:text="1145141919" />
+</RelativeLayout>

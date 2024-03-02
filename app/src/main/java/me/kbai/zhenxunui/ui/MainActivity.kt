@@ -27,7 +27,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
 //                R.id.nav_home,
                 R.id.nav_console,
                 R.id.nav_plugin,
-                R.id.nav_group,
+                R.id.nav_friend_list,
                 R.id.nav_request,
                 R.id.nav_info
             ), viewBinding.drawerLayout

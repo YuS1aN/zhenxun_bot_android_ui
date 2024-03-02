@@ -46,7 +46,6 @@
                 android:text="@string/cpu"
                 android:textColor="@color/text_gray"
                 android:textSize="@dimen/title_size_small"
-                android:textStyle="bold"
                 app:drawableStartCompat="@drawable/ic_cpu_18" />
 
             <TextView
@@ -85,7 +84,6 @@
                 android:text="@string/memory"
                 android:textColor="@color/text_gray"
                 android:textSize="@dimen/title_size_small"
-                android:textStyle="bold"
                 app:drawableStartCompat="@drawable/ic_memory_18" />
 
             <TextView
@@ -123,7 +121,6 @@
                 android:text="@string/disk"
                 android:textColor="@color/text_gray"
                 android:textSize="@dimen/title_size_small"
-                android:textStyle="bold"
                 app:drawableStartCompat="@drawable/ic_disk_18" />
 
             <TextView

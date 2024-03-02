@@ -10,11 +10,11 @@
         android:layout_height="match_parent">
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rv_group"
+            android:id="@+id/rv_friends"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            tools:listitem="@layout/item_group_list" />
+            tools:listitem="@layout/item_friend_list" />
 
         <include
             android:id="@+id/ic_error"

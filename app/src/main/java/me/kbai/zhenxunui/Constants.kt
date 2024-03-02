@@ -8,6 +8,7 @@ import androidx.lifecycle.MutableLiveData
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import me.kbai.zhenxunui.api.ErrorHandleAdapterFactory
+import me.kbai.zhenxunui.model.BotBaseInfo
 
 /**
  * @author Sean on 2023/5/31
@@ -29,6 +30,8 @@ object Constants {
     val gson: Gson = GsonBuilder()
         .registerTypeAdapterFactory(ErrorHandleAdapterFactory())
         .create()
+
+    var currentBot: BotBaseInfo? = null
 
     @JvmStatic
     fun init(app: Application) {

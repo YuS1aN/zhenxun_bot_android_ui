@@ -5,11 +5,11 @@
     android:id="@+id/mobile_navigation"
     app:startDestination="@+id/nav_console">
 
-<!--    <fragment-->
-<!--        android:id="@+id/nav_home"-->
-<!--        android:name="me.kbai.zhenxunui.ui.home.HomeFragment"-->
-<!--        android:label="@string/nav_home"-->
-<!--        tools:layout="@layout/fragment_home" />-->
+    <!--    <fragment-->
+    <!--        android:id="@+id/nav_home"-->
+    <!--        android:name="me.kbai.zhenxunui.ui.home.HomeFragment"-->
+    <!--        android:label="@string/nav_home"-->
+    <!--        tools:layout="@layout/fragment_home" />-->
 
     <fragment
         android:id="@+id/nav_console"
@@ -24,10 +24,14 @@
         tools:layout="@layout/fragment_plugin" />
 
     <fragment
-        android:id="@+id/nav_group"
-        android:name="me.kbai.zhenxunui.ui.group.GroupFragment"
-        android:label="@string/nav_group"
-        tools:layout="@layout/fragment_group" />
+        android:id="@+id/nav_friend_list"
+        android:name="me.kbai.zhenxunui.ui.group.FriendListFragment"
+        android:label="@string/nav_friend_list"
+        tools:layout="@layout/fragment_group">
+        <action
+            android:id="@+id/action_nav_friend_list_to_conversationFragment"
+            app:destination="@id/conversationFragment" />
+    </fragment>
 
     <fragment
         android:id="@+id/nav_request"
@@ -40,4 +44,11 @@
         android:name="me.kbai.zhenxunui.ui.info.InfoFragment"
         android:label="@string/nav_info"
         tools:layout="@layout/fragment_info" />
+
+    <fragment
+        android:id="@+id/conversationFragment"
+        android:name="me.kbai.zhenxunui.ui.group.ConversationFragment"
+        android:label="ConversationFragment"
+        tools:layout="@layout/fragment_conversation" />
+
 </navigation>
