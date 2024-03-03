@@ -1,2 +1,2 @@
-*.xml linguist-vendored=false
-echarts.js linguist-vendored=false
+*.xml linguist-detectable=false
+echarts.js linguist-detectable=false
