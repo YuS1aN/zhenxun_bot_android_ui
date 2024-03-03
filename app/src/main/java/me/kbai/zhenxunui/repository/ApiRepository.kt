@@ -9,11 +9,13 @@ import me.kbai.zhenxunui.api.BotApi
 import me.kbai.zhenxunui.api.RawApiResponse
 import me.kbai.zhenxunui.api.TypedWebSocketHolder
 import me.kbai.zhenxunui.api.WebSocketHolder
+import me.kbai.zhenxunui.model.ChatMessage
 import me.kbai.zhenxunui.model.HandleRequest
 import me.kbai.zhenxunui.model.PluginDetail
 import me.kbai.zhenxunui.model.PluginInfo
 import me.kbai.zhenxunui.model.PluginSwitch
 import me.kbai.zhenxunui.model.PluginType
+import me.kbai.zhenxunui.model.SendMessage
 import me.kbai.zhenxunui.model.SystemStatus
 import me.kbai.zhenxunui.model.UpdateGroup
 import me.kbai.zhenxunui.model.UpdatePlugin
@@ -52,11 +54,12 @@ object ApiRepository {
 
     fun clearRequest(type: String) = networkFlow { BotApi.service.clearRequest(type) }
 
-    fun approveRequest(handle:HandleRequest)= networkFlow { BotApi.service.approveRequest(handle) }
+    fun approveRequest(handle: HandleRequest) =
+        networkFlow { BotApi.service.approveRequest(handle) }
 
-    fun refuseRequest(handle:HandleRequest)= networkFlow { BotApi.service.refuseRequest(handle) }
+    fun refuseRequest(handle: HandleRequest) = networkFlow { BotApi.service.refuseRequest(handle) }
 
-    fun deleteRequest(handle:HandleRequest)= networkFlow { BotApi.service.deleteRequest(handle) }
+    fun deleteRequest(handle: HandleRequest) = networkFlow { BotApi.service.deleteRequest(handle) }
 
     fun getDiskUsage() = rawNetworkFlow { BotApi.service.getDiskUsage() }
 
@@ -69,6 +72,8 @@ object ApiRepository {
     fun getActiveGroup() = rawNetworkFlow { BotApi.service.getActiveGroup() }
 
     fun getPopularPlugin() = rawNetworkFlow { BotApi.service.getPopularPlugin() }
+
+    fun sendMessage(message: SendMessage) = networkFlow { BotApi.service.sendMessage(message) }
 
     fun newSystemStatusWebSocket(
         scope: CoroutineScope,
@@ -89,6 +94,15 @@ object ApiRepository {
     ) = object : WebSocketHolder("logs", scope) {
         override fun onMessage(text: String) {
             onMessage.invoke(text)
+        }
+    }
+
+    fun newChatWebSocket(
+        scope: CoroutineScope,
+        onMessage: (message: ChatMessage?, exception: JsonParseException?) -> Unit
+    ) = object : TypedWebSocketHolder<ChatMessage>(ChatMessage::class.java, "chat", scope) {
+        override fun onMessage(message: ChatMessage?, exception: JsonParseException?) {
+            onMessage(message, exception)
         }
     }
 

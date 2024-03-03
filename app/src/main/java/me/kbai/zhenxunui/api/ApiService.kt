@@ -12,6 +12,7 @@ import me.kbai.zhenxunui.model.BotRequest
 import me.kbai.zhenxunui.model.FriendListItem
 import me.kbai.zhenxunui.model.GroupListItem
 import me.kbai.zhenxunui.model.RequestListResult
+import me.kbai.zhenxunui.model.SendMessage
 import me.kbai.zhenxunui.model.UpdateGroup
 import me.kbai.zhenxunui.model.UpdatePlugin
 import retrofit2.http.Body
@@ -96,4 +97,7 @@ interface ApiService {
 
     @GET("main/get_hot_plugin")
     suspend fun getPopularPlugin(): RawApiResponse
+
+    @POST("manage/send_message")
+    suspend fun sendMessage(@Body message: SendMessage): ApiResponse<*>
 }

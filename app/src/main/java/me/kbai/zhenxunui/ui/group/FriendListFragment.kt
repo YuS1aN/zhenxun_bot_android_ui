@@ -1,5 +1,7 @@
 package me.kbai.zhenxunui.ui.group
 
+import android.content.Context
+import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.view.isVisible
@@ -10,9 +12,11 @@ import me.kbai.zhenxunui.R
 import me.kbai.zhenxunui.base.BaseFragment
 import me.kbai.zhenxunui.databinding.FragmentGroupBinding
 import me.kbai.zhenxunui.extends.launchAndCollectIn
+import me.kbai.zhenxunui.extends.logI
 import me.kbai.zhenxunui.extends.setOnDebounceClickListener
 import me.kbai.zhenxunui.extends.viewLifecycleScope
 import me.kbai.zhenxunui.tool.glide.GlideApp
+import me.kbai.zhenxunui.viewmodel.ConversationViewModel
 import me.kbai.zhenxunui.viewmodel.FriendListType
 import me.kbai.zhenxunui.viewmodel.FriendListViewModel
 
@@ -27,6 +31,13 @@ class FriendListFragment : BaseFragment<FragmentGroupBinding>() {
     private val mViewModel by viewModels<FriendListViewModel>()
     private val mAdapter = FriendListAdapter()
 
+    private val mConversationViewModel by viewModels<ConversationViewModel>({ requireActivity() })
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        mConversationViewModel.openWebSocket()
+    }
+
     override fun initView(): Unit = viewBinding.run {
         rvFriends.adapter = mAdapter
         mAdapter.onGroupClickListener = {
@@ -38,9 +49,20 @@ class FriendListFragment : BaseFragment<FragmentGroupBinding>() {
 //                    requestGroupData(true)
 //                }
 //            }.show(childFragmentManager)
-            findNavController().navigate(R.id.action_nav_friend_list_to_conversationFragment)
+            val args = Bundle().apply {
+                putString(ConversationFragment.ARGS_GROUP_ID, it.groupId)
+                putString(ConversationFragment.ARGS_NAME, it.groupName)
+            }
+            findNavController().navigate(R.id.action_nav_friend_list_to_conversationFragment, args)
         }
-        root.setOnRefreshListener { requestData(refresh = true) }
+        mAdapter.onFriendClickListener = {
+            val args = Bundle().apply {
+                putString(ConversationFragment.ARGS_USER_ID, it.userId)
+                putString(ConversationFragment.ARGS_NAME, it.nickname)
+            }
+            findNavController().navigate(R.id.action_nav_friend_list_to_conversationFragment, args)
+        }
+        root.setOnRefreshListener { requestData() }
         icError.btnRetry.setOnDebounceClickListener { requestData() }
     }
 
@@ -56,8 +78,7 @@ class FriendListFragment : BaseFragment<FragmentGroupBinding>() {
     }
 
     private fun requestData(
-        type: Int = FriendListType.FRIEND or FriendListType.GROUP,
-        refresh: Boolean = false
+        type: Int = FriendListType.FRIEND or FriendListType.GROUP
     ) = viewLifecycleScope.launch {
 //        if (refresh) {
         viewBinding.root.isRefreshing = true

@@ -11,12 +11,19 @@ import okhttp3.WebSocketListener
 import okio.ByteString
 
 open class WebSocketHolder(private val path: String, private val scope: CoroutineScope) {
+    companion object {
+        private const val NOT_STARTED = 0
+        private const val RUNNING = 1
+        private const val CANCELED = 2
+    }
 
     private var mWebSocket: WebSocket? = null
-    private var mCanceled = false
+    private var mStatus = NOT_STARTED
 
     fun connect() {
-        if (mCanceled) return
+        if (mStatus != NOT_STARTED) return
+
+        mStatus = RUNNING
 
         mWebSocket = BotApi.openWebSocket(path, object : WebSocketListener() {
 
@@ -64,6 +71,6 @@ open class WebSocketHolder(private val path: String, private val scope: Coroutin
 
     fun cancel() {
         mWebSocket?.cancel()
-        mCanceled = true
+        mStatus = CANCELED
     }
 }

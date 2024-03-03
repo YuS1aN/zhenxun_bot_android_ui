@@ -110,4 +110,5 @@
     <string name="dropdown">下拉列表</string>
     <string name="groups">群组</string>
     <string name="friends">好友</string>
+    <string name="send">发送</string>
 </resources>
