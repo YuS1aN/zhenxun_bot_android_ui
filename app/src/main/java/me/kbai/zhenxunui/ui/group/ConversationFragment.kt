@@ -5,15 +5,11 @@ import android.view.ViewGroup
 import androidx.appcompat.widget.Toolbar
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.viewModels
-import me.kbai.zhenxunui.Constants
 import me.kbai.zhenxunui.R
 import me.kbai.zhenxunui.base.BaseFragment
 import me.kbai.zhenxunui.databinding.FragmentConversationBinding
 import me.kbai.zhenxunui.extends.launchAndCollectIn
-import me.kbai.zhenxunui.extends.logI
 import me.kbai.zhenxunui.extends.setOnDebounceClickListener
-import me.kbai.zhenxunui.model.ChatMessage
-import me.kbai.zhenxunui.model.MessageType
 import me.kbai.zhenxunui.tool.GlobalToast
 import me.kbai.zhenxunui.viewmodel.ConversationViewModel
 

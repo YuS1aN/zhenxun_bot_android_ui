@@ -40,9 +40,9 @@ class ConsoleFragment : BaseFragment<FragmentConsoleBinding>() {
 
     companion object {
         private const val LOCAL_DOMAIN = "local.host"
-        private const val BAR_CHART_FILE = "$LOCAL_DOMAIN/assets/console_bar_charts.html"
+        private const val BAR_CHART_FILE = "http://$LOCAL_DOMAIN/assets/console_bar_charts.html"
         private const val TANGENTIAL_BAR_FILE =
-            "$LOCAL_DOMAIN/assets/console_horizontal_bar_charts.html"
+            "http://$LOCAL_DOMAIN/assets/console_horizontal_bar_charts.html"
     }
 
     private val mViewModel by viewModels<ConsoleViewModel>()

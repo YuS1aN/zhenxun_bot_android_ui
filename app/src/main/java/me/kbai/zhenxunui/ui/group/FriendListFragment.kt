@@ -80,9 +80,7 @@ class FriendListFragment : BaseFragment<FragmentGroupBinding>() {
     private fun requestData(
         type: Int = FriendListType.FRIEND or FriendListType.GROUP
     ) = viewLifecycleScope.launch {
-//        if (refresh) {
         viewBinding.root.isRefreshing = true
-//        }
         viewBinding.icError.root.isVisible = false
 
         val result = mViewModel.requestList(type)

@@ -1,17 +1,6 @@
 package me.kbai.zhenxunui.viewmodel
 
-import android.graphics.Color
-import android.graphics.Typeface
-import android.text.Html
-import android.text.SpannableString
 import android.text.SpannableStringBuilder
-import android.text.Spanned
-import android.text.style.ForegroundColorSpan
-import android.text.style.StyleSpan
-import android.text.style.TextAppearanceSpan
-import android.text.style.TypefaceSpan
-import androidx.core.text.toSpannable
-import androidx.core.text.toSpanned
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -28,15 +17,6 @@ import me.kbai.zhenxunui.model.SystemStatus
 import me.kbai.zhenxunui.repository.ApiRepository
 import me.kbai.zhenxunui.tool.AlwaysDifferent
 import me.kbai.zhenxunui.tool.Ansi2SpannedHelper
-import pk.ansi4j.core.DefaultFunctionFinder
-import pk.ansi4j.core.DefaultParserFactory
-import pk.ansi4j.core.DefaultTextHandler
-import pk.ansi4j.core.api.Environment
-import pk.ansi4j.core.iso6429.C0ControlFunctionHandler
-import pk.ansi4j.core.iso6429.C1ControlFunctionHandler
-import pk.ansi4j.core.iso6429.ControlSequenceHandler
-import pk.ansi4j.core.iso6429.ControlStringHandler
-import pk.ansi4j.core.iso6429.IndependentControlFunctionHandler
 
 class ConsoleViewModel : ViewModel() {
 

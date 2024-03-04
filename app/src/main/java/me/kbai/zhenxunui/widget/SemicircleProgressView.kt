@@ -5,6 +5,7 @@ import android.graphics.Canvas
 import android.graphics.Paint
 import android.util.AttributeSet
 import android.view.View
+import androidx.core.content.res.use
 import me.kbai.zhenxunui.R
 import me.kbai.zhenxunui.extends.dp
 import me.kbai.zhenxunui.extends.getThemeColor
@@ -20,7 +21,7 @@ class SemicircleProgressView @JvmOverloads constructor(
         private const val SMOOTH_ANIM_TIME = 500F
     }
 
-    private var mStrokeWidth: Int
+    private var mStrokeWidth: Int = 0
 
     private val mBackgroundPaint: Paint
     private val mFillPaint: Paint

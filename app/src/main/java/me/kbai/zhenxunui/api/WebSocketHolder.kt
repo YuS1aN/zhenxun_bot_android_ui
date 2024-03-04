@@ -13,36 +13,44 @@ import okio.ByteString
 open class WebSocketHolder(private val path: String, private val scope: CoroutineScope) {
     companion object {
         private const val NOT_STARTED = 0
-        private const val RUNNING = 1
-        private const val CANCELED = 2
+        private const val CONNECTING = 1
+        private const val CONNECTED = 2
+        private const val CLOSING = 3
+        private const val CLOSED = 4
+        private const val FAILURE = 5
+        private const val CANCELED = -1
     }
 
     private var mWebSocket: WebSocket? = null
     private var mStatus = NOT_STARTED
 
     fun connect() {
-        if (mStatus != NOT_STARTED) return
+        if (mStatus in CONNECTING .. CLOSING) return
 
-        mStatus = RUNNING
+        mStatus = CONNECTING
 
         mWebSocket = BotApi.openWebSocket(path, object : WebSocketListener() {
 
             override fun onOpen(webSocket: WebSocket, response: Response) {
                 logI("WebSocket is connected.")
+                mStatus = CONNECTED
             }
 
             override fun onClosed(webSocket: WebSocket, code: Int, reason: String) {
                 logI("WebSocket is closed.")
+                mStatus = CLOSED
             }
 
             override fun onClosing(webSocket: WebSocket, code: Int, reason: String) {
-                logI("WebSocket is closing: $reason")
+                logI("WebSocket is closing, reason: $reason")
                 webSocket.close(code, reason)
+                mStatus = CLOSING
             }
 
             override fun onFailure(webSocket: WebSocket, t: Throwable, response: Response?) {
                 logE("WebSocket on failure: $response \n $t")
                 webSocket.cancel()
+                mStatus = FAILURE
                 scope.launch {
                     delay(5_000)
                     connect()

@@ -2,14 +2,17 @@ package me.kbai.zhenxunui.tool
 
 import android.graphics.Color
 import android.graphics.Typeface
+import android.os.Build
 import android.text.SpannableStringBuilder
 import android.text.Spanned
+import android.text.SpannedString
 import android.text.style.BackgroundColorSpan
 import android.text.style.CharacterStyle
 import android.text.style.ForegroundColorSpan
 import android.text.style.StrikethroughSpan
 import android.text.style.StyleSpan
 import android.text.style.UnderlineSpan
+import androidx.annotation.RequiresApi
 import pk.ansi4j.core.DefaultFunctionFinder
 import pk.ansi4j.core.DefaultParserFactory
 import pk.ansi4j.core.DefaultTextHandler
@@ -27,12 +30,16 @@ import pk.ansi4j.core.iso6429.IndependentControlFunctionHandler
 import java.util.AbstractCollection
 
 class Ansi2SpannedHelper {
-    private val mFactory: ParserFactory = initFactory()
+    private val mFactory: ParserFactory? = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+        initFactory()
+    } else {
+        null
+    }
     private val mStyles: ArrayList<CharacterStyle> = ArrayList()
 
     fun parse(text: String): Spanned {
         val builder = SpannableStringBuilder()
-        val parser = mFactory.createParser(text)
+        val parser = (mFactory ?: return SpannedString(text)).createParser(text)
 
         while (true) {
             val fragment = parser.parse() ?: break
@@ -97,6 +104,7 @@ class Ansi2SpannedHelper {
         }
     }
 
+    @RequiresApi(24)
     private fun initFactory() = DefaultParserFactory.Builder()
         .environment(Environment._7_BIT)
         .textHandler(DefaultTextHandler())

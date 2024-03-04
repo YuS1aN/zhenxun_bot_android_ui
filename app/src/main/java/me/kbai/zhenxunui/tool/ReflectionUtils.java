@@ -1,5 +1,6 @@
 package me.kbai.zhenxunui.tool;
 
+import android.text.TextUtils;
 import android.util.Log;
 
 import androidx.annotation.Nullable;
@@ -106,15 +107,24 @@ public class ReflectionUtils {
         return false;
     }
 
+    /** @noinspection CallToPrintStackTrace*/
     public static <T> boolean setFieldValue(Object object, String fieldName, T fieldValue) {
-        try {
-            Class<?> clazz = object.getClass();
-            Field field = clazz.getDeclaredField(fieldName);
-            field.setAccessible(true);
-            field.set(object, fieldValue);
-            return true;
-        } catch (NoSuchFieldException | IllegalAccessException | NullPointerException e) {
-            Log.e(TAG, e.getMessage());
+        Class<?> clazz = object.getClass();
+        while (clazz != null) {
+            try {
+                Field field = clazz.getDeclaredField(fieldName);
+                field.setAccessible(true);
+                field.set(object, fieldValue);
+                return true;
+            } catch (NoSuchFieldException | IllegalAccessException | NullPointerException e) {
+                String log = e.getMessage();
+                if (TextUtils.isEmpty(log)) {
+                    e.printStackTrace();
+                } else {
+                    Log.e(TAG, log);
+                }
+            }
+            clazz = clazz.getSuperclass();
         }
         return false;
     }
