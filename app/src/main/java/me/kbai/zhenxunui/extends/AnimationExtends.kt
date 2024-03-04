@@ -2,7 +2,6 @@ package me.kbai.zhenxunui.extends
 
 import android.view.animation.Animation
 import android.view.animation.Animation.AnimationListener
-import androidx.dynamicanimation.animation.DynamicAnimation.OnAnimationEndListener
 
 
 fun Animation.setAnimationListener(

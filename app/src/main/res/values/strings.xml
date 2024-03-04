@@ -83,6 +83,7 @@
     <string name="disk">Disk</string>
     <string name="percent_format" translatable="false">%.1f%%</string>
     <string name="account_information">Account Information</string>
+    <string name="group_information">Group Information</string>
     <string name="friends_label">Friends:</string>
     <string name="group_label">Group:</string>
     <string name="connected_duration_format">Connected for %dd%dh%dm%ds</string>
@@ -116,4 +117,12 @@
     <string name="groups">Groups</string>
     <string name="friends">Friends</string>
     <string name="send">Send</string>
+    <string name="number_format">Num: %d</string>
+    <string name="max_format">Max: %d</string>
+    <string name="received_format">Received: %d</string>
+    <string name="fn_call_format">Fn Call: %d</string>
+    <string name="passive_tasks">Passive Tasks</string>
+    <string name="favourite_plugins">Favourite Plugins</string>
+    <string name="save">Save</string>
+    <string name="group_switch">Group Function</string>
 </resources>

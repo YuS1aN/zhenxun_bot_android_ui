@@ -3,14 +3,11 @@ package me.kbai.zhenxunui.viewmodel
 import androidx.lifecycle.ViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.onEach
 import me.kbai.zhenxunui.model.PluginInfo
 import me.kbai.zhenxunui.model.PluginSwitch
 import me.kbai.zhenxunui.model.PluginType
-import me.kbai.zhenxunui.model.UpdatePlugin
 import me.kbai.zhenxunui.repository.ApiRepository
-import me.kbai.zhenxunui.repository.Resource
 
 /**
  * @author Sean on 2023/6/2

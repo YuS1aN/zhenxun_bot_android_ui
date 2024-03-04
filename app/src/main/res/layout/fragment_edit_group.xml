@@ -1,0 +1,285 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:paddingHorizontal="@dimen/activity_horizontal_margin"
+        android:paddingVertical="@dimen/activity_vertical_margin">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_list_item_round"
+            android:padding="@dimen/margin_normal">
+
+            <!--            <TextView-->
+            <!--                android:id="@+id/tv_account_info"-->
+            <!--                android:layout_width="wrap_content"-->
+            <!--                android:layout_height="wrap_content"-->
+            <!--                android:text="@string/group_information"-->
+            <!--                android:textColor="@color/dn_black"-->
+            <!--                android:textSize="@dimen/title_size_large"-->
+            <!--                android:textStyle="bold" />-->
+
+            <me.kbai.zhenxunui.widget.CornerImageView
+                android:id="@+id/iv_avatar"
+                android:layout_width="64dp"
+                android:layout_height="64dp"
+                app:cornerRadius="999dp"
+                tools:src="@mipmap/ic_launcher" />
+
+            <TextView
+                android:id="@+id/tv_name"
+                style="@style/SingleLineText"
+                android:layout_width="match_parent"
+                android:layout_height="32dp"
+                android:layout_alignTop="@id/iv_avatar"
+                android:layout_marginStart="@dimen/margin_normal"
+                android:layout_toEndOf="@id/iv_avatar"
+                android:gravity="center_vertical"
+                android:textColor="@color/dn_black"
+                android:textSize="@dimen/title_size_normal"
+                android:textStyle="bold"
+                tools:text="真寻" />
+
+            <TextView
+                android:id="@+id/tv_id"
+                style="@style/SingleLineText"
+                android:layout_width="match_parent"
+                android:layout_height="32dp"
+                android:layout_below="@id/tv_name"
+                android:layout_marginStart="@dimen/margin_normal"
+                android:layout_toEndOf="@id/iv_avatar"
+                android:gravity="center_vertical"
+                android:textColor="@color/text_gray"
+                android:textSize="@dimen/title_size_small"
+                tools:text="1145141919" />
+
+            <View
+                android:id="@+id/avatar_divider"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_below="@id/iv_avatar"
+                android:layout_marginVertical="@dimen/margin_normal"
+                android:background="@color/window_background" />
+
+            <View
+                android:id="@+id/horizontal_center"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_centerHorizontal="true" />
+
+            <TextView
+                android:id="@+id/tv_num"
+                style="@style/SingleLineText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/avatar_divider"
+                android:layout_toStartOf="@id/horizontal_center"
+                android:gravity="center"
+                android:textColor="@color/dn_black"
+                android:textSize="@dimen/title_size_small"
+                android:textStyle="bold"
+                tools:text="@string/number_format" />
+
+            <TextView
+                android:id="@+id/tv_max"
+                style="@style/SingleLineText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/avatar_divider"
+                android:layout_toEndOf="@id/horizontal_center"
+                android:gravity="center"
+                android:textColor="@color/dn_black"
+                android:textSize="@dimen/title_size_small"
+                android:textStyle="bold"
+                tools:text="@string/max_format" />
+
+            <View
+                android:layout_width="1dp"
+                android:layout_height="0dp"
+                android:layout_alignTop="@id/tv_num"
+                android:layout_alignBottom="@id/tv_num"
+                android:layout_centerHorizontal="true"
+                android:background="@color/window_background" />
+
+            <View
+                android:id="@+id/count_divider"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_below="@id/tv_num"
+                android:layout_marginVertical="@dimen/margin_normal"
+                android:layout_marginEnd="@dimen/margin_normal"
+                android:layout_toStartOf="@id/horizontal_center"
+                android:background="@color/window_background" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_below="@id/tv_num"
+                android:layout_marginVertical="@dimen/margin_normal"
+                android:layout_marginStart="@dimen/margin_normal"
+                android:layout_toEndOf="@id/horizontal_center"
+                android:background="@color/window_background" />
+
+            <TextView
+                android:id="@+id/tv_received"
+                style="@style/SingleLineText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/count_divider"
+                android:layout_toStartOf="@id/horizontal_center"
+                android:gravity="center"
+                android:textColor="@color/dn_black"
+                android:textSize="@dimen/title_size_small"
+                android:textStyle="bold"
+                tools:text="@string/received_format" />
+
+            <TextView
+                android:id="@+id/tv_call"
+                style="@style/SingleLineText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/count_divider"
+                android:layout_toEndOf="@id/horizontal_center"
+                android:gravity="center"
+                android:textColor="@color/dn_black"
+                android:textSize="@dimen/title_size_small"
+                android:textStyle="bold"
+                tools:text="@string/fn_call_format" />
+
+            <View
+                android:layout_width="1dp"
+                android:layout_height="0dp"
+                android:layout_alignTop="@id/tv_received"
+                android:layout_alignBottom="@id/tv_received"
+                android:layout_centerHorizontal="true"
+                android:background="@color/window_background" />
+        </RelativeLayout>
+
+        <include
+            android:id="@+id/ic_favourite_plugins"
+            layout="@layout/layout_console_charts"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/block_margin" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/block_margin"
+            android:background="@drawable/bg_list_item_round"
+            android:padding="@dimen/margin_normal">
+
+            <androidx.appcompat.widget.SwitchCompat
+                android:id="@+id/sw_enabled"
+                style="@style/Switch"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/normal_line_height"
+                android:text="@string/group_switch" />
+
+            <TextView
+                android:id="@+id/tv_group_level"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/normal_line_height"
+                android:layout_below="@id/sw_enabled"
+                android:layout_marginTop="@dimen/margin_normal"
+                android:gravity="center_vertical"
+                android:text="@string/group_level"
+                android:textColor="@color/dn_black"
+                android:textSize="@dimen/title_size_small"
+                android:textStyle="bold" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/til_group_level"
+                style="@style/TextInputLayout.Thin"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/normal_line_height"
+                android:layout_alignTop="@id/tv_group_level"
+                android:layout_alignBottom="@id/tv_group_level"
+                android:layout_alignParentEnd="true"
+                android:minWidth="0dp"
+                android:orientation="horizontal"
+                app:hintEnabled="false">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/et_group_level"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:cursorVisible="false"
+                    android:focusable="false"
+                    android:inputType="none"
+                    android:padding="0dp"
+                    android:textSize="@dimen/et_text_size"
+                    tools:text="5" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <androidx.appcompat.widget.AppCompatSeekBar
+                android:id="@+id/sb_group_level"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_alignTop="@id/tv_group_level"
+                android:layout_alignBottom="@id/tv_group_level"
+                android:layout_toStartOf="@id/til_group_level"
+                android:layout_toEndOf="@id/tv_group_level"
+                android:max="10"
+                android:progressTint="?colorPrimary"
+                android:thumbTint="?colorPrimaryDark"
+                tools:progress="5" />
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/block_margin"
+            android:background="@drawable/bg_list_item_round"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="9dp"
+                android:layout_marginTop="9dp"
+                android:text="@string/passive_tasks"
+                android:textColor="@color/dn_black"
+                android:textSize="@dimen/title_size_large"
+                android:textStyle="bold" />
+
+            <androidx.viewpager.widget.ViewPager
+                android:id="@+id/vp_passive"
+                android:layout_width="match_parent"
+                android:layout_height="139dp"
+                android:layout_marginVertical="@dimen/margin_normal" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/block_margin"
+            android:background="@drawable/bg_list_item_round"
+            android:orientation="vertical"
+            android:padding="@dimen/margin_normal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/plugin_status"
+                android:textColor="@color/dn_black"
+                android:textSize="@dimen/title_size_large"
+                android:textStyle="bold" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_plugin"
+                android:layout_width="match_parent"
+                android:layout_height="139dp"
+                android:layout_marginTop="@dimen/margin_normal"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+        </LinearLayout>
+    </LinearLayout>
+</androidx.core.widget.NestedScrollView>

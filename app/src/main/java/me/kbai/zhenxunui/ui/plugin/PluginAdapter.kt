@@ -3,12 +3,10 @@ package me.kbai.zhenxunui.ui.plugin
 import android.annotation.SuppressLint
 import android.graphics.drawable.ColorDrawable
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.appcompat.widget.SwitchCompat
 import androidx.core.content.res.ResourcesCompat
-import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
 import me.kbai.zhenxunui.R
 import me.kbai.zhenxunui.databinding.ItemPluginListBinding

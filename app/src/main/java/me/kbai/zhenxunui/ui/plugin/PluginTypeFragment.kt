@@ -19,7 +19,6 @@ import me.kbai.zhenxunui.extends.setOnDebounceClickListener
 import me.kbai.zhenxunui.extends.viewLifecycleScope
 import me.kbai.zhenxunui.model.PluginInfo
 import me.kbai.zhenxunui.model.PluginType
-import me.kbai.zhenxunui.model.UpdatePlugin
 import me.kbai.zhenxunui.repository.Resource
 import me.kbai.zhenxunui.tool.GlobalToast
 import me.kbai.zhenxunui.tool.glide.GlideApp

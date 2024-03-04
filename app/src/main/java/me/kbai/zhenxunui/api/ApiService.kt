@@ -2,15 +2,14 @@ package me.kbai.zhenxunui.api
 
 import me.kbai.zhenxunui.model.BotBaseInfo
 import me.kbai.zhenxunui.model.BotMessageCount
+import me.kbai.zhenxunui.model.FriendListItem
 import me.kbai.zhenxunui.model.GroupInfo
+import me.kbai.zhenxunui.model.GroupListItem
 import me.kbai.zhenxunui.model.HandleRequest
 import me.kbai.zhenxunui.model.LoginInfo
 import me.kbai.zhenxunui.model.PluginDetail
 import me.kbai.zhenxunui.model.PluginInfo
 import me.kbai.zhenxunui.model.PluginSwitch
-import me.kbai.zhenxunui.model.BotRequest
-import me.kbai.zhenxunui.model.FriendListItem
-import me.kbai.zhenxunui.model.GroupListItem
 import me.kbai.zhenxunui.model.RequestListResult
 import me.kbai.zhenxunui.model.SendMessage
 import me.kbai.zhenxunui.model.UpdateGroup
@@ -35,21 +34,24 @@ interface ApiService {
         @Field("password") password: String
     ): ApiResponse<LoginInfo>
 
-    @GET("get_group")
-    suspend fun getGroup(): ApiResponse<List<GroupInfo>>
-
     @GET("manage/get_friend_list")
     suspend fun getFriendList(@Query("bot_id") botId: String): ApiResponse<List<FriendListItem>>
 
     @GET("manage/get_group_list")
     suspend fun getGroupList(@Query("bot_id") botId: String): ApiResponse<List<GroupListItem>>
 
-    @POST("update_group")
+    @GET("manage/get_group_detail")
+    suspend fun getGroupDetail(
+        @Query("bot_id") botId: String,
+        @Query("group_id") groupId: String
+    ): ApiResponse<GroupInfo>
+
+    @POST("manage/update_group")
     suspend fun updateGroup(@Body updateGroup: UpdateGroup): ApiResponse<Unit>
 
     @GET("plugin/get_plugin_list")
     suspend fun getPluginList(
-        @Query("plugin_type") type: String,
+        @Query("plugin_type") type: Array<String>,
         @Query("menu_type") menuType: String? = null
     ): ApiResponse<List<PluginInfo>>
 

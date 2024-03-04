@@ -39,9 +39,9 @@ import kotlin.math.abs
 class ConsoleFragment : BaseFragment<FragmentConsoleBinding>() {
 
     companion object {
-        private const val LOCAL_DOMAIN = "local.host"
-        private const val BAR_CHART_FILE = "http://$LOCAL_DOMAIN/assets/console_bar_charts.html"
-        private const val TANGENTIAL_BAR_FILE =
+        const val LOCAL_DOMAIN = "local.host"
+        const val BAR_CHART_FILE = "http://$LOCAL_DOMAIN/assets/console_bar_charts.html"
+        const val TANGENTIAL_BAR_FILE =
             "http://$LOCAL_DOMAIN/assets/console_horizontal_bar_charts.html"
     }
 
@@ -267,29 +267,29 @@ class ConsoleFragment : BaseFragment<FragmentConsoleBinding>() {
             icPopularPlugin.wvCharts.detach()
         }
     }
+}
 
-    class ConsoleChartWebViewClient(
-        private val assetsLoader: WebViewAssetLoader,
-        private val doOnPageFinished: (webView: WebView, url: String) -> Unit
-    ) : WebViewClient() {
-        private var mLoading = true
+class ConsoleChartWebViewClient(
+    private val assetsLoader: WebViewAssetLoader,
+    private val doOnPageFinished: (webView: WebView, url: String) -> Unit
+) : WebViewClient() {
+    private var mLoading = true
 
-        override fun onPageFinished(view: WebView, url: String) {
-            super.onPageFinished(view, url)
-            mLoading = false
-            doOnPageFinished.invoke(view, url)
-        }
+    override fun onPageFinished(view: WebView, url: String) {
+        super.onPageFinished(view, url)
+        mLoading = false
+        doOnPageFinished.invoke(view, url)
+    }
 
-        override fun shouldInterceptRequest(
-            view: WebView,
-            request: WebResourceRequest
-        ): WebResourceResponse? {
-            return assetsLoader.shouldInterceptRequest(request.url)
-        }
+    override fun shouldInterceptRequest(
+        view: WebView,
+        request: WebResourceRequest
+    ): WebResourceResponse? {
+        return assetsLoader.shouldInterceptRequest(request.url)
+    }
 
-        suspend fun blockDuringLoading(block: () -> Unit) {
-            while (mLoading) delay(100)
-            block.invoke()
-        }
+    suspend fun blockDuringLoading(block: () -> Unit) {
+        while (mLoading) delay(100)
+        block.invoke()
     }
 }

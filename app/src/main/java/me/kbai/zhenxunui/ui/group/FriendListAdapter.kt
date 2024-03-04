@@ -4,15 +4,10 @@ import android.animation.ValueAnimator
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.view.animation.AnimationUtils
-import androidx.core.content.res.ResourcesCompat
-import androidx.core.view.isVisible
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import me.kbai.zhenxunui.R
 import me.kbai.zhenxunui.databinding.ItemFriendListBinding
 import me.kbai.zhenxunui.databinding.ItemFriendListClassifyBinding
-import me.kbai.zhenxunui.extends.setAnimationListener
 import me.kbai.zhenxunui.extends.setOnDebounceClickListener
 import me.kbai.zhenxunui.model.FriendListItem
 import me.kbai.zhenxunui.model.GroupListItem

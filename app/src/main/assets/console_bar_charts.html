@@ -95,6 +95,19 @@
         });
     }
 
+    function setChartData2(data) {
+        chart.setOption({
+            xAxis: {
+                axisLabel: {
+                    width: chart.getWidth() / data.length
+                }
+            },
+            dataset: {
+                source: data
+            }
+        });
+    }
+
     function setDarkMode(isDarkMode) {
         let elements = document.getElementsByClassName('charts');
         for (i = 0; i < elements.length; i++) {

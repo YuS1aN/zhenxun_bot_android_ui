@@ -79,6 +79,7 @@
     <string name="memory">内存</string>
     <string name="disk">硬盘</string>
     <string name="account_information">账号信息</string>
+    <string name="group_information">群组信息</string>
     <string name="friends_label">好友数量:</string>
     <string name="group_label">群组数量:</string>
     <string name="connected_duration_format">已连接 %d天%d时%d分%d秒</string>
@@ -111,4 +112,12 @@
     <string name="groups">群组</string>
     <string name="friends">好友</string>
     <string name="send">发送</string>
+    <string name="number_format">人数: %d</string>
+    <string name="max_format">上限: %d</string>
+    <string name="received_format">消息数: %d</string>
+    <string name="fn_call_format">调用数: %d</string>
+    <string name="passive_tasks">被动功能</string>
+    <string name="favourite_plugins">最喜欢的插件</string>
+    <string name="save">保存</string>
+    <string name="group_switch">群功能开关</string>
 </resources>

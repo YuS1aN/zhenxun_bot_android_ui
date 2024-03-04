@@ -48,6 +48,7 @@ android {
     }
     buildFeatures {
         viewBinding true
+        buildConfig true
     }
     externalNativeBuild {
         cmake {
@@ -88,4 +89,5 @@ dependencies {
     implementation deps.webkit
     implementation deps.ansi4j_api
     implementation deps.ansi4j_impl
+    implementation deps.viewpagerindicator
 }

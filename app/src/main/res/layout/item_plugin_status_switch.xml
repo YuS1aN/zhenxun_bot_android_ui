@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.SwitchCompat xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    style="@style/Switch"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/normal_line_height"
+    android:layout_marginBottom="@dimen/margin_normal"
+    tools:text="某个插件" />

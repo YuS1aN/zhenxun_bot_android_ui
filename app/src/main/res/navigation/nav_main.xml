@@ -48,7 +48,15 @@
     <fragment
         android:id="@+id/conversationFragment"
         android:name="me.kbai.zhenxunui.ui.group.ConversationFragment"
-        android:label="ConversationFragment"
-        tools:layout="@layout/fragment_conversation" />
+        android:label=""
+        tools:layout="@layout/fragment_conversation" >
+        <action
+            android:id="@+id/action_conversationFragment_to_editGroupFragment"
+            app:destination="@id/editGroupFragment" />
+    </fragment>
 
+    <fragment
+        android:id="@+id/editGroupFragment"
+        android:name="me.kbai.zhenxunui.ui.group.EditGroupFragment"
+        android:label="@string/group_information" />
 </navigation>

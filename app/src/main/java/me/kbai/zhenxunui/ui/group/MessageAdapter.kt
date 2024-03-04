@@ -15,7 +15,7 @@ import me.kbai.zhenxunui.model.ChatMessage
 import me.kbai.zhenxunui.model.MessageType
 import me.kbai.zhenxunui.tool.glide.GlideApp
 
-class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+class MessageViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
     val binding: ItemMessageReceiveBinding
         get() = ItemMessageReceiveBinding.bind(itemView)
 }
@@ -23,16 +23,16 @@ class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 const val SENDER = 1
 const val RECEIVER = 0
 
-class MessageAdapter : RecyclerView.Adapter<ViewHolder>() {
+class MessageAdapter : RecyclerView.Adapter<MessageViewHolder>() {
     private val mData: MutableList<ChatMessage> = ArrayList()
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MessageViewHolder {
         val inflater = LayoutInflater.from(parent.context)
 
         if (viewType == SENDER) {
-            return ViewHolder(inflater.inflate(R.layout.item_message_send, parent, false))
+            return MessageViewHolder(inflater.inflate(R.layout.item_message_send, parent, false))
         }
-        return ViewHolder(inflater.inflate(R.layout.item_message_receive, parent, false))
+        return MessageViewHolder(inflater.inflate(R.layout.item_message_receive, parent, false))
     }
 
     override fun getItemCount() = mData.size
@@ -45,7 +45,7 @@ class MessageAdapter : RecyclerView.Adapter<ViewHolder>() {
         }
 
 
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: MessageViewHolder, position: Int) {
         val item = mData[position]
 
         holder.binding.run {

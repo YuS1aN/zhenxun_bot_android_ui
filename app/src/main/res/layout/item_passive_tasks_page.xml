@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:paddingStart="@dimen/margin_normal"
+    android:paddingEnd="49dp">
+
+    <include
+        android:id="@+id/item0"
+        layout="@layout/item_passive_tasks_switch"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/normal_line_height" />
+
+    <include
+        android:id="@+id/item1"
+        layout="@layout/item_passive_tasks_switch"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/normal_line_height"
+        android:layout_marginTop="@dimen/margin_normal" />
+
+    <include
+        android:id="@+id/item2"
+        layout="@layout/item_passive_tasks_switch"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/normal_line_height"
+        android:layout_marginTop="@dimen/margin_normal" />
+
+    <include
+        android:id="@+id/item3"
+        layout="@layout/item_passive_tasks_switch"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/normal_line_height"
+        android:layout_marginTop="@dimen/margin_normal" />
+</LinearLayout>

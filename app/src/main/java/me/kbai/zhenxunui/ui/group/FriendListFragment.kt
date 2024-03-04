@@ -12,7 +12,6 @@ import me.kbai.zhenxunui.R
 import me.kbai.zhenxunui.base.BaseFragment
 import me.kbai.zhenxunui.databinding.FragmentGroupBinding
 import me.kbai.zhenxunui.extends.launchAndCollectIn
-import me.kbai.zhenxunui.extends.logI
 import me.kbai.zhenxunui.extends.setOnDebounceClickListener
 import me.kbai.zhenxunui.extends.viewLifecycleScope
 import me.kbai.zhenxunui.tool.glide.GlideApp
@@ -41,14 +40,6 @@ class FriendListFragment : BaseFragment<FragmentGroupBinding>() {
     override fun initView(): Unit = viewBinding.run {
         rvFriends.adapter = mAdapter
         mAdapter.onGroupClickListener = {
-//            EditGroupDialogFragment(mAdapter.data[position]) { dialog, button, update ->
-//                viewLifecycleScope.launch {
-//                    val result = mViewModel.updateGroup(update).apiCollect(button)
-//                    GlobalToast.showToast(result.message)
-//                    dialog.dismiss()
-//                    requestGroupData(true)
-//                }
-//            }.show(childFragmentManager)
             val args = Bundle().apply {
                 putString(ConversationFragment.ARGS_GROUP_ID, it.groupId)
                 putString(ConversationFragment.ARGS_NAME, it.groupName)

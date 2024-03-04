@@ -6,7 +6,6 @@ import android.graphics.Rect
 import android.view.View
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import kotlin.math.round
 import kotlin.math.roundToInt
 
 /**

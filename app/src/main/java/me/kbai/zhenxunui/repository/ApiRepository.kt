@@ -35,10 +35,18 @@ object ApiRepository {
 
     fun getGroupList(botId: String) = networkFlow { BotApi.service.getGroupList(botId) }
 
+    fun getGroupDetail(botId: String, groupId: String) =
+        networkFlow { BotApi.service.getGroupDetail(botId, groupId) }
+
     fun updateGroup(updateGroup: UpdateGroup) =
         networkFlow { BotApi.service.updateGroup(updateGroup) }
 
-    fun getPluginList(type: PluginType) = networkFlow { BotApi.service.getPluginList(type.string) }
+    fun getPluginList(vararg types: PluginType, menuType: String? = null) = networkFlow {
+        BotApi.service.getPluginList(
+            types.map { it.string }.toTypedArray(),
+            menuType
+        )
+    }
 
     fun getPluginDetail(pluginInfo: PluginInfo) = networkFlow(PluginDetail(pluginInfo, null)) {
         BotApi.service.getPluginDetail(pluginInfo.module)

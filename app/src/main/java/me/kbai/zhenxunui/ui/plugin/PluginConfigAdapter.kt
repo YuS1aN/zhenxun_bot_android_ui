@@ -2,7 +2,6 @@ package me.kbai.zhenxunui.ui.plugin
 
 import android.content.Context
 import android.graphics.Typeface
-import android.text.Editable
 import android.text.InputType
 import android.text.Spannable
 import android.text.SpannableString
@@ -31,14 +30,12 @@ import me.kbai.zhenxunui.databinding.ItemEditConfigValueListTextBinding
 import me.kbai.zhenxunui.databinding.ItemEditConfigValueTextBinding
 import me.kbai.zhenxunui.databinding.LayoutPluginConfigsBinding
 import me.kbai.zhenxunui.extends.addOnTabSelectedListener
-import me.kbai.zhenxunui.extends.logI
 import me.kbai.zhenxunui.extends.setOnProgressChangedListener
 import me.kbai.zhenxunui.model.BlockType
 import me.kbai.zhenxunui.model.ConfigValueType
 import me.kbai.zhenxunui.model.PluginDetail
 import me.kbai.zhenxunui.model.UpdatePlugin
 import me.kbai.zhenxunui.tool.GlobalToast
-import java.util.Objects
 import kotlin.math.max
 
 /**

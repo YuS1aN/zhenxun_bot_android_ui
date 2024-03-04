@@ -1,7 +1,6 @@
 package me.kbai.zhenxunui.api
 
 import com.google.gson.Gson
-import com.google.gson.GsonBuilder
 import me.kbai.zhenxunui.Constants
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient

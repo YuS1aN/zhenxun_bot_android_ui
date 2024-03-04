@@ -1,10 +1,16 @@
 package me.kbai.zhenxunui.ui.group
 
+import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
 import android.view.ViewGroup
 import androidx.appcompat.widget.Toolbar
+import androidx.core.view.MenuProvider
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import me.kbai.zhenxunui.R
 import me.kbai.zhenxunui.base.BaseFragment
 import me.kbai.zhenxunui.databinding.FragmentConversationBinding
@@ -35,9 +41,6 @@ class ConversationFragment : BaseFragment<FragmentConversationBinding>() {
 
     override fun initView(): Unit = viewBinding.run {
         rvMessage.adapter = mMessageAdapter
-
-        requireActivity().findViewById<Toolbar>(R.id.toolbar).title =
-            arguments?.getString(ARGS_NAME)
 
         etText.addTextChangedListener {
             btnSend.isEnabled = !it.isNullOrEmpty()
@@ -81,5 +84,29 @@ class ConversationFragment : BaseFragment<FragmentConversationBinding>() {
                 mMessageAdapter.addData(it)
             }
         }
+
+        requireActivity().addMenuProvider(object : MenuProvider {
+            override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
+                menuInflater.inflate(R.menu.conversation_menu_items, menu)
+            }
+
+            override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
+                if (menuItem.itemId == R.id.menu_edit) {
+                    if (groupId != null) {
+                        findNavController().navigate(
+                            R.id.action_conversationFragment_to_editGroupFragment,
+                            Bundle().apply {
+                                putString(EditGroupFragment.ARGS_GROUP_ID, groupId)
+                            }
+                        )
+                    }
+                    return true
+                }
+                return false
+            }
+        }, viewLifecycleOwner)
+
+        requireActivity().findViewById<Toolbar>(R.id.toolbar).title =
+            arguments?.getString(ARGS_NAME)
     }
 }

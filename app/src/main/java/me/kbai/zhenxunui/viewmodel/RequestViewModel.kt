@@ -3,8 +3,8 @@ package me.kbai.zhenxunui.viewmodel
 import androidx.lifecycle.ViewModel
 import kotlinx.coroutines.flow.emptyFlow
 import kotlinx.coroutines.flow.onEach
-import me.kbai.zhenxunui.model.HandleRequest
 import me.kbai.zhenxunui.model.BotRequest
+import me.kbai.zhenxunui.model.HandleRequest
 import me.kbai.zhenxunui.repository.ApiRepository
 
 /**
