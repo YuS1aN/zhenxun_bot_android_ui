@@ -1,5 +1,6 @@
 package me.kbai.zhenxunui.viewmodel
 
+import android.annotation.SuppressLint
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
@@ -22,6 +23,7 @@ class ConversationViewModel : ViewModel() {
     private val _friendHistories = HashMap<String, MutableList<ChatMessage>>()
     private val _currentMessage: MutableLiveData<ChatMessage> = MutableLiveData()
 
+    @SuppressLint("NullSafeMutableLiveData")
     private val mChatWebSocketHolder =
         ApiRepository.newChatWebSocket(viewModelScope) { message, exception ->
             if (message == null) {

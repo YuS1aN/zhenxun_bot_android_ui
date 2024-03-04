@@ -1,5 +1,6 @@
 package me.kbai.zhenxunui.viewmodel
 
+import android.annotation.SuppressLint
 import android.text.SpannableStringBuilder
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -37,11 +38,8 @@ class ConsoleViewModel : ViewModel() {
 
     private val mStatusWebSocketHolder =
         ApiRepository.newSystemStatusWebSocket(viewModelScope) { message, exception ->
-            if (message == null) {
-                logE(exception!!)
-                return@newSystemStatusWebSocket
-            }
-            _systemStatus.value = message
+            if (message == null) logE(exception!!)
+            _systemStatus.value = message ?: return@newSystemStatusWebSocket
         }
 
     private val _botLogs: MutableStateFlow<AlwaysDifferent<SpannableStringBuilder>> =
