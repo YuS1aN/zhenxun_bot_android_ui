@@ -120,4 +120,7 @@
     <string name="favourite_plugins">最喜欢的插件</string>
     <string name="save">保存</string>
     <string name="group_switch">群功能开关</string>
+    <string name="banned">封禁</string>
+    <string name="select_account">切换账号</string>
+    <string name="user_information">用户信息</string>
 </resources>

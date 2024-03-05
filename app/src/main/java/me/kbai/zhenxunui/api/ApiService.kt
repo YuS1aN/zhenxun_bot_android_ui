@@ -14,6 +14,7 @@ import me.kbai.zhenxunui.model.RequestListResult
 import me.kbai.zhenxunui.model.SendMessage
 import me.kbai.zhenxunui.model.UpdateGroup
 import me.kbai.zhenxunui.model.UpdatePlugin
+import me.kbai.zhenxunui.model.UserDetail
 import retrofit2.http.Body
 import retrofit2.http.DELETE
 import retrofit2.http.Field
@@ -45,6 +46,12 @@ interface ApiService {
         @Query("bot_id") botId: String,
         @Query("group_id") groupId: String
     ): ApiResponse<GroupInfo>
+
+    @GET("manage/get_friend_detail")
+    suspend fun getUserDetail(
+        @Query("bot_id") botId: String,
+        @Query("user_id") userId: String
+    ): ApiResponse<UserDetail>
 
     @POST("manage/update_group")
     suspend fun updateGroup(@Body updateGroup: UpdateGroup): ApiResponse<Unit>
@@ -81,12 +88,6 @@ interface ApiService {
 
     @POST("manage/delete_request")
     suspend fun deleteRequest(@Body handleRequest: HandleRequest): ApiResponse<Unit>
-
-    @GET("system/disk")
-    suspend fun getDiskUsage(): RawApiResponse
-
-    @GET("system/statusList")
-    suspend fun getStatusList(): RawApiResponse
 
     @GET("main/get_base_info")
     suspend fun getBotList(): ApiResponse<List<BotBaseInfo>>

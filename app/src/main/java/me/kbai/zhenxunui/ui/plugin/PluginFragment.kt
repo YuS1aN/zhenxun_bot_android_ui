@@ -30,7 +30,7 @@ class PluginFragment : BaseFragment<FragmentPluginBinding>() {
 
     override fun getViewBinding(
         inflater: LayoutInflater, container: ViewGroup?
-    ): FragmentPluginBinding = FragmentPluginBinding.inflate(inflater)
+    ): FragmentPluginBinding = FragmentPluginBinding.inflate(inflater, container, false)
 
     override fun initView() = viewBinding.run {
         vpType.adapter = object : FragmentStateAdapter(this@PluginFragment) {

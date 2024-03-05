@@ -25,7 +25,7 @@ import me.kbai.zhenxunui.viewmodel.FriendListViewModel
 class FriendListFragment : BaseFragment<FragmentGroupBinding>() {
     override fun getViewBinding(
         inflater: LayoutInflater, container: ViewGroup?
-    ): FragmentGroupBinding = FragmentGroupBinding.inflate(inflater)
+    ): FragmentGroupBinding = FragmentGroupBinding.inflate(inflater, container, false)
 
     private val mViewModel by viewModels<FriendListViewModel>()
     private val mAdapter = FriendListAdapter()

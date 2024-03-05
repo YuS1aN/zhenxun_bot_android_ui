@@ -3,16 +3,15 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="@dimen/nav_header_height"
-    android:fitsSystemWindows="true"
-    android:gravity="bottom"
-    android:orientation="vertical">
+    android:layout_height="wrap_content"
+    android:background="@drawable/bg_select_account_item"
+    android:paddingHorizontal="@dimen/margin_normal"
+    android:paddingVertical="@dimen/margin_normal_half">
 
     <me.kbai.zhenxunui.widget.CornerImageView
         android:id="@+id/iv_avatar"
         android:layout_width="48dp"
         android:layout_height="48dp"
-        android:layout_marginStart="@dimen/activity_horizontal_margin"
         android:contentDescription="@string/nav_header_desc"
         app:cornerRadius="999dp"
         app:srcCompat="@mipmap/ic_launcher_round" />
@@ -23,8 +22,7 @@
         android:layout_width="match_parent"
         android:layout_height="24dp"
         android:layout_alignTop="@id/iv_avatar"
-        android:layout_marginHorizontal="@dimen/margin_normal"
-        android:layout_toStartOf="@id/tv_change"
+        android:layout_marginStart="@dimen/margin_normal"
         android:layout_toEndOf="@id/iv_avatar"
         android:gravity="center_vertical"
         android:textColor="@color/dn_black"
@@ -32,37 +30,15 @@
         tools:text="zhenxun" />
 
     <TextView
-        android:id="@+id/tv_change"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignTop="@id/iv_avatar"
-        android:layout_alignBottom="@id/iv_avatar"
-        android:layout_alignParentEnd="true"
-        android:layout_marginEnd="@dimen/activity_horizontal_margin"
-        android:gravity="center"
-        android:text="@string/select_account"
-        android:textColor="@color/text_gray"
-        app:drawableStartCompat="@drawable/ic_change" />
-
-    <TextView
         android:id="@+id/tv_id"
         style="@style/SingleLineText"
         android:layout_width="match_parent"
         android:layout_height="24dp"
         android:layout_below="@id/tv_name"
-        android:layout_marginHorizontal="@dimen/margin_normal"
-        android:layout_toStartOf="@id/tv_change"
+        android:layout_marginStart="@dimen/margin_normal"
         android:layout_toEndOf="@id/iv_avatar"
         android:gravity="center_vertical"
         android:textColor="@color/text_gray"
         android:textSize="@dimen/text_size_normal"
         tools:text="1145141919" />
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/iv_avatar"
-        android:layout_marginHorizontal="@dimen/activity_horizontal_margin"
-        android:layout_marginTop="@dimen/activity_vertical_margin"
-        android:text="@string/nav_header_title" />
 </RelativeLayout>

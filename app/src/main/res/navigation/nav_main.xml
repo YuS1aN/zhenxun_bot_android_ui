@@ -39,24 +39,34 @@
         android:label="@string/nav_request"
         tools:layout="@layout/fragment_request" />
 
-    <fragment
-        android:id="@+id/nav_info"
-        android:name="me.kbai.zhenxunui.ui.info.InfoFragment"
-        android:label="@string/nav_info"
-        tools:layout="@layout/fragment_info" />
+<!--    <fragment-->
+<!--        android:id="@+id/nav_info"-->
+<!--        android:name="me.kbai.zhenxunui.ui.info.InfoFragment"-->
+<!--        android:label="@string/nav_info"-->
+<!--        tools:layout="@layout/fragment_info" />-->
 
     <fragment
         android:id="@+id/conversationFragment"
         android:name="me.kbai.zhenxunui.ui.group.ConversationFragment"
         android:label=""
-        tools:layout="@layout/fragment_conversation" >
+        tools:layout="@layout/fragment_conversation">
         <action
             android:id="@+id/action_conversationFragment_to_editGroupFragment"
             app:destination="@id/editGroupFragment" />
+        <action
+            android:id="@+id/action_conversationFragment_to_editUserFragment"
+            app:destination="@id/editUserFragment" />
     </fragment>
 
     <fragment
         android:id="@+id/editGroupFragment"
         android:name="me.kbai.zhenxunui.ui.group.EditGroupFragment"
-        android:label="@string/group_information" />
+        android:label="@string/group_information"
+        tools:layout="@layout/fragment_edit_group" />
+
+    <fragment
+        android:id="@+id/editUserFragment"
+        android:name="me.kbai.zhenxunui.ui.group.EditUserFragment"
+        android:label="@string/user_information"
+        tools:layout="@layout/fragment_edit_user" />
 </navigation>

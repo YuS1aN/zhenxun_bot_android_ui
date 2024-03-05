@@ -37,7 +37,7 @@ class ConversationFragment : BaseFragment<FragmentConversationBinding>() {
     override fun getViewBinding(
         inflater: LayoutInflater,
         container: ViewGroup?
-    ) = FragmentConversationBinding.inflate(inflater)
+    ) = FragmentConversationBinding.inflate(inflater, container, false)
 
     override fun initView(): Unit = viewBinding.run {
         rvMessage.adapter = mMessageAdapter
@@ -97,6 +97,13 @@ class ConversationFragment : BaseFragment<FragmentConversationBinding>() {
                             R.id.action_conversationFragment_to_editGroupFragment,
                             Bundle().apply {
                                 putString(EditGroupFragment.ARGS_GROUP_ID, groupId)
+                            }
+                        )
+                    } else if (userId != null) {
+                        findNavController().navigate(
+                            R.id.action_conversationFragment_to_editUserFragment,
+                            Bundle().apply {
+                                putString(EditUserFragment.ARGS_USER_ID, userId)
                             }
                         )
                     }

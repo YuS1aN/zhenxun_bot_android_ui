@@ -2,7 +2,6 @@
     <string name="app_name">ZhenxunBot Manager</string>
     <string name="nav_header_desc" translatable="false">Navigation Header</string>
     <string name="nav_header_title" translatable="false">@string/app_name</string>
-    <string name="nav_header_subtitle" translatable="false">114514</string>
     <string name="nav_home">Home</string>
     <string name="nav_title_func"> </string>
     <string name="nav_console">Console</string>
@@ -125,4 +124,7 @@
     <string name="favourite_plugins">Favourite Plugins</string>
     <string name="save">Save</string>
     <string name="group_switch">Group Function</string>
+    <string name="banned">Banned</string>
+    <string name="select_account">Select Account</string>
+    <string name="user_information">User Information</string>
 </resources>

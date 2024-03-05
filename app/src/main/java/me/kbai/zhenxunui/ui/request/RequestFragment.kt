@@ -28,7 +28,7 @@ class RequestFragment : BaseFragment<FragmentRequestBinding>() {
     override fun getViewBinding(
         inflater: LayoutInflater,
         container: ViewGroup?
-    ): FragmentRequestBinding = FragmentRequestBinding.inflate(inflater)
+    ): FragmentRequestBinding = FragmentRequestBinding.inflate(inflater, container, false)
 
     override fun initView() = viewBinding.run {
         vpType.adapter = object : FragmentStateAdapter(this@RequestFragment) {

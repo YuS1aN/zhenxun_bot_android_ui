@@ -1,6 +1,5 @@
 package me.kbai.zhenxunui.viewmodel
 
-import android.annotation.SuppressLint
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -23,6 +22,9 @@ class EditGroupViewModel : ViewModel() {
     private val _plugins: MutableLiveData<List<PluginInfo>> = MutableLiveData(ArrayList())
     val plugins: LiveData<List<PluginInfo>> = _plugins
 
+    private val _message: MutableLiveData<String> = MutableLiveData()
+    val message: LiveData<String> = _message
+
     /**
      * 这里 plugins 在 groupInfo 后设置值, 因为插件状态列表需要两者数据
      */
@@ -37,9 +39,13 @@ class EditGroupViewModel : ViewModel() {
         val pluginRes = pluginDeferred.await()
         if (groupRes.success()) {
             _groupInfo.value = groupRes.data ?: return@launch
+        } else {
+            _message.value = groupRes.message
         }
         if (pluginRes.success()) {
             _plugins.value = pluginRes.data ?: return@launch
+        } else {
+            _message.value = groupRes.message
         }
     }
 

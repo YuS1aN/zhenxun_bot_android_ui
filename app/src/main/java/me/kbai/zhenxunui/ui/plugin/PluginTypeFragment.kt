@@ -49,7 +49,7 @@ class PluginTypeFragment : BaseFragment<FragmentPluginTypeBinding>() {
 
     override fun getViewBinding(
         inflater: LayoutInflater, container: ViewGroup?
-    ) = FragmentPluginTypeBinding.inflate(inflater)
+    ) = FragmentPluginTypeBinding.inflate(inflater, container, false)
 
     override fun initView() {
         viewBinding.icError.btnRetry.isVisible = true

@@ -1,6 +1,5 @@
 package me.kbai.zhenxunui.viewmodel
 
-import android.annotation.SuppressLint
 import android.text.SpannableStringBuilder
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -12,7 +11,6 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import me.kbai.zhenxunui.extends.apiCollect
 import me.kbai.zhenxunui.extends.logE
-import me.kbai.zhenxunui.model.BotBaseInfo
 import me.kbai.zhenxunui.model.BotMessageCount
 import me.kbai.zhenxunui.model.SystemStatus
 import me.kbai.zhenxunui.repository.ApiRepository
@@ -23,9 +21,6 @@ class ConsoleViewModel : ViewModel() {
 
     private val _systemStatus: MutableLiveData<SystemStatus> = MutableLiveData()
     val systemStatus: LiveData<SystemStatus> = _systemStatus
-
-    private val _botList: MutableLiveData<List<BotBaseInfo>> = MutableLiveData()
-    val botList: LiveData<List<BotBaseInfo>> = _botList
 
     private val _messageCount = MutableStateFlow(BotMessageCount())
     val messageCount: StateFlow<BotMessageCount> = _messageCount
@@ -59,13 +54,6 @@ class ConsoleViewModel : ViewModel() {
             mLogsLines++
         }
         _botLogs.value = _botLogs.value
-    }
-
-    fun requestBotList() = viewModelScope.launch {
-        ApiRepository.getBotList()
-            .apiCollect {
-                _botList.value = it.data ?: return@apiCollect
-            }
     }
 
     fun requestMessageCount(botId: String) = viewModelScope.launch {

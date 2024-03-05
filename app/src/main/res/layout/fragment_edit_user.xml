@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:paddingHorizontal="@dimen/activity_horizontal_margin"
+        android:paddingVertical="@dimen/activity_vertical_margin">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_list_item_round"
+            android:padding="@dimen/margin_normal">
+
+            <me.kbai.zhenxunui.widget.CornerImageView
+                android:id="@+id/iv_avatar"
+                android:layout_width="64dp"
+                android:layout_height="64dp"
+                app:cornerRadius="999dp"
+                tools:src="@mipmap/ic_launcher" />
+
+            <TextView
+                android:id="@+id/tv_name"
+                style="@style/SingleLineText"
+                android:layout_width="match_parent"
+                android:layout_height="32dp"
+                android:layout_alignTop="@id/iv_avatar"
+                android:layout_marginStart="@dimen/margin_normal"
+                android:layout_toEndOf="@id/iv_avatar"
+                android:gravity="center_vertical"
+                android:textColor="@color/dn_black"
+                android:textSize="@dimen/title_size_normal"
+                android:textStyle="bold"
+                tools:text="真寻" />
+
+            <TextView
+                android:id="@+id/tv_id"
+                style="@style/SingleLineText"
+                android:layout_width="match_parent"
+                android:layout_height="32dp"
+                android:layout_below="@id/tv_name"
+                android:layout_marginStart="@dimen/margin_normal"
+                android:layout_toEndOf="@id/iv_avatar"
+                android:gravity="center_vertical"
+                android:textColor="@color/text_gray"
+                android:textSize="@dimen/title_size_small"
+                tools:text="1145141919" />
+
+            <View
+                android:id="@+id/avatar_divider"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_below="@id/iv_avatar"
+                android:layout_marginVertical="@dimen/margin_normal"
+                android:background="@color/window_background" />
+
+            <View
+                android:id="@+id/horizontal_center"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_centerHorizontal="true" />
+
+            <TextView
+                android:id="@+id/tv_received"
+                style="@style/SingleLineText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/avatar_divider"
+                android:layout_toStartOf="@id/horizontal_center"
+                android:gravity="center"
+                android:textColor="@color/dn_black"
+                android:textSize="@dimen/title_size_small"
+                android:textStyle="bold"
+                tools:text="@string/received_format" />
+
+            <TextView
+                android:id="@+id/tv_call"
+                style="@style/SingleLineText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/avatar_divider"
+                android:layout_toEndOf="@id/horizontal_center"
+                android:gravity="center"
+                android:textColor="@color/dn_black"
+                android:textSize="@dimen/title_size_small"
+                android:textStyle="bold"
+                tools:text="@string/fn_call_format" />
+
+            <View
+                android:layout_width="1dp"
+                android:layout_height="0dp"
+                android:layout_alignTop="@id/tv_received"
+                android:layout_alignBottom="@id/tv_received"
+                android:layout_centerHorizontal="true"
+                android:background="@color/window_background" />
+        </RelativeLayout>
+
+        <include
+            android:id="@+id/ic_favourite_plugins"
+            layout="@layout/layout_console_charts"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/block_margin" />
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/block_margin"
+            android:background="@drawable/bg_list_item_round"
+            android:padding="@dimen/margin_normal">
+
+            <androidx.appcompat.widget.SwitchCompat
+                android:id="@+id/sw_banned"
+                style="@style/Switch"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/normal_line_height"
+                android:text="@string/banned" />
+        </FrameLayout>
+    </LinearLayout>
+</androidx.core.widget.NestedScrollView>

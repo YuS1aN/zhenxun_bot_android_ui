@@ -19,6 +19,7 @@ import me.kbai.zhenxunui.model.SendMessage
 import me.kbai.zhenxunui.model.SystemStatus
 import me.kbai.zhenxunui.model.UpdateGroup
 import me.kbai.zhenxunui.model.UpdatePlugin
+import org.json.JSONException
 import org.json.JSONObject
 import retrofit2.HttpException
 
@@ -40,6 +41,9 @@ object ApiRepository {
 
     fun updateGroup(updateGroup: UpdateGroup) =
         networkFlow { BotApi.service.updateGroup(updateGroup) }
+
+    fun getUserDetail(botId: String, userId: String) =
+        networkFlow { BotApi.service.getUserDetail(botId, userId) }
 
     fun getPluginList(vararg types: PluginType, menuType: String? = null) = networkFlow {
         BotApi.service.getPluginList(
@@ -68,10 +72,6 @@ object ApiRepository {
     fun refuseRequest(handle: HandleRequest) = networkFlow { BotApi.service.refuseRequest(handle) }
 
     fun deleteRequest(handle: HandleRequest) = networkFlow { BotApi.service.deleteRequest(handle) }
-
-    fun getDiskUsage() = rawNetworkFlow { BotApi.service.getDiskUsage() }
-
-    fun getStatusList() = rawNetworkFlow { BotApi.service.getStatusList() }
 
     fun getBotList() = networkFlow { BotApi.service.getBotList() }
 
@@ -133,8 +133,14 @@ object ApiRepository {
                     (e as HttpException).run {
                         val detail = response()
                             ?.errorBody()
-                            ?.let { JSONObject(it.string()) }
-                            ?.optString("detail")
+                            ?.let {
+                                try {
+                                    JSONObject(it.string()).optString("detail")
+                                } catch (e: JSONException) {
+                                    it.string()
+                                }
+                            }
+                            ?.ifBlank { null }
                         emit(Resource.error(null, detail ?: message(), -1, code()))
                     }
                 }

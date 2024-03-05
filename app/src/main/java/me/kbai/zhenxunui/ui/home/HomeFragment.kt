@@ -12,7 +12,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
     override fun getViewBinding(
         inflater: LayoutInflater,
         container: ViewGroup?
-    ): FragmentHomeBinding = FragmentHomeBinding.inflate(inflater)
+    ): FragmentHomeBinding = FragmentHomeBinding.inflate(inflater, container, false)
 
     override fun initView() {
     }

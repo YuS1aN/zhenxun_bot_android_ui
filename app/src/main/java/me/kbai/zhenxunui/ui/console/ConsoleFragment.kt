@@ -31,6 +31,7 @@ import me.kbai.zhenxunui.extends.runWithoutReturn
 import me.kbai.zhenxunui.extends.viewLifecycleScope
 import me.kbai.zhenxunui.tool.glide.GlideApp
 import me.kbai.zhenxunui.viewmodel.ConsoleViewModel
+import me.kbai.zhenxunui.viewmodel.MainViewModel
 import kotlin.math.abs
 
 /**
@@ -45,6 +46,7 @@ class ConsoleFragment : BaseFragment<FragmentConsoleBinding>() {
             "http://$LOCAL_DOMAIN/assets/console_horizontal_bar_charts.html"
     }
 
+    private val mMainViewModel by viewModels<MainViewModel>({ requireActivity() })
     private val mViewModel by viewModels<ConsoleViewModel>()
 
     private var mCountdownJob: Job? = null
@@ -62,7 +64,7 @@ class ConsoleFragment : BaseFragment<FragmentConsoleBinding>() {
 
     override fun getViewBinding(
         inflater: LayoutInflater, container: ViewGroup?
-    ): FragmentConsoleBinding = FragmentConsoleBinding.inflate(inflater)
+    ): FragmentConsoleBinding = FragmentConsoleBinding.inflate(inflater, container, false)
 
     @SuppressLint("ClickableViewAccessibility")
     override fun initView() = viewBinding.run {
@@ -149,21 +151,17 @@ class ConsoleFragment : BaseFragment<FragmentConsoleBinding>() {
             }
         }
         icInformation.run {
-            mViewModel.botList.observe(viewLifecycleOwner) { list ->
-                list.find { it.isSelect }?.let { info ->
-                    Constants.currentBot = info
+            mMainViewModel.currentBot.observe(viewLifecycleOwner) { info ->
+                GlideApp.with(ivAvatar)
+                    .load(info.avatarUrl)
+                    .into(ivAvatar)
+                tvNickname.text = info.nickname
+                tvId.text = info.selfId
+                tvFriendCount.text = info.friendCount.toString()
+                tvGroupCount.text = info.groupCount.toString()
+                startUpdateConnectedDuration(info.connectTime.toLong())
 
-                    GlideApp.with(ivAvatar)
-                        .load(info.avatarUrl)
-                        .into(ivAvatar)
-                    tvNickname.text = info.nickname
-                    tvId.text = info.selfId
-                    tvFriendCount.text = info.friendCount.toString()
-                    tvGroupCount.text = info.groupCount.toString()
-                    startUpdateConnectedDuration(info.connectTime.toLong())
-
-                    mViewModel.requestMessageCount(info.selfId)
-                }
+                mViewModel.requestMessageCount(info.selfId)
             }
         }
         mViewModel.messageCount.launchAndCollectIn(this@ConsoleFragment) { data ->
@@ -200,7 +198,6 @@ class ConsoleFragment : BaseFragment<FragmentConsoleBinding>() {
             }
         }
 
-        mViewModel.requestBotList()
         mViewModel.requestActiveGroup()
         mViewModel.requestPopularPlugin()
     }

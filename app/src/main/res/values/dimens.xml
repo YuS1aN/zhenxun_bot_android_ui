@@ -3,7 +3,7 @@
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
     <dimen name="block_margin">16dp</dimen>
-    <dimen name="nav_header_vertical_spacing">8dp</dimen>
+    <dimen name="nav_header_vertical_spacing">18dp</dimen>
     <dimen name="nav_header_height">176dp</dimen>
     <dimen name="box_padding">18dp</dimen>
     <dimen name="list_item_round">12dp</dimen>
@@ -22,6 +22,7 @@
     <dimen name="margin_narrower">3dp</dimen>
     <dimen name="margin_narrow">6dp</dimen>
     <dimen name="margin_normal">9dp</dimen>
+    <dimen name="margin_normal_half">4.5dp</dimen>
     <dimen name="margin_wide">12dp</dimen>
     <dimen name="margin_wider">15dp</dimen>
     <dimen name="margin_widest">18dp</dimen>

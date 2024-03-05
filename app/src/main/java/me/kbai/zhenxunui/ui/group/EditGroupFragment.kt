@@ -1,29 +1,13 @@
 package me.kbai.zhenxunui.ui.group
 
-import android.annotation.SuppressLint
-import android.text.SpannableString
-import android.text.Spanned
-import android.text.style.ForegroundColorSpan
 import android.view.LayoutInflater
-import android.view.Menu
-import android.view.MenuInflater
-import android.view.MenuItem
 import android.view.ViewGroup
-import android.webkit.WebSettings
-import android.webkit.WebView
-import androidx.annotation.StringRes
-import androidx.core.content.res.ResourcesCompat
-import androidx.core.view.MenuProvider
 import androidx.fragment.app.viewModels
-import androidx.webkit.WebViewAssetLoader
-import com.google.gson.JsonArray
 import kotlinx.coroutines.launch
 import me.kbai.zhenxunui.R
-import me.kbai.zhenxunui.base.BaseFragment
 import me.kbai.zhenxunui.databinding.FragmentEditGroupBinding
 import me.kbai.zhenxunui.extends.apiCollect
 import me.kbai.zhenxunui.extends.dp
-import me.kbai.zhenxunui.extends.isNightMode
 import me.kbai.zhenxunui.extends.setOnProgressChangedListener
 import me.kbai.zhenxunui.extends.viewLifecycleScope
 import me.kbai.zhenxunui.model.GroupInfo
@@ -39,7 +23,7 @@ import me.kbai.zhenxunui.viewmodel.EditGroupViewModel
 /**
  * @author Sean on 2023/6/7
  */
-class EditGroupFragment : BaseFragment<FragmentEditGroupBinding>() {
+class EditGroupFragment : BaseEditInfoFragment<FragmentEditGroupBinding>() {
 
     companion object {
         const val ARGS_GROUP_ID = "GROUP_ID"
@@ -48,14 +32,6 @@ class EditGroupFragment : BaseFragment<FragmentEditGroupBinding>() {
     private lateinit var mGroupId: String
 
     private val mViewModel by viewModels<EditGroupViewModel>()
-
-    private val mAssetLoader by lazy {
-        WebViewAssetLoader.Builder()
-            .setDomain(ConsoleFragment.LOCAL_DOMAIN)
-            .setHttpAllowed(true)
-            .addPathHandler("/assets/", WebViewAssetLoader.AssetsPathHandler(requireContext()))
-            .build()
-    }
 
     private lateinit var mFavouriteWebViewClient: ConsoleChartWebViewClient
 
@@ -68,18 +44,24 @@ class EditGroupFragment : BaseFragment<FragmentEditGroupBinding>() {
     override fun getViewBinding(
         inflater: LayoutInflater,
         container: ViewGroup?
-    ) = FragmentEditGroupBinding.inflate(inflater)
+    ) = FragmentEditGroupBinding.inflate(inflater, container, false)
 
     override fun initView(): Unit = viewBinding.run {
         sbGroupLevel.setOnProgressChangedListener { progress, _ ->
             etGroupLevel.setText(progress.toString())
         }
-        mFavouriteWebViewClient =
-            icFavouritePlugins.wvCharts.initChartWebView(ConsoleFragment.BAR_CHART_FILE)
+        icFavouritePlugins.apply {
+            tvTitle.text = getString(R.string.favourite_plugins)
+            mFavouriteWebViewClient = wvCharts.initChartWebView(ConsoleFragment.BAR_CHART_FILE)
+        }
     }
 
     override fun initData() {
         mGroupId = arguments?.getString(ARGS_GROUP_ID)!!
+
+        mViewModel.message.observe(viewLifecycleOwner) {
+            GlobalToast.showToast(it)
+        }
 
         mViewModel.groupInfo.observe(viewLifecycleOwner) {
             viewBinding.bindGroupInfoData(it)
@@ -94,6 +76,8 @@ class EditGroupFragment : BaseFragment<FragmentEditGroupBinding>() {
         addSaveButton()
     }
 
+    override fun getWebViews() = arrayOf(viewBinding.icFavouritePlugins.wvCharts)
+
     private fun setPluginStatus(group: GroupInfo?, list: List<PluginInfo>?) {
         if (group == null) return
         if (list == null) return
@@ -102,28 +86,9 @@ class EditGroupFragment : BaseFragment<FragmentEditGroupBinding>() {
             PluginStatusAdapter(list, group).also { mPluginStatusAdapter = it }
     }
 
-    private fun addSaveButton() {
-        requireActivity().addMenuProvider(object : MenuProvider {
-            override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
-                menuInflater.inflate(R.menu.group_info_menu_items, menu)
-            }
 
-            override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
-                if (menuItem.itemId == R.id.btn_save) {
-                    updateGroup()
-                    return true
-                }
-                return false
-            }
-        }, viewLifecycleOwner)
-    }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-        viewBinding.icFavouritePlugins.wvCharts.destroy()
-    }
-
-    private fun updateGroup() = viewLifecycleScope.launch {
+    override fun updateInfo() = viewLifecycleScope.launch {
         if (mSaving) return@launch
         mSaving = true
         val updateGroup = collectUpdateData()
@@ -167,12 +132,9 @@ class EditGroupFragment : BaseFragment<FragmentEditGroupBinding>() {
         tvReceived.text = getSpannedCount(R.string.received_format, data.chatCount)
         tvCall.text = getSpannedCount(R.string.fn_call_format, data.callCount)
         swEnabled.isChecked = data.status
-        icFavouritePlugins.apply {
-            tvTitle.text = getString(R.string.favourite_plugins)
-            viewLifecycleScope.launch {
-                mFavouriteWebViewClient.blockDuringLoading {
-                    wvCharts.setChartData(data.favouritePlugins)
-                }
+        viewLifecycleScope.launch {
+            mFavouriteWebViewClient.blockDuringLoading {
+                icFavouritePlugins.wvCharts.setChartData(data.favouritePlugins)
             }
         }
         sbGroupLevel.progress = data.level
@@ -185,50 +147,5 @@ class EditGroupFragment : BaseFragment<FragmentEditGroupBinding>() {
             }
             adapter = PassiveTasksPagerAdapter(data.task).also { mPassiveAdapter = it }
         }
-    }
-
-    private fun getSpannedCount(@StringRes id: Int, count: Int) =
-        SpannableString(getString(id, count)).apply {
-            val colorSpan = ForegroundColorSpan(
-                ResourcesCompat.getColor(resources, R.color.text_gray, null)
-            )
-            setSpan(colorSpan, 0, indexOf(':') + 1, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
-        }
-
-    @SuppressLint("SetJavaScriptEnabled")
-    private fun WebView.initChartWebView(path: String): ConsoleChartWebViewClient {
-        settings.run {
-            javaScriptEnabled = true
-            setSupportZoom(false)
-            setNeedInitialFocus(false)
-            builtInZoomControls = true
-            loadWithOverviewMode = true
-            useWideViewPort = true
-            loadsImagesAutomatically = true
-            cacheMode = WebSettings.LOAD_NO_CACHE
-            setSupportMultipleWindows(true)
-        }
-        val client = ConsoleChartWebViewClient(mAssetLoader) { webView, _ ->
-            webView.setChartNightMode(resources.configuration.isNightMode())
-        }
-        webViewClient = client
-        setBackgroundColor(0)
-        loadUrl(path)
-        return client
-    }
-
-    private fun WebView.setChartNightMode(isNightMode: Boolean) {
-        evaluateJavascript("javascript:setDarkMode($isNightMode)") {}
-    }
-
-    private fun WebView.setChartData(data: Map<String, Int>) {
-        val array = JsonArray()
-        data.forEach {
-            val obj = JsonArray()
-            obj.add(it.key)
-            obj.add(it.value)
-            array.add(obj)
-        }
-        evaluateJavascript("javascript:setChartData2($array)", null)
     }
 }

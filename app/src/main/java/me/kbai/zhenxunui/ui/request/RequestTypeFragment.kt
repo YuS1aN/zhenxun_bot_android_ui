@@ -43,7 +43,7 @@ class RequestTypeFragment : BaseFragment<FragmentRequestTypeBinding>() {
 
     override fun getViewBinding(
         inflater: LayoutInflater, container: ViewGroup?
-    ): FragmentRequestTypeBinding = FragmentRequestTypeBinding.inflate(inflater)
+    ): FragmentRequestTypeBinding = FragmentRequestTypeBinding.inflate(inflater, container, false)
 
     override fun initView(): Unit = viewBinding.run {
         rvRequest.adapter = mListAdapter
