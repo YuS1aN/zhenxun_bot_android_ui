@@ -2,6 +2,7 @@ package me.kbai.zhenxunui.api
 
 import me.kbai.zhenxunui.model.BotBaseInfo
 import me.kbai.zhenxunui.model.BotMessageCount
+import me.kbai.zhenxunui.model.ExecuteSql
 import me.kbai.zhenxunui.model.FriendListItem
 import me.kbai.zhenxunui.model.GroupInfo
 import me.kbai.zhenxunui.model.GroupListItem
@@ -12,6 +13,9 @@ import me.kbai.zhenxunui.model.PluginInfo
 import me.kbai.zhenxunui.model.PluginSwitch
 import me.kbai.zhenxunui.model.RequestListResult
 import me.kbai.zhenxunui.model.SendMessage
+import me.kbai.zhenxunui.model.SqlLog
+import me.kbai.zhenxunui.model.TableColumn
+import me.kbai.zhenxunui.model.TableListItem
 import me.kbai.zhenxunui.model.UpdateGroup
 import me.kbai.zhenxunui.model.UpdatePlugin
 import me.kbai.zhenxunui.model.UserDetail
@@ -103,4 +107,16 @@ interface ApiService {
 
     @POST("manage/send_message")
     suspend fun sendMessage(@Body message: SendMessage): ApiResponse<*>
+
+    @GET("database/get_table_list")
+    suspend fun getTableList(): ApiResponse<List<TableListItem>>
+
+    @GET("database/get_table_column")
+    suspend fun getTableColumn(@Query("table_name") table: String): ApiResponse<List<TableColumn>>
+
+    @GET("database/get_sql_log")
+    suspend fun getSqlLog(): ApiResponse<List<SqlLog>>
+
+    @POST("database/exec_sql")
+    suspend fun executeSql(@Body sql: ExecuteSql): RawApiResponse
 }

@@ -6,6 +6,7 @@
     <string name="nav_plugin">插件列表</string>
     <string name="nav_request">请求管理</string>
     <string name="nav_friend_list">好友/群组</string>
+    <string name="nav_database_manage">数据库管理</string>
     <string name="nav_info">系统信息</string>
     <string name="nav_title_func">" "</string>
     <string name="username_hint">请输入用户名</string>
@@ -123,4 +124,8 @@
     <string name="banned">封禁</string>
     <string name="select_account">切换账号</string>
     <string name="user_information">用户信息</string>
+    <string name="type_format">类型: %s</string>
+    <string name="max_length_format">最大长度: %s</string>
+    <string name="nullable_format">允许空值: %s</string>
+    <string name="execute_sql">执行SQL</string>
 </resources>

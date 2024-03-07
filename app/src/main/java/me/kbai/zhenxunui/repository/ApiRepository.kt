@@ -114,6 +114,10 @@ object ApiRepository {
         }
     }
 
+    fun getTableList() = networkFlow { BotApi.service.getTableList() }
+
+    fun getTableColumn(table: String) = networkFlow { BotApi.service.getTableColumn(table) }
+
     private fun <T> networkFlow(
         tempData: T? = null,
         f: suspend () -> ApiResponse<T>

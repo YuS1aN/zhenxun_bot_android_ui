@@ -39,11 +39,17 @@
         android:label="@string/nav_request"
         tools:layout="@layout/fragment_request" />
 
-<!--    <fragment-->
-<!--        android:id="@+id/nav_info"-->
-<!--        android:name="me.kbai.zhenxunui.ui.info.InfoFragment"-->
-<!--        android:label="@string/nav_info"-->
-<!--        tools:layout="@layout/fragment_info" />-->
+    <fragment
+        android:id="@+id/nav_db_manage"
+        android:name="me.kbai.zhenxunui.ui.db.DbManageFragment"
+        android:label="@string/nav_database_manage"
+        tools:layout="@layout/fragment_db_manage" />
+
+    <!--    <fragment-->
+    <!--        android:id="@+id/nav_info"-->
+    <!--        android:name="me.kbai.zhenxunui.ui.info.InfoFragment"-->
+    <!--        android:label="@string/nav_info"-->
+    <!--        tools:layout="@layout/fragment_info" />-->
 
     <fragment
         android:id="@+id/conversationFragment"

@@ -8,6 +8,7 @@
     <string name="nav_plugin">Plugin</string>
     <string name="nav_friend_list">Friend/Group</string>
     <string name="nav_request">Request</string>
+    <string name="nav_database_manage">Database Manage</string>
     <string name="nav_info">SysInfo</string>
     <string name="username_label">Username</string>
     <string name="username_hint">Please input username</string>
@@ -127,4 +128,8 @@
     <string name="banned">Banned</string>
     <string name="select_account">Select Account</string>
     <string name="user_information">User Information</string>
+    <string name="type_format">Type: %s</string>
+    <string name="max_length_format">Max Length: %s</string>
+    <string name="nullable_format">Nullable: %s</string>
+    <string name="execute_sql">EXEC SQL</string>
 </resources>

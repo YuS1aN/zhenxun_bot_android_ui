@@ -22,9 +22,13 @@
                 <item
                     android:id="@+id/nav_request"
                     android:title="@string/nav_request" />
+
                 <item
-                    android:id="@+id/nav_info"
-                    android:title="@string/nav_info" />
+                    android:id="@+id/nav_db_manage"
+                    android:title="@string/nav_database_manage" />
+<!--                <item-->
+<!--                    android:id="@+id/nav_info"-->
+<!--                    android:title="@string/nav_info" />-->
             </group>
 <!--        </menu>-->
 <!--    </item>-->

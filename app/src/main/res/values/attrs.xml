@@ -36,4 +36,10 @@
         <attr name="spreadAsMaximum" format="boolean" />
         <attr name="tableEnforceChildrenWidth" format="boolean" />
     </declare-styleable>
+
+    <declare-styleable name="ExpandLayout">
+        <attr name="expanded" format="boolean" />
+        <attr name="maxHeight" format="dimension" />
+        <attr name="animationDuration" format="integer" />
+    </declare-styleable>
 </resources>

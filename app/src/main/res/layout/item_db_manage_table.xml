@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginHorizontal="@dimen/margin_normal"
+    android:layout_marginBottom="@dimen/margin_normal"
+    android:background="@drawable/bg_list_item_round"
+    android:orientation="vertical"
+    android:paddingHorizontal="@dimen/margin_normal"
+    android:paddingTop="@dimen/margin_normal">
+
+    <TextView
+        android:id="@+id/tv_table_name"
+        style="@style/SingleLineText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/dn_black"
+        android:textSize="@dimen/title_size_large"
+        android:textStyle="bold"
+        tools:text="ban_users" />
+
+    <TextView
+        android:id="@+id/tv_description"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_narrow"
+        android:textSize="@dimen/text_size_normal"
+        android:textStyle="bold"
+        tools:text="封禁人员数据表" />
+
+    <me.kbai.zhenxunui.widget.ExpandLayout
+        android:id="@+id/el_fields"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_normal"
+        android:orientation="vertical"
+        app:expanded="false">
+
+        <ProgressBar
+            android:id="@+id/pb_waiting"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginVertical="@dimen/margin_normal" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_fields"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            tools:itemCount="3"
+            tools:listitem="@layout/item_db_manage_field" />
+    </me.kbai.zhenxunui.widget.ExpandLayout>
+</LinearLayout>
