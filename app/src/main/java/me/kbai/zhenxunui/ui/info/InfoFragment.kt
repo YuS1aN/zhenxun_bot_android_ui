@@ -12,12 +12,13 @@ import me.kbai.zhenxunui.viewmodel.InfoViewModel
  * @author Sean on 2023/5/30
  */
 class InfoFragment : BaseFragment<FragmentInfoBinding>() {
+
+    private val mViewModel by viewModels<InfoViewModel>()
+
     override fun getViewBinding(
         inflater: LayoutInflater,
         container: ViewGroup?
     ): FragmentInfoBinding = FragmentInfoBinding.inflate(inflater, container, false)
-
-    private val mViewModel by viewModels<InfoViewModel>()
 
     @SuppressLint("SetJavaScriptEnabled")
     override fun initView() {

@@ -19,6 +19,8 @@ public abstract class BaseFragment<VB extends ViewBinding> extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
+        super.onCreateView(inflater, container, savedInstanceState);
+
         if (viewBinding == null) {
             viewBinding = getViewBinding(inflater, container);
             initView();

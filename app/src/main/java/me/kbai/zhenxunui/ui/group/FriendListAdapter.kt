@@ -41,8 +41,8 @@ class FriendListAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     var onGroupClickListener: ((GroupListItem) -> Unit)? = null
     var onFriendClickListener: ((FriendListItem) -> Unit)? = null
 
-    private var mExpandGroup = true
-    private var mExpandFriend = true
+    var expandGroup = true
+    var expandFriend = true
 
     private var mRecyclerView: RecyclerView? = null
 
@@ -111,9 +111,9 @@ class FriendListAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     private fun ClassifyViewHolder.onBindGroup() = binding.run {
         tvClassify.setText(R.string.groups)
         root.setOnClickListener {
-            mExpandGroup = !mExpandGroup
+            expandGroup = !expandGroup
 
-            if (mExpandGroup) {
+            if (expandGroup) {
                 ValueAnimator.ofFloat(-90f, 0f)
             } else {
                 ValueAnimator.ofFloat(0f, -90f)
@@ -129,18 +129,19 @@ class FriendListAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
                 for (i in 1..groupData.size) {
                     val holder = findViewHolderForAdapterPosition(i) ?: break
 
-                    (holder as ItemViewHolder).setVisible(mExpandGroup)
+                    (holder as ItemViewHolder).setVisible(expandGroup)
                 }
             }
         }
+        ivArrow.rotation = if (expandGroup) 0f else -90f
     }
 
     private fun ClassifyViewHolder.onBindFriend() = binding.run {
         tvClassify.setText(R.string.friends)
         root.setOnClickListener {
-            mExpandFriend = !mExpandFriend
+            expandFriend = !expandFriend
 
-            if (mExpandFriend) {
+            if (expandFriend) {
                 ValueAnimator.ofFloat(-90f, 0f)
             } else {
                 ValueAnimator.ofFloat(0f, -90f)
@@ -159,10 +160,11 @@ class FriendListAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
                 for (i in begin..<end) {
                     val holder = findViewHolderForAdapterPosition(i) ?: break
 
-                    (holder as ItemViewHolder).setVisible(mExpandFriend)
+                    (holder as ItemViewHolder).setVisible(expandFriend)
                 }
             }
         }
+        ivArrow.rotation = if (expandFriend) 0f else -90f
     }
 
     private fun ItemViewHolder.onBindGroup(item: GroupListItem) = binding.run {
@@ -173,7 +175,7 @@ class FriendListAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         tvId.text = item.groupId
         root.setOnDebounceClickListener { onGroupClickListener?.invoke(item) }
 
-        setVisible(mExpandGroup)
+        setVisible(expandGroup)
     }
 
     private fun ItemViewHolder.onBindFriend(item: FriendListItem) = binding.run {
@@ -184,6 +186,6 @@ class FriendListAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         tvId.text = item.userId
         root.setOnDebounceClickListener { onFriendClickListener?.invoke(item) }
 
-        setVisible(mExpandFriend)
+        setVisible(expandFriend)
     }
 }

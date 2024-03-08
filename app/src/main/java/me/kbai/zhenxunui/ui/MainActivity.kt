@@ -36,7 +36,6 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
 
         mAppBarConfiguration = AppBarConfiguration(
             setOf(
-//                R.id.nav_home,
                 R.id.nav_console,
                 R.id.nav_plugin,
                 R.id.nav_friend_list,

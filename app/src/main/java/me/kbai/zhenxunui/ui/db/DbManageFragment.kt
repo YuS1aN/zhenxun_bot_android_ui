@@ -53,6 +53,6 @@ class DbManageFragment : BaseFragment<FragmentDbManageBinding>() {
             viewBinding.rvTables.adapter = DbTableAdapter(it, mViewModel, viewLifecycleScope)
         }
 
-        mViewModel.requestTableList()
+        if (mViewModel.tables.value == null) mViewModel.requestTableList()
     }
 }

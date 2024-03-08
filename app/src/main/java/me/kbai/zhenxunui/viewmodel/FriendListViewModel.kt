@@ -19,15 +19,7 @@ import java.security.InvalidParameterException
  * @author Sean on 2023/6/7
  */
 class FriendListViewModel : ViewModel() {
-    //    var groupInfo: List<GroupInfo>? = null
-//
-//    fun getGroup() = ApiRepository.getGroup().onEach {
-//        if (it.success()) {
-//            groupInfo = it.data.orEmpty()
-//        }
-//    }
-//
-//    fun updateGroup(updateGroup: UpdateGroup) = ApiRepository.updateGroup(updateGroup)
+    var botId: String? = null
 
     private val _friends: MutableStateFlow<List<FriendListItem>> = MutableStateFlow(emptyList())
     val friends: StateFlow<List<FriendListItem>> = _friends
@@ -37,6 +29,8 @@ class FriendListViewModel : ViewModel() {
 
     suspend fun requestList(type: Int): Resource<*> = coroutineScope {
         val botId = Constants.currentBot?.selfId
+        this@FriendListViewModel.botId = botId
+
         var friendsReq: Deferred<Resource<*>>? = null
         var groupsReq: Deferred<Resource<*>>? = null
 

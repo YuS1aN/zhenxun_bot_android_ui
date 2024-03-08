@@ -86,8 +86,6 @@ class EditGroupFragment : BaseEditInfoFragment<FragmentEditGroupBinding>() {
             PluginStatusAdapter(list, group).also { mPluginStatusAdapter = it }
     }
 
-
-
     override fun updateInfo() = viewLifecycleScope.launch {
         if (mSaving) return@launch
         mSaving = true

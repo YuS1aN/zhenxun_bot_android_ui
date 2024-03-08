@@ -8,6 +8,7 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import kotlinx.coroutines.launch
+import me.kbai.zhenxunui.Constants
 import me.kbai.zhenxunui.R
 import me.kbai.zhenxunui.base.BaseFragment
 import me.kbai.zhenxunui.databinding.FragmentGroupBinding
@@ -23,14 +24,19 @@ import me.kbai.zhenxunui.viewmodel.FriendListViewModel
  * @author Sean on 2023/5/30
  */
 class FriendListFragment : BaseFragment<FragmentGroupBinding>() {
-    override fun getViewBinding(
-        inflater: LayoutInflater, container: ViewGroup?
-    ): FragmentGroupBinding = FragmentGroupBinding.inflate(inflater, container, false)
+    companion object {
+        const val SAVED_EXPAND_GROUP = "SAVED_EXPAND_GROUP"
+        const val SAVED_EXPAND_FRIEND = "SAVED_EXPAND_FRIEND"
+    }
 
     private val mViewModel by viewModels<FriendListViewModel>()
     private val mAdapter = FriendListAdapter()
 
     private val mConversationViewModel by viewModels<ConversationViewModel>({ requireActivity() })
+
+    override fun getViewBinding(
+        inflater: LayoutInflater, container: ViewGroup?
+    ): FragmentGroupBinding = FragmentGroupBinding.inflate(inflater, container, false)
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -65,7 +71,23 @@ class FriendListFragment : BaseFragment<FragmentGroupBinding>() {
             mAdapter.friendData = it
         }
 
-        requestData()
+        if (mViewModel.botId != Constants.currentBot?.selfId) {
+            requestData()
+        }
+    }
+
+    override fun onViewStateRestored(savedInstanceState: Bundle?) {
+        super.onViewStateRestored(savedInstanceState)
+        savedInstanceState?.run {
+            mAdapter.expandFriend = getBoolean(SAVED_EXPAND_FRIEND)
+            mAdapter.expandGroup = getBoolean(SAVED_EXPAND_GROUP)
+        }
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.putBoolean(SAVED_EXPAND_FRIEND, mAdapter.expandFriend)
+        outState.putBoolean(SAVED_EXPAND_GROUP, mAdapter.expandGroup)
     }
 
     private fun requestData(
