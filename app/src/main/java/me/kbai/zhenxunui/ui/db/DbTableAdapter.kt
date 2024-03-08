@@ -3,11 +3,9 @@ package me.kbai.zhenxunui.ui.db
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.view.isVisible
-import androidx.core.view.size
-import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Job
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import me.kbai.zhenxunui.databinding.ItemDbManageTableBinding
 import me.kbai.zhenxunui.extends.setOnDebounceClickListener
@@ -43,6 +41,7 @@ class DbTableAdapter(
                     viewModel.getColumns(item.name)
                         .collect {
                             if (!holder.recycled) {
+                                delay(elFields.remainPlayTime)
                                 pbWaiting.isVisible = false
                                 rvFields.adapter = TableFieldAdapter(it)
                                 rvFields.post { elFields.expand() }
@@ -51,15 +50,15 @@ class DbTableAdapter(
                 }
             }
 
-            rvFields.adapter = null
             elFields.collapse(false)
             pbWaiting.isVisible = true
             holder.recycled = false
         }
     }
 
-    override fun onViewRecycled(holder: ItemViewHolder) {
+    override fun onViewRecycled(holder: ItemViewHolder) = holder.binding.run {
         holder.recycled = true
+        rvFields.adapter = null
     }
 
     class ItemViewHolder(val binding: ItemDbManageTableBinding) :

@@ -7,6 +7,8 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
+import com.google.gson.ToNumberPolicy
+import com.google.gson.ToNumberStrategy
 import me.kbai.zhenxunui.api.ErrorHandleAdapterFactory
 import me.kbai.zhenxunui.model.BotBaseInfo
 
@@ -29,6 +31,7 @@ object Constants {
 
     val gson: Gson = GsonBuilder()
         .registerTypeAdapterFactory(ErrorHandleAdapterFactory())
+        .setObjectToNumberStrategy(ToNumberPolicy.LONG_OR_DOUBLE)
         .create()
 
     var currentBot: BotBaseInfo? = null

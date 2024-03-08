@@ -10,6 +10,7 @@ import me.kbai.zhenxunui.api.RawApiResponse
 import me.kbai.zhenxunui.api.TypedWebSocketHolder
 import me.kbai.zhenxunui.api.WebSocketHolder
 import me.kbai.zhenxunui.model.ChatMessage
+import me.kbai.zhenxunui.model.ExecuteSql
 import me.kbai.zhenxunui.model.HandleRequest
 import me.kbai.zhenxunui.model.PluginDetail
 import me.kbai.zhenxunui.model.PluginInfo
@@ -118,6 +119,8 @@ object ApiRepository {
 
     fun getTableColumn(table: String) = networkFlow { BotApi.service.getTableColumn(table) }
 
+    fun executeSql(sql: ExecuteSql) = networkFlow { BotApi.service.executeSql(sql) }
+
     private fun <T> networkFlow(
         tempData: T? = null,
         f: suspend () -> ApiResponse<T>
@@ -154,9 +157,9 @@ object ApiRepository {
             return@flow
         }
         if (resp.success) {
-            emit(Resource.success(resp.data, resp.info, resp.code))
+            emit(Resource.success(resp.data, resp.warning ?: resp.info, resp.code))
         } else {
-            emit(Resource.error(null, resp.info, resp.code))
+            emit(Resource.error(null, resp.warning ?: resp.info, resp.code))
         }
     }
 

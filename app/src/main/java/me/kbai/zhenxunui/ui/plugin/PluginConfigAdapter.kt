@@ -249,8 +249,8 @@ class PluginConfigAdapter(
                     val strVal = it?.toString()
                     try {
                         mEditableData.configs[config.key] = when (config.type) {
-                            ConfigValueType.INT -> strVal?.toInt()
-                            ConfigValueType.FLOAT -> strVal?.toFloat()
+                            ConfigValueType.INT -> strVal?.toLong()
+                            ConfigValueType.FLOAT -> strVal?.toDouble()
                             ConfigValueType.BOOL -> strVal?.lowercase()?.toBoolean()
                             else -> strVal
                         }

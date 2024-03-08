@@ -19,7 +19,6 @@ import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.isActive
 import kotlinx.coroutines.launch
-import me.kbai.zhenxunui.Constants
 import me.kbai.zhenxunui.R
 import me.kbai.zhenxunui.base.BaseFragment
 import me.kbai.zhenxunui.databinding.FragmentConsoleBinding

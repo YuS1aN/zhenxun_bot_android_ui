@@ -10,5 +10,6 @@ data class ApiResponse<T>(
     val success: Boolean,
     val code: Int,
     val info: String,
+    val warning: String?,
     val data: T?
 )

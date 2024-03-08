@@ -9,6 +9,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.FlowCollector
 import kotlinx.coroutines.launch
+import me.kbai.zhenxunui.repository.Resource
 
 /**
  * @author sean on 2022/4/15
@@ -24,11 +25,14 @@ fun LifecycleOwner.launchRepeatOnLifeCycle(
 val Fragment.viewLifecycleScope: CoroutineScope
     get() = viewLifecycleOwner.lifecycleScope
 
-fun <T> Flow<T>.launchAndCollectIn(
+inline fun <reified T> Flow<T>.launchAndCollectIn(
     owner: LifecycleOwner,
     activeState: Lifecycle.State = Lifecycle.State.STARTED,
     collector: FlowCollector<T>
 ) = owner.lifecycleScope.launch {
+    logI(T::class.java.name, "launchAndCollectIn")
+    assert(T::class.java != Resource::class.java) { "Resource 类型要用 apiCollect 实现 token 过期重新登录!" }
+
     owner.repeatOnLifecycle(activeState) {
         collect(collector)
     }

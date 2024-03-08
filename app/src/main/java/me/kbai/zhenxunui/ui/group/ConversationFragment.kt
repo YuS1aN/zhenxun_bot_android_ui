@@ -14,7 +14,7 @@ import androidx.navigation.fragment.findNavController
 import me.kbai.zhenxunui.R
 import me.kbai.zhenxunui.base.BaseFragment
 import me.kbai.zhenxunui.databinding.FragmentConversationBinding
-import me.kbai.zhenxunui.extends.launchAndCollectIn
+import me.kbai.zhenxunui.extends.launchAndApiCollectIn
 import me.kbai.zhenxunui.extends.setOnDebounceClickListener
 import me.kbai.zhenxunui.tool.GlobalToast
 import me.kbai.zhenxunui.viewmodel.ConversationViewModel
@@ -54,7 +54,7 @@ class ConversationFragment : BaseFragment<FragmentConversationBinding>() {
             etText.setText("")
 
             mViewModel.sendMessage(mUserId, mGroupId, message)
-                .launchAndCollectIn(this@ConversationFragment) {
+                .launchAndApiCollectIn(this@ConversationFragment) {
                     if (it.success()) {
                         mMessageAdapter.addData(
                             mViewModel.insertSentMessage(mGroupId, mUserId, message)
@@ -64,6 +64,11 @@ class ConversationFragment : BaseFragment<FragmentConversationBinding>() {
                     }
                 }
         }
+    }
+
+    override fun onStart() {
+        super.onStart()
+        viewBinding.btnSend.isEnabled = true
     }
 
     override fun initData() {

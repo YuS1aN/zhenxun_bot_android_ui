@@ -7,16 +7,17 @@ import android.util.AttributeSet;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
+import android.widget.FrameLayout;
 
 import androidx.annotation.Nullable;
 
 import me.kbai.zhenxunui.R;
 
-public class ExpandLayout extends LinearLayout {
+public class ExpandLayout extends FrameLayout {
 
     private boolean isExpand;
     private long animationDuration;
+    private long remainPlayTime;
     private boolean lock;
 
     private int maxHeight;
@@ -82,6 +83,10 @@ public class ExpandLayout extends LinearLayout {
         }
     }
 
+    public long getRemainPlayTime() {
+        return lock ? remainPlayTime : 0;
+    }
+
     private void readAttr(Context context, AttributeSet attrs) {
         TypedArray array = null;
         try {
@@ -102,8 +107,11 @@ public class ExpandLayout extends LinearLayout {
      * 切换动画实现
      */
     private void animateToggle(long animationDuration) {
+        int oldHeight = 0;
         //展开时重新计算高度
         if (isExpand) {
+            oldHeight = getLayoutParams().height;
+            Log.i("TAG", "oldHeight: val " + oldHeight);
             measure(
                     MeasureSpec.makeMeasureSpec(getWidth(), MeasureSpec.AT_MOST),
                     MeasureSpec.makeMeasureSpec(0, MeasureSpec.UNSPECIFIED)
@@ -112,13 +120,14 @@ public class ExpandLayout extends LinearLayout {
         int viewHeight = maxHeight > 0 ? Math.min(getMeasuredHeight(), maxHeight) : getMeasuredHeight();
 
         ValueAnimator heightAnimation = isExpand ?
-                ValueAnimator.ofFloat(0f, viewHeight) : ValueAnimator.ofFloat(viewHeight, 0f);
-        heightAnimation.setDuration(animationDuration / 2);
-        heightAnimation.setStartDelay(animationDuration / 2);
+                ValueAnimator.ofFloat(oldHeight, viewHeight) : ValueAnimator.ofFloat(viewHeight, 0f);
+        heightAnimation.setDuration(animationDuration);
 
         heightAnimation.addUpdateListener(animation -> {
+            remainPlayTime = animation.getDuration() - animation.getCurrentPlayTime();
             int value = (int) (float) animation.getAnimatedValue();
             setViewHeight(this, value);
+            Log.i("TAG", "animateToggle: val " + value);
             if (value == viewHeight || value == 0) {
                 lock = false;
             }

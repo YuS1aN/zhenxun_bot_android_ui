@@ -118,5 +118,5 @@ interface ApiService {
     suspend fun getSqlLog(): ApiResponse<List<SqlLog>>
 
     @POST("database/exec_sql")
-    suspend fun executeSql(@Body sql: ExecuteSql): RawApiResponse
+    suspend fun executeSql(@Body sql: ExecuteSql): ApiResponse<List<LinkedHashMap<String, *>>>
 }
