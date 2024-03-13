@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.annotation.IdRes
 import androidx.annotation.StringRes
 import androidx.fragment.app.DialogFragment
 import me.kbai.zhenxunui.base.BaseDialogFragment
@@ -16,6 +17,8 @@ class PromptDialogFragment : BaseDialogFragment() {
 
     private lateinit var mBinding: DialogPromptBinding
 
+    private val mParams = Params()
+
     init {
         isCancelable = false
     }
@@ -27,31 +30,71 @@ class PromptDialogFragment : BaseDialogFragment() {
     ) = DialogPromptBinding.inflate(inflater).also { mBinding = it }.root
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        mBinding.btnCancel.setOnClickListener { dismiss() }
+        mBinding.run {
+            mParams.title?.let { tvTitle.text = it }
+            mParams.text?.let { tvText.text = it }
+            mParams.textRes?.let { tvText.setText(it) }
+            
+            btnCancel.setOnClickListener {
+                val listener = mParams.cancelClickListener
+                if (listener == null) {
+                    dismiss()
+                } else {
+                    listener.invoke(this@PromptDialogFragment)
+                }
+            }
+            btnConfirm.setOnClickListener {
+                val listener = mParams.confirmClickListener
+                if (listener == null) {
+                    dismiss()
+                } else {
+                    listener.invoke(btnConfirm, this@PromptDialogFragment)
+                }
+            }
+        }
     }
 
     fun setTitle(text: String): PromptDialogFragment {
-        mBinding.tvTitle.text = text
+        mParams.title = text
         return this
     }
 
     fun setText(text: String): PromptDialogFragment {
-        mBinding.tvText.text = text
+        mParams.text = text
         return this
     }
 
     fun setText(@StringRes resId: Int): PromptDialogFragment {
-        mBinding.tvText.setText(resId)
+        mParams.textRes = resId
         return this
     }
 
     fun setOnCancelClickListener(onCancel: (dialog: DialogFragment) -> Unit): PromptDialogFragment {
-        mBinding.btnCancel.setOnClickListener { onCancel.invoke(this) }
+        mParams.cancelClickListener = onCancel
         return this
     }
 
     fun setOnConfirmClickListener(onConfirm: (dialog: DialogFragment) -> Unit): PromptDialogFragment {
-        mBinding.btnConfirm.setOnClickListener { onConfirm.invoke(this) }
+        mParams.confirmClickListener = { _, dialog -> onConfirm.invoke(dialog) }
         return this
+    }
+
+    fun setOnConfirmClickListener(onConfirm: (button: View, dialog: DialogFragment) -> Unit): PromptDialogFragment {
+//        mBinding.btnConfirm.setOnClickListener { onConfirm.invoke(it, this) }
+        mParams.confirmClickListener = onConfirm
+        return this
+    }
+
+    private class Params {
+        var title: String? = null
+
+        var text: String? = null
+
+        @StringRes
+        var textRes: Int? = null
+
+        var cancelClickListener: ((dialog: DialogFragment) -> Unit)? = null
+
+        var confirmClickListener: ((button: View, dialog: DialogFragment) -> Unit)? = null
     }
 }

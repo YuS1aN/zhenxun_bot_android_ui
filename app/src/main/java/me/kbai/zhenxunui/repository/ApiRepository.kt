@@ -10,12 +10,15 @@ import me.kbai.zhenxunui.api.RawApiResponse
 import me.kbai.zhenxunui.api.TypedWebSocketHolder
 import me.kbai.zhenxunui.api.WebSocketHolder
 import me.kbai.zhenxunui.model.ChatMessage
+import me.kbai.zhenxunui.model.DeleteRemoteFile
 import me.kbai.zhenxunui.model.ExecuteSql
 import me.kbai.zhenxunui.model.HandleRequest
 import me.kbai.zhenxunui.model.PluginDetail
 import me.kbai.zhenxunui.model.PluginInfo
 import me.kbai.zhenxunui.model.PluginSwitch
 import me.kbai.zhenxunui.model.PluginType
+import me.kbai.zhenxunui.model.RemoteFile
+import me.kbai.zhenxunui.model.RenameRemoteFile
 import me.kbai.zhenxunui.model.SendMessage
 import me.kbai.zhenxunui.model.SystemStatus
 import me.kbai.zhenxunui.model.UpdateGroup
@@ -120,6 +123,26 @@ object ApiRepository {
     fun getTableColumn(table: String) = networkFlow { BotApi.service.getTableColumn(table) }
 
     fun executeSql(sql: ExecuteSql) = networkFlow { BotApi.service.executeSql(sql) }
+
+    fun readDir(path: String) = networkFlow { BotApi.service.readDir(path) }
+
+    fun renameFile(file: RemoteFile, newName: String) = networkFlow {
+        val renameFile = RenameRemoteFile(newName, file.name, file.parent)
+        if (file.isFile) {
+            BotApi.service.renameFile(renameFile)
+        } else {
+            BotApi.service.renameFolder(renameFile)
+        }
+    }
+
+    fun deleteFile(file: RemoteFile) = networkFlow {
+        val deleteFile = DeleteRemoteFile(file.getPath())
+        if (file.isFile) {
+            BotApi.service.deleteFile(deleteFile)
+        } else {
+            BotApi.service.deleteFolder(deleteFile)
+        }
+    }
 
     private fun <T> networkFlow(
         tempData: T? = null,

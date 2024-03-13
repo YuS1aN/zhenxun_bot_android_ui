@@ -41,7 +41,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
                 R.id.nav_friend_list,
                 R.id.nav_request,
                 R.id.nav_db_manage,
-//                R.id.nav_info
+                R.id.nav_file_explorer
             ), viewBinding.drawerLayout
         )
         setupActionBarWithNavController(navController, mAppBarConfiguration)

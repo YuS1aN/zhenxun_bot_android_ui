@@ -7,7 +7,7 @@
     <string name="nav_request">请求管理</string>
     <string name="nav_friend_list">好友/群组</string>
     <string name="nav_database_manage">数据库管理</string>
-    <string name="nav_info">系统信息</string>
+    <string name="nav_file_explorer">浏览文件</string>
     <string name="nav_title_func">" "</string>
     <string name="username_hint">请输入用户名</string>
     <string name="username_label">用户名</string>
@@ -128,4 +128,8 @@
     <string name="max_length_format">最大长度: %s</string>
     <string name="nullable_format">允许空值: %s</string>
     <string name="execute_sql">执行SQL</string>
+    <string name="rename">重命名</string>
+    <string name="loading">加载中…</string>
+    <string name="prompt_delete_file">确认删除文件吗?</string>
+    <string name="error_input_file_name">请输入新文件名</string>
 </resources>

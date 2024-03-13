@@ -75,4 +75,14 @@
         android:name="me.kbai.zhenxunui.ui.group.EditUserFragment"
         android:label="@string/user_information"
         tools:layout="@layout/fragment_edit_user" />
+
+    <fragment
+        android:id="@+id/nav_file_explorer"
+        android:name="me.kbai.zhenxunui.ui.file.FileExplorerFragment"
+        android:label="@string/nav_file_explorer"
+        tools:layout="@layout/fragment_file_explorer">
+        <action
+            android:id="@+id/action_fileExplorerFragment_self"
+            app:destination="@id/nav_file_explorer" />
+    </fragment>
 </navigation>
