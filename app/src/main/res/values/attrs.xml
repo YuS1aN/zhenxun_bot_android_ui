@@ -37,9 +37,15 @@
         <attr name="tableEnforceChildrenWidth" format="boolean" />
     </declare-styleable>
 
+    <attr name="maxHeight" format="dimension" />
+
     <declare-styleable name="ExpandLayout">
         <attr name="expanded" format="boolean" />
-        <attr name="maxHeight" format="dimension" />
+        <attr name="maxHeight" />
         <attr name="animationDuration" format="integer" />
+    </declare-styleable>
+
+    <declare-styleable name="MaxHeightLayout">
+        <attr name="maxHeight" />
     </declare-styleable>
 </resources>

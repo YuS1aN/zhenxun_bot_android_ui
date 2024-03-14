@@ -208,13 +208,26 @@ class FileExplorerFragment : BaseFragment<FragmentFileExplorerBinding>() {
                     viewBinding.root.setOnTouchListener(null)
                     viewBinding.icLoading.root.isVisible = false
 
-                    mEditingFile = file
-                    EditTextDialogFragment.newInstance(
-                        R.string.edit_file,
-                        it.data.orEmpty(),
-                        EditTextDialogFragment.EDIT_FILE,
-                        Int.MAX_VALUE
-                    ).show(childFragmentManager)
+                    //这里服务端返回数据有问题, 非文本内容读取失败后状态仍为success但数据为空
+                    if (it.success() && it.data != null) {
+                        //EditText内容过多会导致IME崩溃(Binder传输限制), 限制到约500K以内
+                        if (it.data.length > 250_000) {
+                            GlobalToast.showToast(R.string.text_too_long)
+                            PromptDialog(requireContext())
+                                .setText(it.data)
+                                .show()
+                            return@launchAndApiCollectIn
+                        }
+                        mEditingFile = file
+                        EditTextDialogFragment.newInstance(
+                            R.string.edit_file,
+                            it.data,
+                            EditTextDialogFragment.EDIT_FILE,
+                            Int.MAX_VALUE
+                        ).show(childFragmentManager)
+                    } else {
+                        GlobalToast.showToast(it.message)
+                    }
                 }
             } else {
                 findNavController().navigate(

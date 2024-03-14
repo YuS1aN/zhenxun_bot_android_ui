@@ -27,7 +27,7 @@ class EditTextDialogFragment : BaseDialogFragment() {
         const val EDIT_FILE = 4
 
         private const val ARGS_TITLE_RES = "1"
-        private const val ARGS_DEFAULT_TEXT = "2"
+        private const val ARGS_TEXT = "2"
         private const val ARGS_ID = "3"
         private const val ARGS_MAX_LINE = "4"
 
@@ -40,13 +40,13 @@ class EditTextDialogFragment : BaseDialogFragment() {
         fun newInstance(
             @StringRes titleRes: Int,
             defaultText: String,
-            resultId: Int,
+            id: Int,
             maxLine: Int = 1
         ): EditTextDialogFragment {
             val args = Bundle()
             args.putInt(ARGS_TITLE_RES, titleRes)
-            args.putString(ARGS_DEFAULT_TEXT, defaultText)
-            args.putInt(ARGS_ID, resultId)
+            args.putString(ARGS_TEXT, defaultText)
+            args.putInt(ARGS_ID, id)
             args.putInt(ARGS_MAX_LINE, maxLine)
             val fragment = EditTextDialogFragment()
             fragment.arguments = args
@@ -73,10 +73,11 @@ class EditTextDialogFragment : BaseDialogFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val arguments = arguments ?: return
+        val id = arguments.getInt(ARGS_ID)
 
         binding.run {
             tvTitle.setText(arguments.getInt(ARGS_TITLE_RES))
-            val defaultText = arguments.getString(ARGS_DEFAULT_TEXT, "")
+            val defaultText = arguments.getString(ARGS_TEXT)
             etText.apply {
                 maxLines = arguments.getInt(ARGS_MAX_LINE, 1)
                 var type = InputType.TYPE_CLASS_TEXT
@@ -92,7 +93,7 @@ class EditTextDialogFragment : BaseDialogFragment() {
                     binding.etText.error = getString(R.string.error_input_text)
                     return@setOnClickListener
                 }
-                _result.value = Consumable(text.toString(), arguments.getInt(ARGS_ID))
+                _result.value = Consumable(text.toString(), id)
             }
             mhlText.post {
                 val size = dialog?.window?.displaySize() ?: return@post

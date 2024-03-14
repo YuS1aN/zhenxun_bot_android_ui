@@ -135,4 +135,5 @@
     <string name="new_file">创建文件</string>
     <string name="new_folder">新建文件夹</string>
     <string name="edit_file">编辑文件</string>
+    <string name="text_too_long">文本过长，暂不支持编辑</string>
 </resources>

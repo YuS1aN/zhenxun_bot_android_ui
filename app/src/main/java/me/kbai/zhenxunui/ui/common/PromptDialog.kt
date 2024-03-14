@@ -2,6 +2,7 @@ package me.kbai.zhenxunui.ui.common
 
 import android.content.Context
 import android.content.DialogInterface
+import android.text.method.ScrollingMovementMethod
 import android.view.View
 import androidx.annotation.StringRes
 import me.kbai.zhenxunui.base.BaseDialog
@@ -24,6 +25,8 @@ class PromptDialog(context: Context) : BaseDialog(context) {
 
     override fun show() {
         mBinding.run {
+            tvText.movementMethod = ScrollingMovementMethod.getInstance()
+
             mParams.title?.let { tvTitle.text = it }
             mParams.text?.let { tvText.text = it }
             mParams.textRes?.let { tvText.setText(it) }

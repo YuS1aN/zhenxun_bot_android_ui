@@ -139,4 +139,5 @@
     <string name="new_file">New File</string>
     <string name="new_folder">New Folder</string>
     <string name="edit_file">Edit File</string>
+    <string name="text_too_long">The text is too long to edit</string>
 </resources>
