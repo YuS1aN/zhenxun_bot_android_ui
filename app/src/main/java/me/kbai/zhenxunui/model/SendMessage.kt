@@ -6,7 +6,7 @@ data class SendMessage(
     @SerializedName("bot_id")
     val botId: String,
     @SerializedName("user_id")
-    val userId:String? = null,
+    val userId: String? = null,
     @SerializedName("group_id")
     val groupId: String? = null,
     val message: String

@@ -25,7 +25,7 @@ open class WebSocketHolder(private val path: String, private val scope: Coroutin
     private var mStatus = NOT_STARTED
 
     fun connect() {
-        if (mStatus in CONNECTING .. CLOSING) return
+        if (mStatus in CONNECTING..CLOSING) return
 
         mStatus = CONNECTING
 

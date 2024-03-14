@@ -34,7 +34,7 @@ abstract class BaseEditInfoFragment<VB : ViewBinding> : BaseFragment<VB>() {
 
     protected abstract fun getWebViews(): Array<WebView>
 
-    protected abstract fun updateInfo() : Any
+    protected abstract fun updateInfo(): Any
 
     override fun onConfigurationChanged(newConfig: Configuration) {
         super.onConfigurationChanged(newConfig)

@@ -107,7 +107,9 @@ public class ReflectionUtils {
         return false;
     }
 
-    /** @noinspection CallToPrintStackTrace*/
+    /**
+     * @noinspection CallToPrintStackTrace
+     */
     public static <T> boolean setFieldValue(Object object, String fieldName, T fieldValue) {
         Class<?> clazz = object.getClass();
         while (clazz != null) {
