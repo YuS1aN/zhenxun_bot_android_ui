@@ -1,46 +1,39 @@
 package me.kbai.zhenxunui.ui.common
 
-import android.os.Bundle
-import android.view.LayoutInflater
+import android.content.Context
+import android.content.DialogInterface
 import android.view.View
-import android.view.ViewGroup
-import androidx.annotation.IdRes
 import androidx.annotation.StringRes
-import androidx.fragment.app.DialogFragment
-import me.kbai.zhenxunui.base.BaseDialogFragment
+import me.kbai.zhenxunui.base.BaseDialog
 import me.kbai.zhenxunui.databinding.DialogPromptBinding
 
 /**
  * @author Sean on 2023/6/8
  */
-class PromptDialogFragment : BaseDialogFragment() {
+class PromptDialog(context: Context) : BaseDialog(context) {
 
-    private lateinit var mBinding: DialogPromptBinding
+    private var mBinding: DialogPromptBinding
 
     private val mParams = Params()
 
     init {
-        isCancelable = false
+        setCancelable(false)
+
+        setContentView(DialogPromptBinding.inflate(layoutInflater).also { mBinding = it }.root)
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ) = DialogPromptBinding.inflate(inflater).also { mBinding = it }.root
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+    override fun show() {
         mBinding.run {
             mParams.title?.let { tvTitle.text = it }
             mParams.text?.let { tvText.text = it }
             mParams.textRes?.let { tvText.setText(it) }
-            
+
             btnCancel.setOnClickListener {
                 val listener = mParams.cancelClickListener
                 if (listener == null) {
                     dismiss()
                 } else {
-                    listener.invoke(this@PromptDialogFragment)
+                    listener.invoke(this@PromptDialog)
                 }
             }
             btnConfirm.setOnClickListener {
@@ -48,38 +41,39 @@ class PromptDialogFragment : BaseDialogFragment() {
                 if (listener == null) {
                     dismiss()
                 } else {
-                    listener.invoke(btnConfirm, this@PromptDialogFragment)
+                    listener.invoke(btnConfirm, this@PromptDialog)
                 }
             }
         }
+        super.show()
     }
 
-    fun setTitle(text: String): PromptDialogFragment {
+    fun setTitle(text: String): PromptDialog {
         mParams.title = text
         return this
     }
 
-    fun setText(text: String): PromptDialogFragment {
+    fun setText(text: String): PromptDialog {
         mParams.text = text
         return this
     }
 
-    fun setText(@StringRes resId: Int): PromptDialogFragment {
+    fun setText(@StringRes resId: Int): PromptDialog {
         mParams.textRes = resId
         return this
     }
 
-    fun setOnCancelClickListener(onCancel: (dialog: DialogFragment) -> Unit): PromptDialogFragment {
+    fun setOnCancelClickListener(onCancel: (dialog: DialogInterface) -> Unit): PromptDialog {
         mParams.cancelClickListener = onCancel
         return this
     }
 
-    fun setOnConfirmClickListener(onConfirm: (dialog: DialogFragment) -> Unit): PromptDialogFragment {
+    fun setOnConfirmClickListener(onConfirm: (dialog: DialogInterface) -> Unit): PromptDialog {
         mParams.confirmClickListener = { _, dialog -> onConfirm.invoke(dialog) }
         return this
     }
 
-    fun setOnConfirmClickListener(onConfirm: (button: View, dialog: DialogFragment) -> Unit): PromptDialogFragment {
+    fun setOnConfirmClickListener(onConfirm: (button: View, dialog: DialogInterface) -> Unit): PromptDialog {
 //        mBinding.btnConfirm.setOnClickListener { onConfirm.invoke(it, this) }
         mParams.confirmClickListener = onConfirm
         return this
@@ -93,8 +87,8 @@ class PromptDialogFragment : BaseDialogFragment() {
         @StringRes
         var textRes: Int? = null
 
-        var cancelClickListener: ((dialog: DialogFragment) -> Unit)? = null
+        var cancelClickListener: ((dialog: DialogInterface) -> Unit)? = null
 
-        var confirmClickListener: ((button: View, dialog: DialogFragment) -> Unit)? = null
+        var confirmClickListener: ((button: View, dialog: DialogInterface) -> Unit)? = null
     }
 }

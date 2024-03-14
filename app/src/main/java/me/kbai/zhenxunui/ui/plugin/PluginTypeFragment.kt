@@ -33,6 +33,8 @@ class PluginTypeFragment : BaseFragment<FragmentPluginTypeBinding>() {
     companion object {
         private const val ARGS_TYPE = "type"
 
+        private var mEditingPosition: Int = -1
+
         fun newInstance(type: PluginType): PluginTypeFragment {
             val args = Bundle()
             args.putSerializable(ARGS_TYPE, type)
@@ -58,11 +60,9 @@ class PluginTypeFragment : BaseFragment<FragmentPluginTypeBinding>() {
             .into(viewBinding.icError.ivImage)
 
         mAdapter.onItemEditClickListener = { position ->
-            val plugin = mAdapter.data[position]
-
-            EditPluginDialogFragment(plugin) {
-                syncPluginData(position, it.applyToPluginInfo(plugin), null)
-            }.show(childFragmentManager)
+            EditPluginDialogFragment.sPluginInfo = mAdapter.data[position]
+            mEditingPosition = position
+            EditPluginDialogFragment().show(childFragmentManager)
         }
 
         mAdapter.onItemSwitchClickListener = { position, button ->
@@ -80,6 +80,10 @@ class PluginTypeFragment : BaseFragment<FragmentPluginTypeBinding>() {
                         )
                     }
             }
+        }
+
+        viewBinding.srlRefresh.setOnRefreshListener {
+            requestPlugins()
         }
 
         viewBinding.rvPlugin.run {
@@ -123,6 +127,17 @@ class PluginTypeFragment : BaseFragment<FragmentPluginTypeBinding>() {
         mType = arguments?.getSerializable(ARGS_TYPE) as PluginType
 
         mViewModel.plugins.launchAndCollectIn(this) { mAdapter.data = it }
+
+        EditPluginDialogFragment.updatePlugin.observe(viewLifecycleOwner) { consumable ->
+            if (consumable.isConsumed || mEditingPosition < 0) return@observe
+            val position = mEditingPosition
+
+            consumable.get()?.let {
+                val plugin = mAdapter.data[position]
+                syncPluginData(position, it.applyToPluginInfo(plugin), null)
+            }
+        }
+
         if (mViewModel.plugins.value.isEmpty()) requestPlugins()
     }
 
@@ -134,6 +149,7 @@ class PluginTypeFragment : BaseFragment<FragmentPluginTypeBinding>() {
                 viewBinding.icLoading.root.isVisible = true
                 return@apiCollect
             }
+            viewBinding.srlRefresh.isRefreshing = false
             viewBinding.icLoading.root.isVisible = false
             if (!it.success()) {
                 GlobalToast.showToast(it.message)

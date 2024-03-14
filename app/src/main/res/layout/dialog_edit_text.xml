@@ -20,24 +20,31 @@
         android:textSize="@dimen/title_size_normal"
         android:textStyle="bold" />
 
-    <com.google.android.material.textfield.TextInputLayout
-        style="@style/TextInputLayout.Thin"
+    <me.kbai.zhenxunui.widget.MaxHeightLayout
+        android:id="@+id/mhl_text"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/margin_normal"
-        app:hintEnabled="false">
+        android:layout_height="50dp">
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/et_name"
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/TextInputLayout.Thin"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:inputType="text"
-            android:maxLines="1"
-            android:padding="@dimen/margin_normal"
-            tools:text="123.log" />
-    </com.google.android.material.textfield.TextInputLayout>
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_normal"
+            app:hintEnabled="false">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/et_text"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:inputType="text"
+                android:maxLines="1"
+                android:padding="@dimen/margin_normal"
+                tools:text="123.log" />
+        </com.google.android.material.textfield.TextInputLayout>
+    </me.kbai.zhenxunui.widget.MaxHeightLayout>
 
     <LinearLayout
+        android:id="@+id/ll_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/margin_normal"

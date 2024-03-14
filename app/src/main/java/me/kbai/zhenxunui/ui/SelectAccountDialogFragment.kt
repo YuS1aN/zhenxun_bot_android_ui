@@ -5,18 +5,24 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.recyclerview.widget.RecyclerView
 import me.kbai.zhenxunui.base.BaseDialogFragment
 import me.kbai.zhenxunui.databinding.DialogSelectAccountBinding
 import me.kbai.zhenxunui.databinding.ItemSelectAccountBinding
 import me.kbai.zhenxunui.extends.dp
 import me.kbai.zhenxunui.extends.setOnDebounceClickListener
+import me.kbai.zhenxunui.model.Consumable
 import me.kbai.zhenxunui.tool.glide.GlideApp
 import me.kbai.zhenxunui.viewmodel.MainViewModel
 
-class SelectAccountDialogFragment(
-    val callback: (id: String) -> Unit
-) : BaseDialogFragment() {
+class SelectAccountDialogFragment : BaseDialogFragment() {
+    companion object {
+        private val _selectedAccount: MutableLiveData<Consumable<String>> = MutableLiveData()
+        val selectedAccount: LiveData<Consumable<String>> = _selectedAccount
+    }
+
     private lateinit var mBinding: DialogSelectAccountBinding
 
     private val mMainViewModel by viewModels<MainViewModel>({ requireActivity() })
@@ -55,7 +61,7 @@ class SelectAccountDialogFragment(
                     tvId.text = item.selfId
                     root.setOnDebounceClickListener {
                         dismiss()
-                        callback.invoke(item.selfId)
+                        _selectedAccount.value = Consumable(item.selfId)
                     }
                 }
             }

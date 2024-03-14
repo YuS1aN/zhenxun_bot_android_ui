@@ -4,7 +4,6 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import androidx.navigation.NavDestination
 import kotlinx.coroutines.launch
 import me.kbai.zhenxunui.Constants
 import me.kbai.zhenxunui.extends.apiCollect

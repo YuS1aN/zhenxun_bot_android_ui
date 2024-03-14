@@ -257,7 +257,7 @@ class ConsoleFragment : BaseFragment<FragmentConsoleBinding>() {
 
     override fun onDestroy() {
         super.onDestroy()
-        viewBinding.run {
+        viewBinding?.run {
             icMessageCount.wvCharts.detach()
             icActiveGroup.wvCharts.detach()
             icPopularPlugin.wvCharts.detach()

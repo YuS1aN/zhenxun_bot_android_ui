@@ -52,6 +52,9 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
         mViewModel.currentBot.observe(this) {
             mNavHeaderBinding.bindNavHeaderData(it)
         }
+        SelectAccountDialogFragment.selectedAccount.observe(this) { consumable ->
+            consumable.get()?.let { mViewModel.selectBot(it) }
+        }
 
         mViewModel.requestBotList()
     }
@@ -63,8 +66,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
         tvName.text = info.nickname
         tvId.text = info.selfId
         tvChange.setOnDebounceClickListener {
-            SelectAccountDialogFragment { mViewModel.selectBot(it) }
-                .show(supportFragmentManager, "SelectAccountDialogFragment")
+            SelectAccountDialogFragment().show(supportFragmentManager)
         }
     }
 

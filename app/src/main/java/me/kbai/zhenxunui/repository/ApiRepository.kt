@@ -11,6 +11,7 @@ import me.kbai.zhenxunui.api.TypedWebSocketHolder
 import me.kbai.zhenxunui.api.WebSocketHolder
 import me.kbai.zhenxunui.model.ChatMessage
 import me.kbai.zhenxunui.model.DeleteRemoteFile
+import me.kbai.zhenxunui.model.EditRemoteFile
 import me.kbai.zhenxunui.model.ExecuteSql
 import me.kbai.zhenxunui.model.HandleRequest
 import me.kbai.zhenxunui.model.PluginDetail
@@ -143,6 +144,14 @@ object ApiRepository {
             BotApi.service.deleteFolder(deleteFile)
         }
     }
+
+    fun createNewFile(file: RemoteFile) = networkFlow { BotApi.service.createNewFile(file) }
+
+    fun createNewFolder(file: RemoteFile) = networkFlow { BotApi.service.createNewFolder(file) }
+
+    fun readFile(file: RemoteFile) = networkFlow { BotApi.service.readFile(file.getPath()) }
+
+    fun editFile(file: EditRemoteFile) = networkFlow { BotApi.service.saveFile(file) }
 
     private fun <T> networkFlow(
         tempData: T? = null,

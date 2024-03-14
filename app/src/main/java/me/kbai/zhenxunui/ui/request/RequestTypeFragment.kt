@@ -17,7 +17,7 @@ import me.kbai.zhenxunui.model.HandleRequest
 import me.kbai.zhenxunui.repository.Resource
 import me.kbai.zhenxunui.tool.GlobalToast
 import me.kbai.zhenxunui.tool.glide.GlideApp
-import me.kbai.zhenxunui.ui.common.PromptDialogFragment
+import me.kbai.zhenxunui.ui.common.PromptDialog
 import me.kbai.zhenxunui.viewmodel.RequestViewModel
 import me.kbai.zhenxunui.widget.CommonDecoration
 
@@ -54,7 +54,7 @@ class RequestTypeFragment : BaseFragment<FragmentRequestTypeBinding>() {
 
         mListAdapter.onItemClickListener = { handle, request ->
             val context = root.context
-            PromptDialogFragment()
+            PromptDialog(context)
                 .setText(
                     context.getString(
                         R.string.confirm_handle_request,
@@ -84,7 +84,7 @@ class RequestTypeFragment : BaseFragment<FragmentRequestTypeBinding>() {
                             }
                     }
                 }
-                .show(childFragmentManager)
+                .show()
         }
     }
 

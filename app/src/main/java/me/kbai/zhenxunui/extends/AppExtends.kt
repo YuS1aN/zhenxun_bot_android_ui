@@ -80,8 +80,10 @@ fun WindowManager.displaySize(): Size =
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
         val metrics = currentWindowMetrics
         val windowInsets = metrics.windowInsets
-        val insets = windowInsets.getInsetsIgnoringVisibility(
-            WindowInsets.Type.navigationBars() or WindowInsets.Type.displayCutout()
+        val insets = windowInsets.getInsets(
+            WindowInsets.Type.navigationBars()
+                    or WindowInsets.Type.statusBars()
+                    or WindowInsets.Type.displayCutout()
         )
         val insetsWidth = insets.right + insets.left
         val insetsHeight = insets.top + insets.bottom

@@ -3,6 +3,7 @@ package me.kbai.zhenxunui.api
 import me.kbai.zhenxunui.model.BotBaseInfo
 import me.kbai.zhenxunui.model.BotMessageCount
 import me.kbai.zhenxunui.model.DeleteRemoteFile
+import me.kbai.zhenxunui.model.EditRemoteFile
 import me.kbai.zhenxunui.model.ExecuteSql
 import me.kbai.zhenxunui.model.FriendListItem
 import me.kbai.zhenxunui.model.GroupInfo
@@ -124,25 +125,28 @@ interface ApiService {
     suspend fun executeSql(@Body sql: ExecuteSql): ApiResponse<List<LinkedHashMap<String, *>>>
 
     @POST("system/add_file")
-    suspend fun createNewFile(@Body file: RemoteFile): ApiResponse<Unit>
+    suspend fun createNewFile(@Body file: RemoteFile): ApiResponse<String>
 
     @POST("system/add_folder")
-    suspend fun createNewFolder(@Body file: RemoteFile): ApiResponse<Unit>
+    suspend fun createNewFolder(@Body file: RemoteFile): ApiResponse<String>
 
     @POST("system/rename_file")
-    suspend fun renameFile(@Body renameFile: RenameRemoteFile): ApiResponse<Unit>
+    suspend fun renameFile(@Body renameFile: RenameRemoteFile): ApiResponse<String>
 
     @POST("system/rename_folder")
-    suspend fun renameFolder(@Body renameFile: RenameRemoteFile): ApiResponse<Unit>
+    suspend fun renameFolder(@Body renameFile: RenameRemoteFile): ApiResponse<String>
 
     @POST("system/delete_file")
-    suspend fun deleteFile(@Body deleteFile: DeleteRemoteFile): ApiResponse<Unit>
+    suspend fun deleteFile(@Body deleteFile: DeleteRemoteFile): ApiResponse<String>
 
     @POST("system/delete_folder")
-    suspend fun deleteFolder(@Body deleteFile: DeleteRemoteFile): ApiResponse<Unit>
+    suspend fun deleteFolder(@Body deleteFile: DeleteRemoteFile): ApiResponse<String>
 
     @GET("system/read_file")
     suspend fun readFile(@Query("full_path") path: String): ApiResponse<String>
+
+    @POST("system/save_file")
+    suspend fun saveFile(@Body editFile: EditRemoteFile): ApiResponse<String>
 
     @GET("system/get_dir_list")
     suspend fun readDir(@Query("path") path: String): ApiResponse<List<RemoteFile>>

@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
 import me.kbai.zhenxunui.extends.apiCollect
+import me.kbai.zhenxunui.model.EditRemoteFile
 import me.kbai.zhenxunui.model.RemoteFile
 import me.kbai.zhenxunui.repository.ApiRepository
 import me.kbai.zhenxunui.repository.Resource
@@ -29,4 +30,15 @@ class FileExplorerViewModel : ViewModel() {
     fun deleteFile(file: RemoteFile) = ApiRepository.deleteFile(file)
 
     fun renameFile(file: RemoteFile, newName: String) = ApiRepository.renameFile(file, newName)
+
+    fun createNewFile(name: String, parent: String) =
+        ApiRepository.createNewFile(RemoteFile(true, name, parent))
+
+    fun createNewFolder(name: String, parent: String) =
+        ApiRepository.createNewFolder(RemoteFile(false, name, parent))
+
+    fun readFile(file: RemoteFile) = ApiRepository.readFile(file)
+
+    fun editFile(file: RemoteFile, content: String) =
+        ApiRepository.editFile(EditRemoteFile(file.getPath(), content))
 }
