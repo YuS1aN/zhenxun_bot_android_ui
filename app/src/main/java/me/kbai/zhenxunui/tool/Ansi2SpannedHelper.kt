@@ -13,6 +13,7 @@ import android.text.style.StrikethroughSpan
 import android.text.style.StyleSpan
 import android.text.style.UnderlineSpan
 import androidx.annotation.RequiresApi
+import me.kbai.zhenxunui.extends.logE
 import pk.ansi4j.core.DefaultFunctionFinder
 import pk.ansi4j.core.DefaultParserFactory
 import pk.ansi4j.core.DefaultTextHandler
@@ -30,7 +31,7 @@ import pk.ansi4j.core.iso6429.IndependentControlFunctionHandler
 import java.util.AbstractCollection
 
 class Ansi2SpannedHelper {
-    private val mFactory: ParserFactory? = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+    private val mFactory: ParserFactory? = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
         initFactory()
     } else {
         null
@@ -41,22 +42,27 @@ class Ansi2SpannedHelper {
         val builder = SpannableStringBuilder()
         val parser = (mFactory ?: return SpannedString(text)).createParser(text)
 
-        while (true) {
-            val fragment = parser.parse() ?: break
-            if (fragment.type == FragmentType.TEXT) {
-                val start = builder.length
-                builder.append(fragment.text)
-                mStyles.forEach {
-                    builder.setSpan(it, start, builder.length, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
-                }
-            } else if (fragment.type == FragmentType.FUNCTION) {
-                val functionFragment = fragment as FunctionFragment
-                if (functionFragment.function == ControlSequenceFunction.SGR_SELECT_GRAPHIC_RENDITION) {
-                    functionFragment.arguments.forEach { parseArgument(it) }
+        try {
+            while (true) {
+                val fragment = parser.parse() ?: break
+                if (fragment.type == FragmentType.TEXT) {
+                    val start = builder.length
+                    builder.append(fragment.text)
+                    mStyles.forEach {
+                        builder.setSpan(it, start, builder.length, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+                    }
+                } else if (fragment.type == FragmentType.FUNCTION) {
+                    val functionFragment = fragment as FunctionFragment
+                    if (functionFragment.function == ControlSequenceFunction.SGR_SELECT_GRAPHIC_RENDITION) {
+                        functionFragment.arguments.forEach { parseArgument(it) }
+                    }
                 }
             }
+            mStyles.clear()
+        } catch (e: Exception) {
+            logE(e)
+            return SpannedString(text)
         }
-        mStyles.clear()
         return builder
     }
 

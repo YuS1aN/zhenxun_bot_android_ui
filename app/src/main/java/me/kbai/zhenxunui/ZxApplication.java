@@ -2,6 +2,7 @@ package me.kbai.zhenxunui;
 
 import android.app.Application;
 
+import me.kbai.zhenxunui.tool.CrashHandler;
 import me.kbai.zhenxunui.tool.GlobalToast;
 
 /**
@@ -16,6 +17,7 @@ public class ZxApplication extends Application {
         mApp = this;
         Constants.init(this);
         GlobalToast.init(this);
+        CrashHandler.INSTANCE.init(this);
     }
 
     public static Application getApplication() {

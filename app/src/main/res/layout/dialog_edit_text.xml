@@ -7,7 +7,9 @@
     android:background="@drawable/bg_dialog_round"
     android:minWidth="260dp"
     android:orientation="vertical"
-    android:padding="@dimen/box_padding">
+    android:paddingHorizontal="@dimen/box_padding"
+    android:paddingTop="@dimen/box_padding"
+    android:paddingBottom="14dp">
 
     <TextView
         android:id="@+id/tv_title"
