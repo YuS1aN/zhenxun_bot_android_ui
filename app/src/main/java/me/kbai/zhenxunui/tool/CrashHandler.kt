@@ -21,7 +21,7 @@ object CrashHandler {
     private fun log(context: Context, throwable: Throwable) = logE(
         "MODEL: ${Build.MODEL}  " +
                 "SDK: ${Build.VERSION.SDK_INT}  " +
-                "CPU_ABI: ${Build.SUPPORTED_ABIS}  " +
+                "CPU_ABI: ${Build.SUPPORTED_ABIS.contentToString()}  " +
                 "VERSION: ${getPackageVersionName(context)}  " +
                 "\n StackTrace: \n" +
                 Log.getStackTraceString(throwable),

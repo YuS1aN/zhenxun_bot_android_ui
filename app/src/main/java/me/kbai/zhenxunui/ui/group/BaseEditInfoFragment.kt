@@ -32,7 +32,7 @@ abstract class BaseEditInfoFragment<VB : ViewBinding> : BaseFragment<VB>() {
             .build()
     }
 
-    protected abstract fun getWebViews(): Array<WebView>
+    protected abstract fun getWebViews(): Array<out WebView>
 
     protected abstract fun updateInfo(): Any
 
@@ -45,8 +45,8 @@ abstract class BaseEditInfoFragment<VB : ViewBinding> : BaseFragment<VB>() {
     }
 
     override fun onDestroyView() {
-        super.onDestroyView()
         getWebViews().forEach { it.destroy() }
+        super.onDestroyView()
     }
 
     @SuppressLint("SetJavaScriptEnabled")
