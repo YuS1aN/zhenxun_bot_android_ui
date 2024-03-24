@@ -6,6 +6,7 @@ import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.content.res.Configuration
+import android.content.res.Resources
 import android.graphics.Point
 import android.net.Uri
 import android.os.Build
@@ -93,10 +94,15 @@ fun WindowManager.displaySize(): Size =
             bounds.height() - insetsHeight
         )
     } else {
-        val point = Point()
+        val point0 = Point()
+        val point1 = Point()
         @Suppress("DEPRECATION")
-        defaultDisplay.getSize(point)
-        Size(point.x, point.y)
+        defaultDisplay.getCurrentSizeRange(point0, point1)
+
+        when (Resources.getSystem().configuration.orientation) {
+            Configuration.ORIENTATION_LANDSCAPE -> Size(point1.x, point0.y)
+            else -> Size(point0.x, point1.y)
+        }
     }
 
 fun Context.displaySize(): Size {
