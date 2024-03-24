@@ -10,6 +10,9 @@ import com.google.gson.GsonBuilder
 import com.google.gson.ToNumberPolicy
 import me.kbai.zhenxunui.api.ErrorHandleAdapterFactory
 import me.kbai.zhenxunui.model.BotBaseInfo
+import java.io.File
+import java.text.SimpleDateFormat
+import java.util.Locale
 
 /**
  * @author Sean on 2023/5/31
@@ -34,6 +37,13 @@ object Constants {
         .create()
 
     var currentBot: BotBaseInfo? = null
+
+    val logFile by lazy {
+        val date = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+            .format(System.currentTimeMillis())
+        mApplication.getExternalFilesDir(null)
+            ?.let { File(it, "$date.log") }
+    }
 
     @JvmStatic
     fun init(app: Application) {
