@@ -6,6 +6,7 @@ import me.kbai.zhenxunui.model.DeleteRemoteFile
 import me.kbai.zhenxunui.model.EditRemoteFile
 import me.kbai.zhenxunui.model.ExecuteSql
 import me.kbai.zhenxunui.model.FriendListItem
+import me.kbai.zhenxunui.model.GetSqlLog
 import me.kbai.zhenxunui.model.GroupInfo
 import me.kbai.zhenxunui.model.GroupListItem
 import me.kbai.zhenxunui.model.HandleRequest
@@ -18,6 +19,7 @@ import me.kbai.zhenxunui.model.RenameRemoteFile
 import me.kbai.zhenxunui.model.RequestListResult
 import me.kbai.zhenxunui.model.SendMessage
 import me.kbai.zhenxunui.model.SqlLog
+import me.kbai.zhenxunui.model.SqlLogPage
 import me.kbai.zhenxunui.model.TableColumn
 import me.kbai.zhenxunui.model.TableListItem
 import me.kbai.zhenxunui.model.UpdateGroup
@@ -118,8 +120,8 @@ interface ApiService {
     @GET("database/get_table_column")
     suspend fun getTableColumn(@Query("table_name") table: String): ApiResponse<List<TableColumn>>
 
-    @GET("database/get_sql_log")
-    suspend fun getSqlLog(): ApiResponse<List<SqlLog>>
+    @POST("database/get_sql_log")
+    suspend fun getSqlLog(@Body getSqlLog: GetSqlLog): ApiResponse<SqlLogPage>
 
     @POST("database/exec_sql")
     suspend fun executeSql(@Body sql: ExecuteSql): ApiResponse<List<LinkedHashMap<String, *>>>

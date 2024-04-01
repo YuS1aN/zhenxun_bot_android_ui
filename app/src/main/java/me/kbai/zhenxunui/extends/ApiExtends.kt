@@ -2,10 +2,8 @@ package me.kbai.zhenxunui.extends
 
 import android.app.Application
 import android.view.View
-import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.lifecycleScope
-import androidx.lifecycle.repeatOnLifecycle
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
 import me.kbai.zhenxunui.repository.Resource
@@ -40,18 +38,12 @@ suspend fun <T : Resource<*>> Flow<T>.apiCollect(
     action.invoke(value)
 }
 
-/**
- * 要记得在 active state 恢复 button 状态
- */
 fun <T : Resource<*>> Flow<T>.launchAndApiCollectIn(
     owner: LifecycleOwner,
     button: View? = null,
-    activeState: Lifecycle.State = Lifecycle.State.STARTED,
     action: suspend (value: T) -> Unit
 ) = owner.lifecycleScope.launch {
-    owner.repeatOnLifecycle(activeState) {
-        apiCollect(button = button, action = action)
-    }
+    apiCollect(button = button, action = action)
 }
 
 //fun <T : Resource<*>> Flow<T>.checkToken(

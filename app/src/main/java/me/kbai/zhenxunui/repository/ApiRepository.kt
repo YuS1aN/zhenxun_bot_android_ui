@@ -13,6 +13,7 @@ import me.kbai.zhenxunui.model.ChatMessage
 import me.kbai.zhenxunui.model.DeleteRemoteFile
 import me.kbai.zhenxunui.model.EditRemoteFile
 import me.kbai.zhenxunui.model.ExecuteSql
+import me.kbai.zhenxunui.model.GetSqlLog
 import me.kbai.zhenxunui.model.HandleRequest
 import me.kbai.zhenxunui.model.PluginDetail
 import me.kbai.zhenxunui.model.PluginInfo
@@ -124,6 +125,8 @@ object ApiRepository {
     fun getTableColumn(table: String) = networkFlow { BotApi.service.getTableColumn(table) }
 
     fun executeSql(sql: ExecuteSql) = networkFlow { BotApi.service.executeSql(sql) }
+
+    fun getSqlLog() = networkFlow { BotApi.service.getSqlLog(GetSqlLog.DEFAULT) }
 
     fun readDir(path: String) = networkFlow { BotApi.service.readDir(path) }
 
