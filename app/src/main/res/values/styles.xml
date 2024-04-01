@@ -35,7 +35,7 @@
         <item name="android:textColor">@color/dn_white</item>
     </style>
 
-    <style name="Switch" >
+    <style name="Switch">
         <item name="android:thumb">@drawable/switch_thumb</item>
         <item name="track">@drawable/switch_track</item>
         <item name="textAllCaps">false</item>
@@ -46,5 +46,10 @@
     <style name="SingleLineText">
         <item name="android:maxLines">1</item>
         <item name="android:ellipsize">end</item>
+    </style>
+
+    <style name="PopupAnim" parent="android:Animation">
+        <item name="android:windowEnterAnimation">@anim/anim_top_enter</item>
+        <item name="android:windowExitAnimation">@anim/anim_top_exit</item>
     </style>
 </resources>

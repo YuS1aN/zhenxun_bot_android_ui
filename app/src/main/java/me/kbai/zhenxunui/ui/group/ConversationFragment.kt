@@ -46,7 +46,7 @@ class ConversationFragment : BaseFragment<FragmentConversationBinding>() {
             btnSend.isEnabled = !it.isNullOrEmpty()
         }
 
-        btnSend.setOnDebounceClickListener {
+        btnSend.setOnDebounceClickListener { btn ->
             val message = etText.text?.toString()
             if (message.isNullOrEmpty()) {
                 return@setOnDebounceClickListener
@@ -54,7 +54,7 @@ class ConversationFragment : BaseFragment<FragmentConversationBinding>() {
             etText.setText("")
 
             mViewModel.sendMessage(mUserId, mGroupId, message)
-                .launchAndApiCollectIn(this@ConversationFragment) {
+                .launchAndApiCollectIn(this@ConversationFragment, btn) {
                     if (it.success()) {
                         mMessageAdapter.addData(
                             mViewModel.insertSentMessage(mGroupId, mUserId, message)
@@ -64,11 +64,6 @@ class ConversationFragment : BaseFragment<FragmentConversationBinding>() {
                     }
                 }
         }
-    }
-
-    override fun onStart() {
-        super.onStart()
-        viewBinding.btnSend.isEnabled = true
     }
 
     override fun initData() {

@@ -27,7 +27,8 @@ class PluginTypeViewModel : ViewModel() {
 
     fun modifyPluginData(position: Int, data: PluginInfo, notify: Boolean = true) {
         val list = _plugins.value
-        list[position] = data
+        //后台接口 getPluginDetail version 错误, 固定为 0
+        list[position] = data.copy(version = list[position].version)
         if (notify) _plugins.value = list
     }
 }

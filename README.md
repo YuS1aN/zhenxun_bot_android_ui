@@ -7,5 +7,4 @@
 
 或者采用 `Nginx` 等Web服务器进行反向代理
 
-## TODO (新版本适配中)
-* SQL历史记录
+<img src="https://raw.githubusercontent.com/YuS1aN/zhenxun_bot_android_ui/master/docs/main.png" width="162" height="360" /><img src="https://raw.githubusercontent.com/YuS1aN/zhenxun_bot_android_ui/master/docs/plugin.png" width="162" height="360" /><img src="https://raw.githubusercontent.com/YuS1aN/zhenxun_bot_android_ui/master/docs/db.png" width="162" height="360" /><img src="https://raw.githubusercontent.com/YuS1aN/zhenxun_bot_android_ui/master/docs/edit.png" width="162" height="360" /><img src="https://raw.githubusercontent.com/YuS1aN/zhenxun_bot_android_ui/master/docs/conversation.png" width="162" height="360" /><img src="https://raw.githubusercontent.com/YuS1aN/zhenxun_bot_android_ui/master/docs/menu.png" width="162" height="360" />
