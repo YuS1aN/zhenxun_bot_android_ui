@@ -28,6 +28,7 @@
     <string name="tab_normal">普通插件</string>
     <string name="tab_admin">管理员插件</string>
     <string name="tab_superuser">超级用户插件</string>
+    <string name="tab_admin_superuser">超级管理员</string>
     <string name="tab_hidden">其他插件</string>
     <string name="retry">重试</string>
     <string name="edit">编辑</string>

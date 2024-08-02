@@ -18,6 +18,7 @@ class PluginFragment : BaseFragment<FragmentPluginBinding>() {
         PluginTypeFragment.newInstance(PluginType.NORMAL),
         PluginTypeFragment.newInstance(PluginType.ADMIN),
         PluginTypeFragment.newInstance(PluginType.SUPERUSER),
+        PluginTypeFragment.newInstance(PluginType.ADMIN_SUPER),
         PluginTypeFragment.newInstance(PluginType.HIDDEN)
     )
 
@@ -25,6 +26,7 @@ class PluginFragment : BaseFragment<FragmentPluginBinding>() {
         R.string.tab_normal,
         R.string.tab_admin,
         R.string.tab_superuser,
+        R.string.tab_admin_superuser,
         R.string.tab_hidden
     )
 

@@ -6,15 +6,18 @@ import com.google.gson.annotations.SerializedName
  * @author Sean on 2023/6/2
  */
 enum class PluginType(val string: String) {
-    @SerializedName("normal")
-    NORMAL("normal"),
+    @SerializedName("NORMAL")
+    NORMAL("NORMAL"),
 
-    @SerializedName("admin")
-    ADMIN("admin"),
+    @SerializedName("ADMIN")
+    ADMIN("ADMIN"),
 
-    @SerializedName("hidden")
-    HIDDEN("hidden"),
+    @SerializedName("HIDDEN")
+    HIDDEN("HIDDEN"),
 
-    @SerializedName("superuser")
-    SUPERUSER("superuser")
+    @SerializedName("SUPERUSER")
+    SUPERUSER("SUPERUSER"),
+
+    @SerializedName("ADMIN_SUPER")
+    ADMIN_SUPER("ADMIN_SUPER")
 }
