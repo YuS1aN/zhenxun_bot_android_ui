@@ -53,7 +53,7 @@ object ApiRepository {
 
     fun getPluginList(vararg types: PluginType, menuType: String? = null) = networkFlow {
         BotApi.service.getPluginList(
-            types.map { it.string }.toTypedArray(),
+            types.map { it.name }.toTypedArray(),
             menuType
         )
     }
