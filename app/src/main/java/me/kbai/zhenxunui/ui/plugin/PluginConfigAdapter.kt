@@ -133,12 +133,12 @@ class PluginConfigAdapter(
             tabs.forEach { addTab(it) }
 
             clearOnTabSelectedListeners()
-            addOnTabSelectedListener {
+            addOnTabSelectedListener(selected = {
                 mEditableData.blockType = if (swEnabled.isChecked) null else it.tag as BlockType
-            }
+            })
 
             if (mEditableData.blockType != null) {
-                selectTab(tabs.find { tag == mEditableData.blockType })
+                selectTab(tabs.find { it.tag == mEditableData.blockType })
             }
         }
 
