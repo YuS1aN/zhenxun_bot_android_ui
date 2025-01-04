@@ -4,4 +4,5 @@
     <color name="dn_black">@color/white</color>
     <color name="dn_white">@color/black</color>
     <color name="dn_white_gray">@color/gray</color>
+    <color name="dn_app_bar">@color/gray_dark</color>
 </resources>

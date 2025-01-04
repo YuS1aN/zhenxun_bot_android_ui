@@ -9,6 +9,7 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="gray">#333333</color>
+    <color name="gray_dark">#222222</color>
     <color name="trans_white_75">#BFFFFFFF</color>
     <color name="trans_black_25">#40000000</color>
     <color name="color_error">#FA5B30</color>
@@ -22,4 +23,5 @@
     <color name="dn_black">@color/black</color>
     <color name="dn_white">@color/white</color>
     <color name="dn_white_gray">@color/white</color>
+    <color name="dn_app_bar">@color/pink_A100</color>
 </resources>

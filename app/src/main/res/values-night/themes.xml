@@ -3,7 +3,7 @@
     <style name="Theme.ZhenxunBotManager" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <!-- Primary brand color. -->
         <item name="colorPrimary">@color/pink_A100</item>
-        <item name="colorPrimaryDark">@color/pink_A100</item>
+        <item name="colorPrimaryDark">@color/gray_dark</item>
         <item name="colorPrimaryVariant">@color/pink_A100</item>
         <item name="colorOnPrimary">@color/black</item>
         <!-- Secondary brand color. -->
@@ -11,7 +11,9 @@
         <item name="colorSecondaryVariant">@color/teal_200</item>
         <item name="colorOnSecondary">@color/black</item>
         <!-- Status bar color. -->
-        <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
+        <!--        <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>-->
+        <!--        <item name="colorSurface">@color/gray_dark</item>-->
+        <!--        <item name="colorOnSurface">@color/gray_dark</item>-->
         <!-- Customize your theme here. -->
         <item name="android:textSize">@dimen/text_size_normal</item>
         <item name="android:windowTranslucentNavigation">true</item>

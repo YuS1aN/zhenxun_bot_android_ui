@@ -27,13 +27,17 @@ val Fragment.viewLifecycleScope: CoroutineScope
 
 inline fun <reified T> Flow<T>.launchAndCollectIn(
     owner: LifecycleOwner,
-    activeState: Lifecycle.State = Lifecycle.State.STARTED,
     collector: FlowCollector<T>
-) = owner.lifecycleScope.launch {
-    logI(T::class.java.name, "launchAndCollectIn")
-    assert(T::class.java != Resource::class.java) { "Resource 类型要用 apiCollect 实现 token 过期重新登录!" }
+) {
+    val scope = if (owner is Fragment) {
+        owner.viewLifecycleScope
+    } else {
+        owner.lifecycleScope
+    }
+    scope.launch {
+        logI(T::class.java.name, "launchAndCollectIn")
+        assert(T::class.java != Resource::class.java) { "Resource 类型要用 apiCollect 实现 token 过期重新登录!" }
 
-    owner.repeatOnLifecycle(activeState) {
         collect(collector)
     }
 }

@@ -41,7 +41,7 @@ class SemicircleProgressView @JvmOverloads constructor(
             color = context.getColor(R.color.switch_unchecked)
         }
         mFillPaint = initPaint().apply {
-            color = context.getThemeColor(android.R.attr.colorPrimaryDark)
+            color = context.getThemeColor(android.R.attr.colorPrimary)
         }
     }
 
